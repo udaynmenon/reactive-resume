@@ -140,6 +140,7 @@ const CSS_SELECTORS = [
 	".template-onyx",
 	".template-pikachu",
 	".template-rhyhorn",
+	".template-harvard",
 ];
 
 const CSS_CLASS_SELECTOR_PATTERN = /\.([\w-]*)$/;

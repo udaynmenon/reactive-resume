@@ -108,7 +108,7 @@ The resume schema is defined in `src/schema/resume/data.ts`. Key concepts:
 ### Resume Templates
 
 13 templates in `src/components/resume/templates/` (Pokemon-themed names):
-azurill, bronzor, chikorita, ditgar, ditto, gengar, glalie, kakuna, lapras, leafish, onyx, pikachu, rhyhorn
+azurill, bronzor, chikorita, ditgar, ditto, gengar, glalie, kakuna, lapras, leafish, onyx, pikachu, rhyhorn, harvard
 
 Shared rendering components live in `src/components/resume/shared/`.
 

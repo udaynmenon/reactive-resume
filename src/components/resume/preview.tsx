@@ -27,6 +27,7 @@ import { LeafishTemplate } from "./templates/leafish";
 import { OnyxTemplate } from "./templates/onyx";
 import { PikachuTemplate } from "./templates/pikachu";
 import { RhyhornTemplate } from "./templates/rhyhorn";
+import { HarvardTemplate } from "./templates/harvard";
 
 export type ExtendedIconProps = IconProps & {
 	hidden?: boolean;
@@ -50,6 +51,7 @@ function getTemplateComponent(template: Template) {
 		.with("onyx", () => OnyxTemplate)
 		.with("pikachu", () => PikachuTemplate)
 		.with("rhyhorn", () => RhyhornTemplate)
+		.with("harvard", () => HarvardTemplate)
 		.exhaustive();
 }
 

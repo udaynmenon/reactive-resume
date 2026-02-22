@@ -102,4 +102,11 @@ export const templates = {
 		tags: ["Single-column", "ATS friendly", "Minimal", "Clean", "Modern", "Designer", "Content creator", "Whitespace"],
 		sidebarPosition: "none",
 	},
+	harvard: {
+		name: "Harvard",
+		description: msg`Single-column with a minimal top header and lots of whitespace; clean and modern for designers or content creators.`,
+		imageUrl: "/templates/jpg/rhyhorn.jpg",
+		tags: ["Single-column", "ATS friendly", "Minimal", "Clean", "Modern", "Designer", "Content creator", "Whitespace"],
+		sidebarPosition: "none",
+	},
 } as const satisfies Record<Template, TemplateMetadata>;
