@@ -97,18 +97,18 @@ function Header() {
   const basics = useResumeStore((state) => state.resume.data.basics);
 
   return (
-    <div className="page-header flex items-start justify-between gap-x-(--page-gap-x) border-b-[1.5px] border-(--page-primary-color) pb-3">
+    <div className="page-header flex items-start justify-between gap-x-(--page-gap-x)">
       {/* Left: name, headline, contact row */}
       <div className="page-basics flex-1 space-y-1.5">
         <div>
-          <h2 className="basics-name text-(--page-primary-color)">{basics.name}</h2>
+          <h2 className="basics-name text-(--page-primary-color) py-3">{basics.name}</h2>
           {basics.headline && (
             <p className="basics-headline italic opacity-75">{basics.headline}</p>
           )}
         </div>
 
         {/* Horizontal contact row with pipe separators */}
-        <div className="basics-items flex flex-wrap gap-x-2 gap-y-0.5 *:flex *:items-center *:gap-x-1.5 *:border-(--page-primary-color) *:border-e *:py-0.5 *:pe-2 *:last:border-e-0">
+        <div className="basics-items flex flex-wrap gap-x-5 gap-y-0.5 *:flex *:items-center *:gap-x-1.5 ">
           {basics.email && (
             <div className="basics-item-email">
               <EnvelopeIcon />
