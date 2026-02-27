@@ -544,19 +544,28 @@ function HarvardLanguagesSection({
 				{section.title || "Languages"}
 			</h6>
 
-			<div className="section-content flex flex-wrap gap-x-6 gap-y-2 text-[9.5pt] leading-[1.55]">
-				{visibleItems.map((item) => (
-					<div
-						key={item.id}
-						className="language-item flex items-center gap-x-1 print:break-inside-avoid"
-					>
-						<span className="font-bold">{item.language}</span>
-						{item.fluency && (
-							<span className="italic opacity-80">
-								({item.fluency})
-							</span>
+			<div className="section-content flex flex-wrap items-center gap-x-2">
+				{visibleItems.map((item, index) => (
+					<>
+						<div
+							key={item.id}
+							className="language-item flex items-center gap-x-1 print:break-inside-avoid"
+						>
+							<span className="font-bold">{item.language}</span>
+							{item.fluency && (
+								<span className="italic opacity-80">
+									({item.fluency})
+								</span>
+							)}
+						</div>
+						{index !== visibleItems.length - 1 && (
+							<CircleIcon
+								color="text-(--page-primary-color)"
+								size={3}
+								weight="fill"
+							/>
 						)}
-					</div>
+					</>
 				))}
 			</div>
 		</section>
