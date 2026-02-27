@@ -32,6 +32,7 @@ export type Template = z.infer<typeof templateSchema>;
 export const printMarginTemplates = [
 	"azurill",
 	"bronzor",
+	"harvard",
 	"kakuna",
 	"lapras",
 	"onyx",

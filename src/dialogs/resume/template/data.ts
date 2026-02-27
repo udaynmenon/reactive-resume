@@ -60,6 +60,13 @@ export const templates = {
 		tags: ["Two-column", "Minimal", "Professional", "Legal", "Finance", "Executive", "Understated"],
 		sidebarPosition: "left",
 	},
+	harvard: {
+		name: "Harvard",
+		description: msg`Single-column with grouped company roles, serif header, and uppercase ruled headings; classic and ATS-friendly for academic or corporate positions.`,
+		imageUrl: "/templates/jpg/harvard.jpg",
+		tags: ["Single-column", "ATS friendly", "Minimal", "Clean", "Classic", "Academic", "Corporate", "Company grouping"],
+		sidebarPosition: "none",
+	},
 	kakuna: {
 		name: "Kakuna",
 		description: msg`Single-column with a magenta left border accent; compact and efficient for entry-level or internship applications.`,
@@ -101,12 +108,5 @@ export const templates = {
 		imageUrl: "/templates/jpg/rhyhorn.jpg",
 		tags: ["Single-column", "ATS friendly", "Minimal", "Clean", "Modern", "Designer", "Content creator", "Whitespace"],
 		sidebarPosition: "none",
-	},
-	harvard: {
-		name: "Harvard",
-		description: msg`Single-column with a minimal top header and lots of whitespace; clean and modern for designers or content creators.`,
-		imageUrl: "/templates/jpg/rhyhorn.jpg",
-		tags: ["Single-column", "ATS friendly", "Minimal", "Clean", "Modern", "Designer", "Content creator", "Whitespace"],
-		sidebarPosition: "none",
-	},
+	}
 } as const satisfies Record<Template, TemplateMetadata>;

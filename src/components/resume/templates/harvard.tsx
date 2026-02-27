@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import {
 	CircleIcon,
 	EnvelopeIcon,
@@ -6,14 +7,15 @@ import {
 	PhoneIcon,
 } from "@phosphor-icons/react";
 import { TiptapContent } from "@/components/input/rich-input";
-import { cn } from "@/utils/style";
+import type { SectionItem } from "@/schema/resume/data";
+import { getSectionTitle } from "@/utils/resume/section";
 import { stripHtml } from "@/utils/string";
+import { cn } from "@/utils/style";
 import { getSectionComponent } from "../shared/get-section-component";
 import { PageIcon } from "../shared/page-icon";
 import { PageLink } from "../shared/page-link";
 import { PagePicture } from "../shared/page-picture";
 import { useResumeStore } from "../store/resume";
-import type { SectionItem } from "@/schema/resume/data";
 import type { TemplateProps } from "./types";
 
 // ─── Grouping Utility ────────────────────────────────────────────────────────
@@ -34,15 +36,14 @@ const PERIOD_SEPARATOR = /\s*(–|—|-{1,2}|to|until|→)\s*/i;
 
 function splitPeriod(period: string): {
 	start: string;
-	seperator: string;
+	separator: string;
 	end: string;
 } {
 	const parts = period.trim().split(PERIOD_SEPARATOR);
-	console.log("🚀 ~ splitPeriod ~ parts:", parts);
 
 	return {
 		start: parts[0]?.trim() ?? "",
-		seperator: parts[1]?.trim() ?? "",
+		separator: parts[1]?.trim() ?? "",
 		end: parts.at(-1)?.trim() ?? "",
 	};
 }
@@ -54,13 +55,13 @@ function buildCompanyPeriod(roles: SectionItem<"experience">[]): string {
 	if (roles.length === 1) return roles[0].period;
 
 	const { end } = splitPeriod(roles[0].period); // most recent role's end
-	const { seperator } = splitPeriod(roles[0].period); // seperator
+	const { separator } = splitPeriod(roles[0].period); // separator
 	const { start } = splitPeriod(roles.at(-1)!.period); // oldest role's start
 
 	// Fallback to the first role's period if either bound can't be parsed
 	if (!start || !end) return roles[0].period;
 
-	return `${start} ${seperator} ${end}`;
+	return `${start} ${separator} ${end}`;
 }
 
 function groupByCompany(items: SectionItem<"experience">[]): ExperienceGroup[] {
@@ -217,7 +218,7 @@ function Header() {
 				</div>
 
 				{/* Horizontal contact row with pipe separators */}
-				<div className="basics-items flex flex-wrap gap-x-5 gap-y-0.5 *:flex *:items-center *:gap-x-1.5 ">
+				<div className="basics-items flex flex-wrap gap-x-5 gap-y-0.5 *:flex *:items-center *:gap-x-1.5">
 					{basics.email && (
 						<div className="basics-item-email">
 							<EnvelopeIcon />
@@ -269,13 +270,11 @@ function Header() {
 
 // ─── Harvard Experience Section ───────────────────────────────────────────────
 
-type HarvardExperienceSectionProps = {
-	sectionClassName?: string;
-};
-
 function HarvardExperienceSection({
 	sectionClassName,
-}: HarvardExperienceSectionProps) {
+}: {
+	sectionClassName?: string;
+}) {
 	const section = useResumeStore(
 		(state) => state.resume.data.sections.experience,
 	);
@@ -292,9 +291,8 @@ function HarvardExperienceSection({
 				sectionClassName,
 			)}
 		>
-			{/* h6 is styled by sectionClassName's [&>h6]: selectors */}
 			<h6 className="mb-1 text-(--page-primary-color)">
-				{section.title || "Experience"}
+				{section.title || getSectionTitle("experience")}
 			</h6>
 
 			<div className="section-content space-y-(--page-gap-y)">
@@ -307,7 +305,7 @@ function HarvardExperienceSection({
 							className="print:break-inside-avoid"
 						>
 							{/* Company name + location — rendered ONCE per group */}
-							<div className="experience-item-header flex items-start justify-between gap-x-2">
+							<div className="section-item-header experience-item-header flex items-start justify-between gap-x-2">
 								<strong className="experience-item-title section-item-title">
 									{group.company}
 								</strong>
@@ -334,7 +332,7 @@ function HarvardExperienceSection({
 								{group.roles.map((role) => (
 									<div
 										key={role.id}
-										className="experience-item print:break-inside-avoid"
+										className="section-item section-item-experience experience-item print:break-inside-avoid"
 									>
 										{/* Position + period on same line */}
 										<div className="flex items-start justify-between gap-x-2">
@@ -403,18 +401,18 @@ function HarvardEducationSection({
 			)}
 		>
 			<h6 className="mb-1 text-(--page-primary-color)">
-				{section.title || "Education"}
+				{section.title || getSectionTitle("education")}
 			</h6>
 
 			<div className="section-content space-y-(--page-gap-y)">
 				{visibleItems.map((item) => (
 					<div
 						key={item.id}
-						className="education-item print:break-inside-avoid"
+						className="section-item section-item-education education-item print:break-inside-avoid"
 					>
 						{/* School + Location */}
-						<div className="flex items-start justify-between gap-x-2">
-							<strong className="education-item-school section-item-title ">
+						<div className="section-item-header education-item-header flex items-start justify-between gap-x-2">
+							<strong className="education-item-school section-item-title">
 								{item.website?.url ? (
 									<PageLink
 										{...item.website}
@@ -482,23 +480,22 @@ function HarvardSkillsSection({
 			className={cn("page-section page-section-skills", sectionClassName)}
 		>
 			<h6 className="mb-1 text-(--page-primary-color)">
-				{section.title || "Skills"}
+				{section.title || getSectionTitle("skills")}
 			</h6>
 
 			<div className="section-content space-y-0.5">
 				{visibleItems.map((item) => (
 					<div
 						key={item.id}
-						className="skill-item print:break-inside-avoid flex items-center gap-x-1"
+						className="section-item section-item-skills skill-item print:break-inside-avoid flex items-center gap-x-1"
 					>
 						<span className="font-bold">{item.name}</span>
 						{item.keywords && item.keywords.length > 0 && (
-							// <span> : {item.keywords.join(", ")}</span>
 							<div className="flex items-center gap-x-3">
 								<span> : </span>
 								{item.keywords.map((keyword, index) => (
-									<>
-										<span key={index}>{keyword}</span>
+									<Fragment key={`${item.id}-${index}`}>
+										<span>{keyword}</span>
 										{index !== item.keywords.length - 1 && (
 											<CircleIcon
 												className="text-(--page-primary-color)"
@@ -506,7 +503,7 @@ function HarvardSkillsSection({
 												weight="fill"
 											/>
 										)}
-									</>
+									</Fragment>
 								))}
 							</div>
 						)}
@@ -539,17 +536,14 @@ function HarvardLanguagesSection({
 				sectionClassName,
 			)}
 		>
-			<h6 className="mb-1.5 text-(--page-primary-color)">
-				{section.title || "Languages"}
+			<h6 className="mb-1 text-(--page-primary-color)">
+				{section.title || getSectionTitle("languages")}
 			</h6>
 
 			<div className="section-content flex flex-wrap items-center gap-x-2">
 				{visibleItems.map((item, index) => (
-					<>
-						<div
-							key={item.id}
-							className="language-item flex items-center gap-x-1 print:break-inside-avoid"
-						>
+					<Fragment key={item.id}>
+						<div className="section-item section-item-languages language-item flex items-center gap-x-1 print:break-inside-avoid">
 							<span className="font-bold">{item.language}</span>
 							{item.fluency && (
 								<span className="italic opacity-80">
@@ -559,12 +553,12 @@ function HarvardLanguagesSection({
 						</div>
 						{index !== visibleItems.length - 1 && (
 							<CircleIcon
-								color="text-(--page-primary-color)"
+								className="text-(--page-primary-color)"
 								size={3}
 								weight="fill"
 							/>
 						)}
-					</>
+					</Fragment>
 				))}
 			</div>
 		</section>
@@ -591,7 +585,7 @@ function HarvardSummarySection({
 			)}
 		>
 			<h6 className="mb-1 text-(--page-primary-color)">
-				{section.title || "Summary"}
+				{section.title || getSectionTitle("summary")}
 			</h6>
 
 			<div className="section-content">
@@ -624,17 +618,17 @@ function HarvardProjectsSection({
 			)}
 		>
 			<h6 className="mb-1 text-(--page-primary-color)">
-				{section.title || "Projects"}
+				{section.title || getSectionTitle("projects")}
 			</h6>
 
 			<div className="section-content space-y-(--page-gap-y)">
 				{visibleItems.map((item) => (
 					<div
 						key={item.id}
-						className="project-item print:break-inside-avoid"
+						className="section-item section-item-projects project-item print:break-inside-avoid"
 					>
 						{/* Title + Period */}
-						<div className="flex items-start justify-between gap-x-2">
+						<div className="section-item-header projects-item-header flex items-start justify-between gap-x-2">
 							<strong className="project-item-name section-item-title">
 								{item.website?.url ? (
 									<PageLink
