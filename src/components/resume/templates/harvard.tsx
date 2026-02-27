@@ -202,11 +202,11 @@ function Header() {
 	const basics = useResumeStore((state) => state.resume.data.basics);
 
 	return (
-		<div className="page-header flex items-start justify-between gap-x-(--page-gap-x)">
+		<div className="page-header flex items-center justify-between gap-x-(--page-gap-x)">
 			{/* Left: name, headline, contact row */}
-			<div className="page-basics flex-1 space-y-1.5">
+			<div className="page-basics flex-1 space-y-1">
 				<div>
-					<h2 className="basics-name text-(--page-primary-color) py-3">
+					<h2 className="basics-name text-(--page-primary-color) text-4xl!">
 						{basics.name}
 					</h2>
 					{basics.headline && (
@@ -293,7 +293,7 @@ function HarvardExperienceSection({
 			)}
 		>
 			{/* h6 is styled by sectionClassName's [&>h6]: selectors */}
-			<h6 className="mb-1.5 text-(--page-primary-color)">
+			<h6 className="mb-1 text-(--page-primary-color)">
 				{section.title || "Experience"}
 			</h6>
 
@@ -307,7 +307,7 @@ function HarvardExperienceSection({
 							className="print:break-inside-avoid"
 						>
 							{/* Company name + location — rendered ONCE per group */}
-							<div className="experience-item-header flex items-start justify-between gap-x-2 mb-1">
+							<div className="experience-item-header flex items-start justify-between gap-x-2">
 								<strong className="experience-item-title section-item-title">
 									{group.company}
 								</strong>
@@ -327,7 +327,6 @@ function HarvardExperienceSection({
 							{/* Roles — left accent bar only when 2+ roles share this company */}
 							<div
 								className={cn(
-									"space-y-2",
 									isGrouped &&
 										"border-l border-(--page-primary-color)/25 pl-2",
 								)}
@@ -349,7 +348,7 @@ function HarvardExperienceSection({
 
 										{/* Bullet-point description */}
 										{stripHtml(role.description) && (
-											<div className="section-item-description experience-item-description mt-0.5">
+											<div className="section-item-description experience-item-description">
 												<TiptapContent
 													content={role.description}
 												/>
@@ -403,7 +402,7 @@ function HarvardEducationSection({
 				sectionClassName,
 			)}
 		>
-			<h6 className="mb-1.5 text-(--page-primary-color)">
+			<h6 className="mb-1 text-(--page-primary-color)">
 				{section.title || "Education"}
 			</h6>
 
@@ -414,7 +413,7 @@ function HarvardEducationSection({
 						className="education-item print:break-inside-avoid"
 					>
 						{/* School + Location */}
-						<div className="flex items-start justify-between gap-x-2 mb-1">
+						<div className="flex items-start justify-between gap-x-2">
 							<strong className="education-item-school section-item-title ">
 								{item.website?.url ? (
 									<PageLink
@@ -452,7 +451,7 @@ function HarvardEducationSection({
 
 						{/* Description */}
 						{stripHtml(item.description) && (
-							<div className="section-item-description education-item-description mt-2">
+							<div className="section-item-description education-item-description mt-1">
 								<TiptapContent content={item.description} />
 							</div>
 						)}
@@ -482,11 +481,11 @@ function HarvardSkillsSection({
 		<section
 			className={cn("page-section page-section-skills", sectionClassName)}
 		>
-			<h6 className="mb-1.5 text-(--page-primary-color)">
+			<h6 className="mb-1 text-(--page-primary-color)">
 				{section.title || "Skills"}
 			</h6>
 
-			<div className="section-content space-y-1 text-[9.5pt] leading-[1.55]">
+			<div className="section-content space-y-0.5">
 				{visibleItems.map((item) => (
 					<div
 						key={item.id}
@@ -495,14 +494,14 @@ function HarvardSkillsSection({
 						<span className="font-bold">{item.name}</span>
 						{item.keywords && item.keywords.length > 0 && (
 							// <span> : {item.keywords.join(", ")}</span>
-							<div className="flex items-center gap-x-1">
+							<div className="flex items-center gap-x-3">
 								<span> : </span>
 								{item.keywords.map((keyword, index) => (
 									<>
 										<span key={index}>{keyword}</span>
 										{index !== item.keywords.length - 1 && (
 											<CircleIcon
-												color="text-(--page-primary-color)"
+												className="text-(--page-primary-color)"
 												size={3}
 												weight="fill"
 											/>
@@ -591,11 +590,11 @@ function HarvardSummarySection({
 				sectionClassName,
 			)}
 		>
-			<h6 className="mb-1.5 text-(--page-primary-color)">
+			<h6 className="mb-1 text-(--page-primary-color)">
 				{section.title || "Summary"}
 			</h6>
 
-			<div className="section-content text-[9.5pt] leading-[1.6]">
+			<div className="section-content">
 				<TiptapContent content={section.content} />
 			</div>
 		</section>
@@ -624,7 +623,7 @@ function HarvardProjectsSection({
 				sectionClassName,
 			)}
 		>
-			<h6 className="mb-1.5 text-(--page-primary-color)">
+			<h6 className="mb-1 text-(--page-primary-color)">
 				{section.title || "Projects"}
 			</h6>
 
@@ -635,8 +634,8 @@ function HarvardProjectsSection({
 						className="project-item print:break-inside-avoid"
 					>
 						{/* Title + Period */}
-						<div className="flex items-start justify-between gap-x-2 mb-1">
-							<strong className="project-item-name section-item-title font-semibold text-[10pt]">
+						<div className="flex items-start justify-between gap-x-2">
+							<strong className="project-item-name section-item-title">
 								{item.website?.url ? (
 									<PageLink
 										{...item.website}
@@ -646,14 +645,14 @@ function HarvardProjectsSection({
 									item.name
 								)}
 							</strong>
-							<span className="section-item-metadata project-item-period shrink-0 text-end italic opacity-65 text-[8.5pt]">
+							<span className="section-item-metadata project-item-period shrink-0 text-end">
 								{item.period}
 							</span>
 						</div>
 
 						{/* Description */}
 						{stripHtml(item.description) && (
-							<div className="section-item-description project-item-description mt-0.5 text-[9pt] leading-[1.55]">
+							<div className="section-item-description project-item-description">
 								<TiptapContent content={item.description} />
 							</div>
 						)}
