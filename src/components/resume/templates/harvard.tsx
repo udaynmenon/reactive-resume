@@ -119,10 +119,50 @@ export function HarvardTemplate({ pageIndex, pageLayout }: TemplateProps) {
 	const { main, sidebar, fullWidth } = pageLayout;
 
 	const renderSection = (section: string) => {
-		// Intercept experience — render with company grouping
+		// Intercept custom sections
+		if (section === "summary") {
+			return (
+				<HarvardSummarySection
+					key={section}
+					sectionClassName={sectionClassName}
+				/>
+			);
+		}
 		if (section === "experience") {
 			return (
 				<HarvardExperienceSection
+					key={section}
+					sectionClassName={sectionClassName}
+				/>
+			);
+		}
+		if (section === "education") {
+			return (
+				<HarvardEducationSection
+					key={section}
+					sectionClassName={sectionClassName}
+				/>
+			);
+		}
+		if (section === "projects") {
+			return (
+				<HarvardProjectsSection
+					key={section}
+					sectionClassName={sectionClassName}
+				/>
+			);
+		}
+		if (section === "skills") {
+			return (
+				<HarvardSkillsSection
+					key={section}
+					sectionClassName={sectionClassName}
+				/>
+			);
+		}
+		if (section === "languages") {
+			return (
+				<HarvardLanguagesSection
 					key={section}
 					sectionClassName={sectionClassName}
 				/>
@@ -335,6 +375,265 @@ function HarvardExperienceSection({
 						</div>
 					);
 				})}
+			</div>
+		</section>
+	);
+}
+
+// ─── Harvard Education Section ──────────────────────────────────────────────────
+
+function HarvardEducationSection({
+	sectionClassName,
+}: {
+	sectionClassName?: string;
+}) {
+	const section = useResumeStore(
+		(state) => state.resume.data.sections.education,
+	);
+
+	if (section.hidden) return null;
+	const visibleItems = section.items.filter((item) => !item.hidden);
+	if (visibleItems.length === 0) return null;
+
+	return (
+		<section
+			className={cn(
+				"page-section page-section-education",
+				sectionClassName,
+			)}
+		>
+			<h6 className="mb-1.5 text-(--page-primary-color)">
+				{section.title || "Education"}
+			</h6>
+
+			<div className="section-content space-y-(--page-gap-y)">
+				{visibleItems.map((item) => (
+					<div
+						key={item.id}
+						className="education-item print:break-inside-avoid"
+					>
+						{/* School + Location */}
+						<div className="flex items-start justify-between gap-x-2 mb-1">
+							<strong className="education-item-school section-item-title ">
+								{item.website?.url ? (
+									<PageLink
+										{...item.website}
+										label={
+											item.school || item.website.label
+										}
+									/>
+								) : (
+									item.school
+								)}
+							</strong>
+							<span className="section-item-metadata education-item-location shrink-0 text-end">
+								{item.location}
+							</span>
+						</div>
+
+						{/* Degree + Period */}
+						<div className="flex items-start justify-between gap-x-2">
+							<span className="section-item-metadata education-item-degree font-medium italic">
+								{item.degree}
+								{item.area ? `, ${item.area}` : ""}
+							</span>
+							<span className="section-item-metadata education-item-period shrink-0 text-end">
+								{item.period}
+							</span>
+						</div>
+
+						{/* Grade */}
+						{item.grade && (
+							<div className="text-[9pt] mt-0.5 opacity-80">
+								<span>Grade: {item.grade}</span>
+							</div>
+						)}
+
+						{/* Description */}
+						{stripHtml(item.description) && (
+							<div className="section-item-description education-item-description mt-2">
+								<TiptapContent content={item.description} />
+							</div>
+						)}
+					</div>
+				))}
+			</div>
+		</section>
+	);
+}
+
+// ─── Harvard Skills Section ─────────────────────────────────────────────────────
+
+function HarvardSkillsSection({
+	sectionClassName,
+}: {
+	sectionClassName?: string;
+}) {
+	const section = useResumeStore(
+		(state) => state.resume.data.sections.skills,
+	);
+
+	if (section.hidden) return null;
+	const visibleItems = section.items.filter((item) => !item.hidden);
+	if (visibleItems.length === 0) return null;
+
+	return (
+		<section
+			className={cn("page-section page-section-skills", sectionClassName)}
+		>
+			<h6 className="mb-1.5 text-(--page-primary-color)">
+				{section.title || "Skills"}
+			</h6>
+
+			<div className="section-content space-y-1 text-[9.5pt] leading-[1.55]">
+				{visibleItems.map((item) => (
+					<div
+						key={item.id}
+						className="skill-item print:break-inside-avoid"
+					>
+						<span className="font-bold">{item.name}</span>
+						{item.keywords && item.keywords.length > 0 && (
+							<span> — {item.keywords.join(", ")}</span>
+						)}
+					</div>
+				))}
+			</div>
+		</section>
+	);
+}
+
+// ─── Harvard Languages Section ──────────────────────────────────────────────────
+
+function HarvardLanguagesSection({
+	sectionClassName,
+}: {
+	sectionClassName?: string;
+}) {
+	const section = useResumeStore(
+		(state) => state.resume.data.sections.languages,
+	);
+
+	if (section.hidden) return null;
+	const visibleItems = section.items.filter((item) => !item.hidden);
+	if (visibleItems.length === 0) return null;
+
+	return (
+		<section
+			className={cn(
+				"page-section page-section-languages",
+				sectionClassName,
+			)}
+		>
+			<h6 className="mb-1.5 text-(--page-primary-color)">
+				{section.title || "Languages"}
+			</h6>
+
+			<div className="section-content flex flex-wrap gap-x-6 gap-y-2 text-[9.5pt] leading-[1.55]">
+				{visibleItems.map((item) => (
+					<div
+						key={item.id}
+						className="language-item flex items-center gap-x-1 print:break-inside-avoid"
+					>
+						<span className="font-bold">{item.language}</span>
+						{item.fluency && (
+							<span className="italic opacity-80">
+								({item.fluency})
+							</span>
+						)}
+					</div>
+				))}
+			</div>
+		</section>
+	);
+}
+
+// ─── Harvard Summary Section ────────────────────────────────────────────────────
+
+function HarvardSummarySection({
+	sectionClassName,
+}: {
+	sectionClassName?: string;
+}) {
+	const section = useResumeStore((state) => state.resume.data.summary);
+
+	if (section.hidden || !section.content || !stripHtml(section.content))
+		return null;
+
+	return (
+		<section
+			className={cn(
+				"page-section page-section-summary",
+				sectionClassName,
+			)}
+		>
+			<h6 className="mb-1.5 text-(--page-primary-color)">
+				{section.title || "Summary"}
+			</h6>
+
+			<div className="section-content text-[9.5pt] leading-[1.6]">
+				<TiptapContent content={section.content} />
+			</div>
+		</section>
+	);
+}
+
+// ─── Harvard Projects Section ───────────────────────────────────────────────────
+
+function HarvardProjectsSection({
+	sectionClassName,
+}: {
+	sectionClassName?: string;
+}) {
+	const section = useResumeStore(
+		(state) => state.resume.data.sections.projects,
+	);
+
+	if (section.hidden) return null;
+	const visibleItems = section.items.filter((item) => !item.hidden);
+	if (visibleItems.length === 0) return null;
+
+	return (
+		<section
+			className={cn(
+				"page-section page-section-projects",
+				sectionClassName,
+			)}
+		>
+			<h6 className="mb-1.5 text-(--page-primary-color)">
+				{section.title || "Projects"}
+			</h6>
+
+			<div className="section-content space-y-(--page-gap-y)">
+				{visibleItems.map((item) => (
+					<div
+						key={item.id}
+						className="project-item print:break-inside-avoid"
+					>
+						{/* Title + Period */}
+						<div className="flex items-start justify-between gap-x-2 mb-1">
+							<strong className="project-item-name section-item-title font-semibold text-[10pt]">
+								{item.website?.url ? (
+									<PageLink
+										{...item.website}
+										label={item.name || item.website.label}
+									/>
+								) : (
+									item.name
+								)}
+							</strong>
+							<span className="section-item-metadata project-item-period shrink-0 text-end italic opacity-65 text-[8.5pt]">
+								{item.period}
+							</span>
+						</div>
+
+						{/* Description */}
+						{stripHtml(item.description) && (
+							<div className="section-item-description project-item-description mt-0.5 text-[9pt] leading-[1.55]">
+								<TiptapContent content={item.description} />
+							</div>
+						)}
+					</div>
+				))}
 			</div>
 		</section>
 	);
