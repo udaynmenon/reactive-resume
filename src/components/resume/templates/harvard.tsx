@@ -1,4 +1,5 @@
 import {
+	CircleIcon,
 	EnvelopeIcon,
 	GlobeIcon,
 	MapPinIcon,
@@ -489,11 +490,26 @@ function HarvardSkillsSection({
 				{visibleItems.map((item) => (
 					<div
 						key={item.id}
-						className="skill-item print:break-inside-avoid"
+						className="skill-item print:break-inside-avoid flex items-center gap-x-1"
 					>
 						<span className="font-bold">{item.name}</span>
 						{item.keywords && item.keywords.length > 0 && (
-							<span> — {item.keywords.join(", ")}</span>
+							// <span> : {item.keywords.join(", ")}</span>
+							<div className="flex items-center gap-x-1">
+								<span> : </span>
+								{item.keywords.map((keyword, index) => (
+									<>
+										<span key={index}>{keyword}</span>
+										{index !== item.keywords.length - 1 && (
+											<CircleIcon
+												color="text-(--page-primary-color)"
+												size={3}
+												weight="fill"
+											/>
+										)}
+									</>
+								))}
+							</div>
 						)}
 					</div>
 				))}
