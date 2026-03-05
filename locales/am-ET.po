@@ -42,6 +42,11 @@ msgstr "(በአዲስ ታብ ይከፈታል)"
 msgid "{0, plural, one {# item} other {# items}}"
 msgstr "{0, plural, one {# ንጥል} other {# ንጥሎች}}"
 
+#. placeholder {0}: item.roles.length
+#: src/routes/builder/$resumeId/-sidebar/left/sections/experience.tsx
+msgid "{0, plural, one {# role} other {# roles}}"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "{column, plural, one {# Column} other {# Columns}}"
@@ -195,9 +200,17 @@ msgstr "ከዚህ በኋላ አምድ ያክሉ"
 msgid "Add Column Before"
 msgstr "ከዚህ በፊት አምድ ያክሉ"
 
+#: src/dialogs/resume/sections/experience.tsx
+msgid "Add multiple roles to show career progression at the same company."
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Add Page"
 msgstr "ገጽ ያክሉ"
+
+#: src/dialogs/resume/sections/experience.tsx
+msgid "Add Role"
+msgstr ""
 
 #: src/components/input/rich-input.tsx
 msgid "Add Row After"
@@ -359,6 +372,7 @@ msgctxt "(noun) person, organization, or entity that gives an award"
 msgid "Awarder"
 msgstr "ሽልማተኛ"
 
+#: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Awards"
 msgstr "ሽልማቶች"
@@ -489,6 +503,7 @@ msgstr "መሀከል ማሰለፊያ"
 msgid "Center view"
 msgstr "መመለሻን ወደ መሀከል አድርግ"
 
+#: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Certifications"
 msgstr "የማረጋገጫዎች"
@@ -622,6 +637,7 @@ msgstr "ይህንን ሚስጥራዊ ቁልፍ ቅጂ አድርጉ እና ውስ
 msgid "Copy URL"
 msgstr "URL ቅጂ አድርግ"
 
+#: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Cover Letter"
 msgstr ""
@@ -837,6 +853,7 @@ msgstr "የየታሪክዎን በመሰረዝ ላይ…"
 #: src/dialogs/resume/sections/certification.tsx
 #: src/dialogs/resume/sections/education.tsx
 #: src/dialogs/resume/sections/experience.tsx
+#: src/dialogs/resume/sections/experience.tsx
 #: src/dialogs/resume/sections/project.tsx
 #: src/dialogs/resume/sections/publication.tsx
 #: src/dialogs/resume/sections/reference.tsx
@@ -948,6 +965,7 @@ msgstr "ደች"
 msgid "e.g. Change my name to..."
 msgstr ""
 
+#: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Education"
 msgstr "ትምህርት"
@@ -1040,6 +1058,7 @@ msgstr "ሙያዊ የየታሪክ ማቅረቢያዎችን ለመፍጠር፣ �
 msgid "Exit Fullscreen"
 msgstr ""
 
+#: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Experience"
 msgstr "ልምድ"
@@ -1068,6 +1087,10 @@ msgstr "ወደ ውጪ አስመጣ"
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Failed to setup two-factor authentication."
 msgstr "ሁለት-ደረጃ ማረጋገጫን ማሰናዳት አልተሳካም።"
+
+#: src/routes/auth/login.tsx
+msgid "Failed to sign in. Please try again."
+msgstr ""
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Features"
@@ -1330,6 +1353,7 @@ msgstr "በመስመር ላይ ኮድ"
 msgid "Insert Table"
 msgstr "ሰንጠረዥ አስገባ"
 
+#: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Interests"
 msgstr "ፍላጎቶች"
@@ -1395,6 +1419,7 @@ msgstr "መሬት አቀማመጥ"
 msgid "Language"
 msgstr "ቋንቋ"
 
+#: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Languages"
 msgstr "ቋንቋዎች"
@@ -1666,6 +1691,14 @@ msgstr "ተደራሽ ዝርዝር"
 msgid "Organization"
 msgstr "ድርጅት"
 
+#: src/dialogs/resume/sections/experience.tsx
+msgid "Overall Period"
+msgstr ""
+
+#: src/dialogs/resume/sections/experience.tsx
+msgid "Overall Title (optional)"
+msgstr ""
+
 #: src/utils/resume/section.tsx
 msgid "Page"
 msgstr "ገጽ"
@@ -1714,6 +1747,7 @@ msgid "Password protection has been enabled."
 msgstr "የይለፍ ቃል ጥበቃ ተነስቷል።"
 
 #: src/dialogs/resume/sections/education.tsx
+#: src/dialogs/resume/sections/experience.tsx
 #: src/dialogs/resume/sections/experience.tsx
 #: src/dialogs/resume/sections/project.tsx
 #: src/dialogs/resume/sections/volunteer.tsx
@@ -1771,6 +1805,7 @@ msgid "Portuguese (Portugal)"
 msgstr "ፖርቹጋልኛ (ፖርቱጋል)"
 
 #: src/dialogs/resume/sections/experience.tsx
+#: src/dialogs/resume/sections/experience.tsx
 #: src/dialogs/resume/sections/reference.tsx
 msgid "Position"
 msgstr "አቀማመጥ"
@@ -1802,6 +1837,7 @@ msgstr "ችሎታ"
 msgid "Profile"
 msgstr "መገለጫ"
 
+#: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Profiles"
 msgstr "ፕሮፋይሎች"
@@ -1810,6 +1846,7 @@ msgstr "ፕሮፋይሎች"
 msgid "Progress Bar"
 msgstr "የሂደት አሰሳ ማስመሪያ"
 
+#: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Projects"
 msgstr "ፕሮጀክቶች"
@@ -1826,6 +1863,7 @@ msgstr "የየታሪክዎን በይለፍ ቃል ይከላከሉት፣ የይ�
 msgid "Provider"
 msgstr "ሰብታሪ"
 
+#: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Publications"
 msgstr "ህትመቶች"
@@ -1875,6 +1913,7 @@ msgctxt "'Ctrl' may be replaced with the locale-specific equivalent (e.g. 'Strg'
 msgid "Redo (Ctrl+Y)"
 msgstr "ደግመው አድርጉ (Ctrl+Y)"
 
+#: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "References"
 msgstr "ማመልከቻዎች"
@@ -1886,6 +1925,10 @@ msgstr "ዳስ አድርግ"
 #: src/routes/auth/forgot-password.tsx
 msgid "Remember your password? <0><1>Sign in now <2/></1></0>"
 msgstr "የይለፍ ቃልዎ አስታውሰዎ? <0><1>አሁን ይግቡ <2/></1></0>"
+
+#: src/dialogs/resume/sections/experience.tsx
+msgid "Remove"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Remove Password"
@@ -1902,6 +1945,10 @@ msgstr "የይለፍ ቃል ጥበቃን በማስወገድ ላይ…"
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "Rename"
 msgstr "ስም ቀይር"
+
+#: src/dialogs/resume/sections/experience.tsx
+msgid "Reorder"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
 msgid "Report a Bug"
@@ -1953,6 +2000,10 @@ msgstr "የየታሪክ ማቅረቢያዎች"
 #: src/components/input/rich-input.tsx
 msgid "Right Align"
 msgstr "በቀኝ ማሰለፊያ"
+
+#: src/dialogs/resume/sections/experience.tsx
+msgid "Role Progression"
+msgstr ""
 
 #: src/utils/locale.ts
 msgid "Romanian"
@@ -2150,6 +2201,7 @@ msgstr "አንድ-አምድ የሆነ፣ የታማኝ እና ኃላፊነት ያ
 msgid "Size"
 msgstr "መጠን"
 
+#: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Skills"
 msgstr "ችሎታዎች"
@@ -2240,6 +2292,7 @@ msgstr "መሰረዣ"
 msgid "Subreddit"
 msgstr "ሰብሬዲት"
 
+#: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Summary"
 msgstr "ማጠቃለያ"
@@ -2698,6 +2751,7 @@ msgstr "ቪትናምኛ"
 msgid "Views"
 msgstr "ተመልካቶች"
 
+#: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Volunteer"
 msgstr "በነፃ ፈቃድ"
@@ -2848,4 +2902,3 @@ msgstr "አጉር"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "ዙሉ"
-

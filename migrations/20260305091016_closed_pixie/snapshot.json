@@ -1,8 +1,8 @@
 {
 	"version": "8",
 	"dialect": "postgres",
-	"id": "c0eba253-7de9-4b88-92ce-2ebeefccccc8",
-	"prevIds": ["24141f99-af12-49b1-aa09-e9f5c75c083d"],
+	"id": "e438897b-e269-44d5-bbb2-92edab29c225",
+	"prevIds": ["c0eba253-7de9-4b88-92ce-2ebeefccccc8"],
 	"ddl": [
 		{
 			"isRlsEnabled": false,
@@ -293,6 +293,19 @@
 			"table": "apikey"
 		},
 		{
+			"type": "text",
+			"typeSchema": null,
+			"notNull": true,
+			"dimensions": 0,
+			"default": null,
+			"generated": null,
+			"identity": null,
+			"name": "config_id",
+			"entityType": "columns",
+			"schema": "public",
+			"table": "apikey"
+		},
+		{
 			"type": "uuid",
 			"typeSchema": null,
 			"notNull": true,
@@ -300,7 +313,7 @@
 			"default": null,
 			"generated": null,
 			"identity": null,
-			"name": "user_id",
+			"name": "reference_id",
 			"entityType": "columns",
 			"schema": "public",
 			"table": "apikey"
@@ -1318,7 +1331,7 @@
 			"nameExplicit": false,
 			"columns": [
 				{
-					"value": "user_id",
+					"value": "reference_id",
 					"isExpression": false,
 					"asc": true,
 					"nullsFirst": false,
@@ -1367,7 +1380,7 @@
 					"opclass": null
 				},
 				{
-					"value": "user_id",
+					"value": "reference_id",
 					"isExpression": false,
 					"asc": true,
 					"nullsFirst": false,
@@ -1637,7 +1650,7 @@
 		},
 		{
 			"nameExplicit": false,
-			"columns": ["user_id"],
+			"columns": ["reference_id"],
 			"schemaTo": "public",
 			"tableTo": "user",
 			"columnsTo": ["id"],
@@ -1849,5 +1862,5 @@
 			"entityType": "uniques"
 		}
 	],
-	"renames": []
+	"renames": ["public.apikey.user_id->public.apikey.reference_id"]
 }
