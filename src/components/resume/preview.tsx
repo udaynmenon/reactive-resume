@@ -21,13 +21,13 @@ import { DitgarTemplate } from "./templates/ditgar";
 import { DittoTemplate } from "./templates/ditto";
 import { GengarTemplate } from "./templates/gengar";
 import { GlalieTemplate } from "./templates/glalie";
+import { HarvardTemplate } from "./templates/harvard";
 import { KakunaTemplate } from "./templates/kakuna";
 import { LaprasTemplate } from "./templates/lapras";
 import { LeafishTemplate } from "./templates/leafish";
 import { OnyxTemplate } from "./templates/onyx";
 import { PikachuTemplate } from "./templates/pikachu";
 import { RhyhornTemplate } from "./templates/rhyhorn";
-import { HarvardTemplate } from "./templates/harvard";
 
 export type ExtendedIconProps = IconProps & {
 	hidden?: boolean;

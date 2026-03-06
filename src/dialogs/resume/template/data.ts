@@ -108,5 +108,5 @@ export const templates = {
 		imageUrl: "/templates/jpg/rhyhorn.jpg",
 		tags: ["Single-column", "ATS friendly", "Minimal", "Clean", "Modern", "Designer", "Content creator", "Whitespace"],
 		sidebarPosition: "none",
-	}
+	},
 } as const satisfies Record<Template, TemplateMetadata>;

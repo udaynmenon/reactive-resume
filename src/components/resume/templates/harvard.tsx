@@ -1,4 +1,5 @@
-import { Fragment } from "react";
+// src/components/resume/templates/harvard.tsx
+
 import {
 	CircleIcon,
 	EnvelopeIcon,
@@ -6,8 +7,8 @@ import {
 	MapPinIcon,
 	PhoneIcon,
 } from "@phosphor-icons/react";
+import { Fragment } from "react";
 import { TiptapContent } from "@/components/input/rich-input";
-import type { SectionItem } from "@/schema/resume/data";
 import { getSectionTitle } from "@/utils/resume/section";
 import { stripHtml } from "@/utils/string";
 import { cn } from "@/utils/style";
@@ -18,85 +19,11 @@ import { PagePicture } from "../shared/page-picture";
 import { useResumeStore } from "../store/resume";
 import type { TemplateProps } from "./types";
 
-// ─── Grouping Utility ────────────────────────────────────────────────────────
-
-type ExperienceGroup = {
-	company: string;
-	location: string;
-	company_period: string;
-	roles: SectionItem<"experience">[];
-};
-
-// ─── Period Parsing ───────────────────────────────────────────────────────────
-// Handles common separators: en-dash, em-dash, hyphen(s), "to", "until", "→"
-// Examples covered:
-//   "08/2022 – 06/2024"   "Jan 2020 to Present"
-//   "2019 — 2021"         "2022-2024"
-const PERIOD_SEPARATOR = /\s*(–|—|-{1,2}|to|until|→)\s*/i;
-
-function splitPeriod(period: string): {
-	start: string;
-	separator: string;
-	end: string;
-} {
-	const parts = period.trim().split(PERIOD_SEPARATOR);
-
-	return {
-		start: parts[0]?.trim() ?? "",
-		separator: parts[1]?.trim() ?? "",
-		end: parts.at(-1)?.trim() ?? "",
-	};
-}
-
-// Assumes roles are in reverse-chronological order (most recent first),
-// which is the standard resume convention.
-function buildCompanyPeriod(roles: SectionItem<"experience">[]): string {
-	if (roles.length === 0) return "";
-	if (roles.length === 1) return roles[0].period;
-
-	const { end } = splitPeriod(roles[0].period); // most recent role's end
-	const { separator } = splitPeriod(roles[0].period); // separator
-	const { start } = splitPeriod(roles.at(-1)!.period); // oldest role's start
-
-	// Fallback to the first role's period if either bound can't be parsed
-	if (!start || !end) return roles[0].period;
-
-	return `${start} ${separator} ${end}`;
-}
-
-function groupByCompany(items: SectionItem<"experience">[]): ExperienceGroup[] {
-	const visibleItems = items.filter((item) => !item.hidden);
-
-	return visibleItems
-		.reduce<ExperienceGroup[]>((groups, item) => {
-			const lastGroup = groups.at(-1);
-			const isSameCompany =
-				lastGroup !== undefined &&
-				item.company.trim() !== "" &&
-				lastGroup.company === item.company;
-
-			if (isSameCompany && lastGroup) {
-				lastGroup.roles.push(item);
-			} else {
-				groups.push({
-					company: item.company,
-					location: item.location,
-					company_period: "", // populated in .map() below
-					roles: [item],
-				});
-			}
-
-			return groups;
-		}, [])
-		.map((group) => ({
-			...group,
-			company_period: buildCompanyPeriod(group.roles),
-		}));
-}
-
-// ─── Section Heading Style ────────────────────────────────────────────────────
+// ---------------------------------------------------------------------------
+// Section Heading Style
 // Applied to all sections via getSectionComponent, and mirrored manually
-// in HarvardExperienceSection for the custom experience render.
+// in each Harvard*Section for the custom section renderers below.
+// ---------------------------------------------------------------------------
 
 const sectionClassName = cn(
 	"[&>h6]:uppercase",
@@ -108,20 +35,32 @@ const sectionClassName = cn(
 	"[&>h6]:pb-0.5",
 );
 
-// ─── Template Root ────────────────────────────────────────────────────────────
+// ---------------------------------------------------------------------------
+// Template Root
+// ---------------------------------------------------------------------------
 
 /**
- * Template: Harvard
+ * Template Harvard
  *
  * Single-column layout, serif-style header, uppercase ruled section headings,
- * profile photo top-right, and grouped experience entries by company.
+ * profile photo top-right, and role-progression support within experience entries.
+ *
+ * Multi-role display: add roles via the "Role Progression" panel in the experience
+ * dialog. When roles are present, the top-level position/period are treated as an
+ * optional overall title/period span; individual roles render indented below with
+ * their own position, period, and description.
+ *
+ * When no roles are defined, the entry renders exactly as every other template
+ * (top-level position / period / description), so this template is fully
+ * backward-compatible with existing resume data.
  */
 export function HarvardTemplate({ pageIndex, pageLayout }: TemplateProps) {
 	const isFirstPage = pageIndex === 0;
 	const { main, sidebar, fullWidth } = pageLayout;
 
+	// Custom renderers intercept known sections; all others fall through to
+	// getSectionComponent() — the same pattern used by every other template.
 	const renderSection = (section: string) => {
-		// Intercept custom sections
 		if (section === "summary") {
 			return (
 				<HarvardSummarySection
@@ -170,17 +109,18 @@ export function HarvardTemplate({ pageIndex, pageLayout }: TemplateProps) {
 				/>
 			);
 		}
+
 		const Component = getSectionComponent(section, { sectionClassName });
 		return <Component key={section} id={section} />;
 	};
 
 	return (
-		<div className="template-harvard page-content space-y-(--page-gap-y) px-(--page-margin-x) pt-(--page-margin-y) print:p-0">
+		<div className="space-y-(--page-gap-y) print:p-0 px-(--page-margin-x) pt-(--page-margin-y) template-harvard page-content">
 			{isFirstPage && <Header />}
 
 			<main
 				data-layout="main"
-				className="group page-main space-y-(--page-gap-y)"
+				className="group space-y-(--page-gap-y) page-main"
 			>
 				{main.map(renderSection)}
 			</main>
@@ -188,7 +128,7 @@ export function HarvardTemplate({ pageIndex, pageLayout }: TemplateProps) {
 			{!fullWidth && (
 				<aside
 					data-layout="sidebar"
-					className="group page-sidebar space-y-(--page-gap-y)"
+					className="group space-y-(--page-gap-y) page-sidebar"
 				>
 					{sidebar.map(renderSection)}
 				</aside>
@@ -197,28 +137,30 @@ export function HarvardTemplate({ pageIndex, pageLayout }: TemplateProps) {
 	);
 }
 
-// ─── Header ───────────────────────────────────────────────────────────────────
+// ---------------------------------------------------------------------------
+// Header
+// ---------------------------------------------------------------------------
 
 function Header() {
 	const basics = useResumeStore((state) => state.resume.data.basics);
 
 	return (
-		<div className="page-header flex items-center justify-between gap-x-(--page-gap-x)">
+		<div className="flex justify-between items-center gap-x-(--page-gap-x) page-header">
 			{/* Left: name, headline, contact row */}
-			<div className="page-basics flex-1 space-y-1">
+			<div className="flex-1 space-y-1 page-basics">
 				<div>
-					<h2 className="basics-name text-(--page-primary-color) text-4xl!">
+					<h2 className="text-(--page-primary-color) text-4xl! basics-name">
 						{basics.name}
 					</h2>
 					{basics.headline && (
-						<p className="basics-headline italic opacity-75">
+						<p className="opacity-75 italic basics-headline">
 							{basics.headline}
 						</p>
 					)}
 				</div>
 
-				{/* Horizontal contact row with pipe separators */}
-				<div className="basics-items flex flex-wrap gap-x-5 gap-y-0.5 *:flex *:items-center *:gap-x-1.5">
+				{/* Horizontal contact row */}
+				<div className="flex [&>div]:flex flex-wrap [&>div]:items-center gap-x-5 gap-y-0.5 [&>div]:gap-x-1.5 basics-items">
 					{basics.email && (
 						<div className="basics-item-email">
 							<EnvelopeIcon />
@@ -228,6 +170,7 @@ function Header() {
 							/>
 						</div>
 					)}
+
 					{basics.phone && (
 						<div className="basics-item-phone">
 							<PhoneIcon />
@@ -237,18 +180,21 @@ function Header() {
 							/>
 						</div>
 					)}
+
 					{basics.location && (
 						<div className="basics-item-location">
 							<MapPinIcon />
 							<span>{basics.location}</span>
 						</div>
 					)}
+
 					{basics.website.url && (
 						<div className="basics-item-website">
 							<GlobeIcon />
 							<PageLink {...basics.website} />
 						</div>
 					)}
+
 					{basics.customFields.map((field) => (
 						<div key={field.id} className="basics-item-custom">
 							<PageIcon icon={field.icon} />
@@ -262,13 +208,22 @@ function Header() {
 				</div>
 			</div>
 
-			{/* Right: profile photo — PagePicture reads from store internally */}
+			{/* Right: profile photo (reads from store internally) */}
 			<PagePicture />
 		</div>
 	);
 }
 
-// ─── Harvard Experience Section ───────────────────────────────────────────────
+// ---------------------------------------------------------------------------
+// Experience Section
+//
+// Rendering strategy:
+//   - If item.roles.length > 0  → render item as a company header, then render
+//     each role (position / period / description) indented below with an accent bar.
+//   - If item.roles.length === 0 → render as a standard single-role entry using
+//     the top-level position / period / description fields (identical to all other
+//     templates — fully backward-compatible).
+// ---------------------------------------------------------------------------
 
 function HarvardExperienceSection({
 	sectionClassName,
@@ -281,8 +236,8 @@ function HarvardExperienceSection({
 
 	if (section.hidden) return null;
 
-	const groups = groupByCompany(section.items);
-	if (groups.length === 0) return null;
+	const visibleItems = section.items.filter((item) => !item.hidden);
+	if (visibleItems.length === 0) return null;
 
 	return (
 		<section
@@ -295,81 +250,126 @@ function HarvardExperienceSection({
 				{section.title || getSectionTitle("experience")}
 			</h6>
 
-			<div className="section-content space-y-(--page-gap-y)">
-				{groups.map((group, groupIdx) => {
-					const isGrouped = group.roles.length > 1;
+			<div className="space-y-(--page-gap-y) section-content">
+				{visibleItems.map((item) => {
+					const hasRoles = item.roles.length > 0;
 
 					return (
 						<div
-							key={`${group.company}-${groupIdx}`}
-							className="print:break-inside-avoid"
+							key={item.id}
+							className="print:break-inside-avoid section-item section-item-experience experience-item"
 						>
-							{/* Company name + location — rendered ONCE per group */}
-							<div className="section-item-header experience-item-header flex items-start justify-between gap-x-2">
-								<strong className="experience-item-title section-item-title">
-									{group.company}
+							{/* Company header row — always shown */}
+							<div className="flex justify-between items-start gap-x-2 section-item-header experience-item-header">
+								<strong className="experience-item-company section-item-title">
+									{item.options?.showLinkInTitle &&
+									item.website.url ? (
+										<PageLink
+											url={item.website.url}
+											label={
+												item.website.label ||
+												item.company
+											}
+										/>
+									) : (
+										item.company
+									)}
 								</strong>
-								{group.location && (
-									<span className="section-item-metadata experience-item-location flex items-center shrink-0 text-end">
-										{group.location}
-										{isGrouped && (
-											<>
-												<div className="h-1 w-1 bg-(--page-primary-color) rounded-full mx-2"></div>
-												{group.company_period}
-											</>
-										)}
-									</span>
-								)}
+
+								<span className="text-end section-item-metadata experience-item-location shrink-0">
+									{item.location}
+								</span>
 							</div>
 
-							{/* Roles — left accent bar only when 2+ roles share this company */}
-							<div
-								className={cn(
-									isGrouped &&
-										"border-l border-(--page-primary-color)/25 pl-2",
-								)}
-							>
-								{group.roles.map((role) => (
-									<div
-										key={role.id}
-										className="section-item section-item-experience experience-item print:break-inside-avoid"
-									>
-										{/* Position + period on same line */}
-										<div className="flex items-start justify-between gap-x-2">
-											<span className="section-item-metadata italic experience-item-position font-medium">
-												{role.position}
-											</span>
-											<span className="section-item-metadata experience-item-period shrink-0 text-end">
-												{role.period}
-											</span>
+							{hasRoles ? (
+								// ── Multi-role layout ──────────────────────────────────────
+								<>
+									{/* Optional overall title / overall period span */}
+									{(item.position || item.period) && (
+										<div className="flex justify-between items-start gap-x-2">
+											{item.position && (
+												<span className="opacity-75 italic section-item-metadata experience-item-overall-position">
+													{item.position}
+												</span>
+											)}
+											{item.period && (
+												<span className="opacity-75 text-end section-item-metadata experience-item-overall-period shrink-0">
+													{item.period}
+												</span>
+											)}
 										</div>
+									)}
 
-										{/* Bullet-point description */}
-										{stripHtml(role.description) && (
-											<div className="section-item-description experience-item-description">
-												<TiptapContent
-													content={role.description}
+									{/* Individual roles with left accent bar */}
+									<div className="space-y-(--page-gap-y) mt-1 pl-3 border-(--page-primary-color)/25 border-l">
+										{item.roles.map((role) => (
+											<div
+												key={role.id}
+												className="print:break-inside-avoid experience-item-role"
+											>
+												{/* Role position + period on same line */}
+												<div className="flex justify-between items-start gap-x-2">
+													<span className="font-medium italic section-item-metadata experience-item-position">
+														{role.position}
+													</span>
+													<span className="text-end section-item-metadata experience-item-period shrink-0">
+														{role.period}
+													</span>
+												</div>
+
+												{/* Role description */}
+												{stripHtml(
+													role.description,
+												) && (
+													<div className="section-item-description experience-item-description">
+														<TiptapContent
+															content={
+																role.description
+															}
+														/>
+													</div>
+												)}
+											</div>
+										))}
+									</div>
+								</>
+							) : (
+								// ── Single-role layout (backward-compatible) ───────────────
+								<>
+									{/* Position + period on same line */}
+									<div className="flex justify-between items-start gap-x-2">
+										<span className="font-medium italic section-item-metadata experience-item-position">
+											{item.position}
+										</span>
+										<span className="text-end section-item-metadata experience-item-period shrink-0">
+											{item.period}
+										</span>
+									</div>
+
+									{/* Description */}
+									{stripHtml(item.description) && (
+										<div className="section-item-description experience-item-description">
+											<TiptapContent
+												content={item.description}
+											/>
+										</div>
+									)}
+
+									{/* Optional website link (only when not shown in title) */}
+									{!item.options?.showLinkInTitle &&
+										item.website.url && (
+											<div className="mt-0.5 section-item-website experience-item-website">
+												<PageLink
+													url={item.website.url}
+													label={
+														item.website.label ||
+														item.website.url
+													}
 												/>
 											</div>
 										)}
-
-										{/* Optional website link */}
-										{!role.options?.showLinkInTitle &&
-											role.website.url && (
-												<div className="section-item-website experience-item-website mt-0.5">
-													<PageLink
-														url={role.website.url}
-														label={
-															role.website
-																.label ||
-															role.website.url
-														}
-													/>
-												</div>
-											)}
-									</div>
-								))}
-							</div>
+								</>
+							)}
 						</div>
 					);
 				})}
@@ -378,7 +378,9 @@ function HarvardExperienceSection({
 	);
 }
 
-// ─── Harvard Education Section ──────────────────────────────────────────────────
+// ---------------------------------------------------------------------------
+// Education Section
+// ---------------------------------------------------------------------------
 
 function HarvardEducationSection({
 	sectionClassName,
@@ -404,52 +406,53 @@ function HarvardEducationSection({
 				{section.title || getSectionTitle("education")}
 			</h6>
 
-			<div className="section-content space-y-(--page-gap-y)">
+			<div className="space-y-(--page-gap-y) section-content">
 				{visibleItems.map((item) => (
 					<div
 						key={item.id}
-						className="section-item section-item-education education-item print:break-inside-avoid"
+						className="print:break-inside-avoid section-item section-item-education education-item"
 					>
 						{/* School + Location */}
-						<div className="section-item-header education-item-header flex items-start justify-between gap-x-2">
+						<div className="flex justify-between items-start gap-x-2 section-item-header education-item-header">
 							<strong className="education-item-school section-item-title">
 								{item.website?.url ? (
 									<PageLink
 										{...item.website}
 										label={
-											item.school || item.website.label
+											item.website.label || item.school
 										}
+										// fix: label fallback, no orphan arrow
 									/>
 								) : (
 									item.school
 								)}
 							</strong>
-							<span className="section-item-metadata education-item-location shrink-0 text-end">
+							<span className="text-end section-item-metadata education-item-location shrink-0">
 								{item.location}
 							</span>
 						</div>
 
 						{/* Degree + Period */}
-						<div className="flex items-start justify-between gap-x-2">
-							<span className="section-item-metadata education-item-degree font-medium italic">
+						<div className="flex justify-between items-start gap-x-2">
+							<span className="font-medium italic section-item-metadata education-item-degree">
 								{item.degree}
 								{item.area ? `, ${item.area}` : ""}
 							</span>
-							<span className="section-item-metadata education-item-period shrink-0 text-end">
+							<span className="text-end section-item-metadata education-item-period shrink-0">
 								{item.period}
 							</span>
 						</div>
 
 						{/* Grade */}
 						{item.grade && (
-							<div className="text-[9pt] mt-0.5 opacity-80">
+							<div className="opacity-80 mt-0.5 text-[9pt]">
 								<span>Grade: {item.grade}</span>
 							</div>
 						)}
 
 						{/* Description */}
 						{stripHtml(item.description) && (
-							<div className="section-item-description education-item-description mt-1">
+							<div className="mt-1 section-item-description education-item-description">
 								<TiptapContent content={item.description} />
 							</div>
 						)}
@@ -460,142 +463,9 @@ function HarvardEducationSection({
 	);
 }
 
-// ─── Harvard Skills Section ─────────────────────────────────────────────────────
-
-function HarvardSkillsSection({
-	sectionClassName,
-}: {
-	sectionClassName?: string;
-}) {
-	const section = useResumeStore(
-		(state) => state.resume.data.sections.skills,
-	);
-
-	if (section.hidden) return null;
-	const visibleItems = section.items.filter((item) => !item.hidden);
-	if (visibleItems.length === 0) return null;
-
-	return (
-		<section
-			className={cn("page-section page-section-skills", sectionClassName)}
-		>
-			<h6 className="mb-1 text-(--page-primary-color)">
-				{section.title || getSectionTitle("skills")}
-			</h6>
-
-			<div className="section-content space-y-0.5">
-				{visibleItems.map((item) => (
-					<div
-						key={item.id}
-						className="section-item section-item-skills skill-item print:break-inside-avoid flex items-center gap-x-1"
-					>
-						<span className="font-bold">{item.name}</span>
-						{item.keywords && item.keywords.length > 0 && (
-							<div className="flex items-center gap-x-3">
-								<span> : </span>
-								{item.keywords.map((keyword, index) => (
-									<Fragment key={`${item.id}-${index}`}>
-										<span>{keyword}</span>
-										{index !== item.keywords.length - 1 && (
-											<CircleIcon
-												className="text-(--page-primary-color)"
-												size={3}
-												weight="fill"
-											/>
-										)}
-									</Fragment>
-								))}
-							</div>
-						)}
-					</div>
-				))}
-			</div>
-		</section>
-	);
-}
-
-// ─── Harvard Languages Section ──────────────────────────────────────────────────
-
-function HarvardLanguagesSection({
-	sectionClassName,
-}: {
-	sectionClassName?: string;
-}) {
-	const section = useResumeStore(
-		(state) => state.resume.data.sections.languages,
-	);
-
-	if (section.hidden) return null;
-	const visibleItems = section.items.filter((item) => !item.hidden);
-	if (visibleItems.length === 0) return null;
-
-	return (
-		<section
-			className={cn(
-				"page-section page-section-languages",
-				sectionClassName,
-			)}
-		>
-			<h6 className="mb-1 text-(--page-primary-color)">
-				{section.title || getSectionTitle("languages")}
-			</h6>
-
-			<div className="section-content flex flex-wrap items-center gap-x-2">
-				{visibleItems.map((item, index) => (
-					<Fragment key={item.id}>
-						<div className="section-item section-item-languages language-item flex items-center gap-x-1 print:break-inside-avoid">
-							<span className="font-bold">{item.language}</span>
-							{item.fluency && (
-								<span className="italic opacity-80">
-									({item.fluency})
-								</span>
-							)}
-						</div>
-						{index !== visibleItems.length - 1 && (
-							<CircleIcon
-								className="text-(--page-primary-color)"
-								size={3}
-								weight="fill"
-							/>
-						)}
-					</Fragment>
-				))}
-			</div>
-		</section>
-	);
-}
-
-// ─── Harvard Summary Section ────────────────────────────────────────────────────
-
-function HarvardSummarySection({
-	sectionClassName,
-}: {
-	sectionClassName?: string;
-}) {
-	const section = useResumeStore((state) => state.resume.data.summary);
-
-	if (section.hidden || !section.content || !stripHtml(section.content))
-		return null;
-
-	return (
-		<section
-			className={cn(
-				"page-section page-section-summary",
-				sectionClassName,
-			)}
-		>
-			<h6 className="mb-1 text-(--page-primary-color)">
-				{section.title || getSectionTitle("summary")}
-			</h6>
-
-			<div className="section-content">
-				<TiptapContent content={section.content} />
-			</div>
-		</section>
-	);
-}
-
-// ─── Harvard Projects Section ───────────────────────────────────────────────────
+// ---------------------------------------------------------------------------
+// Projects Section
+// ---------------------------------------------------------------------------
 
 function HarvardProjectsSection({
 	sectionClassName,
@@ -621,25 +491,25 @@ function HarvardProjectsSection({
 				{section.title || getSectionTitle("projects")}
 			</h6>
 
-			<div className="section-content space-y-(--page-gap-y)">
+			<div className="space-y-(--page-gap-y) section-content">
 				{visibleItems.map((item) => (
 					<div
 						key={item.id}
-						className="section-item section-item-projects project-item print:break-inside-avoid"
+						className="print:break-inside-avoid section-item section-item-projects project-item"
 					>
 						{/* Title + Period */}
-						<div className="section-item-header projects-item-header flex items-start justify-between gap-x-2">
+						<div className="flex justify-between items-start gap-x-2 section-item-header projects-item-header">
 							<strong className="project-item-name section-item-title">
 								{item.website?.url ? (
 									<PageLink
 										{...item.website}
-										label={item.name || item.website.label}
+										label={item.website.label || item.name}
 									/>
 								) : (
 									item.name
 								)}
 							</strong>
-							<span className="section-item-metadata project-item-period shrink-0 text-end">
+							<span className="text-end section-item-metadata project-item-period shrink-0">
 								{item.period}
 							</span>
 						</div>
@@ -652,6 +522,153 @@ function HarvardProjectsSection({
 						)}
 					</div>
 				))}
+			</div>
+		</section>
+	);
+}
+
+// ---------------------------------------------------------------------------
+// Skills Section
+// ---------------------------------------------------------------------------
+
+function HarvardSkillsSection({
+	sectionClassName,
+}: {
+	sectionClassName?: string;
+}) {
+	const section = useResumeStore(
+		(state) => state.resume.data.sections.skills,
+	);
+
+	if (section.hidden) return null;
+	const visibleItems = section.items.filter((item) => !item.hidden);
+	if (visibleItems.length === 0) return null;
+
+	return (
+		<section
+			className={cn("page-section page-section-skills", sectionClassName)}
+		>
+			<h6 className="mb-1 text-(--page-primary-color)">
+				{section.title || getSectionTitle("skills")}
+			</h6>
+
+			<div className="space-y-0.5 section-content">
+				{visibleItems.map((item) => (
+					<div
+						key={item.id}
+						className="flex items-center gap-x-1 print:break-inside-avoid section-item section-item-skills skill-item"
+					>
+						<span className="font-bold">{item.name}</span>
+
+						{item.keywords && item.keywords.length > 0 && (
+							<div className="flex items-center gap-x-3">
+								<span> </span>
+								{item.keywords.map((keyword, index) => (
+									<Fragment key={`${item.id}-${index}`}>
+										<span>{keyword}</span>
+										{index !== item.keywords.length - 1 && (
+											<CircleIcon
+												className="text-(--page-primary-color)"
+												size={3}
+												weight="fill"
+											/>
+										)}
+									</Fragment>
+								))}
+							</div>
+						)}
+					</div>
+				))}
+			</div>
+		</section>
+	);
+}
+
+// ---------------------------------------------------------------------------
+// Languages Section
+// ---------------------------------------------------------------------------
+
+function HarvardLanguagesSection({
+	sectionClassName,
+}: {
+	sectionClassName?: string;
+}) {
+	const section = useResumeStore(
+		(state) => state.resume.data.sections.languages,
+	);
+
+	if (section.hidden) return null;
+	const visibleItems = section.items.filter((item) => !item.hidden);
+	if (visibleItems.length === 0) return null;
+
+	return (
+		<section
+			className={cn(
+				"page-section page-section-languages",
+				sectionClassName,
+			)}
+		>
+			<h6 className="mb-1 text-(--page-primary-color)">
+				{section.title || getSectionTitle("languages")}
+			</h6>
+
+			<div className="flex flex-wrap items-center gap-x-2 section-content">
+				{visibleItems.map((item, index) => (
+					<Fragment key={item.id}>
+						<div className="flex items-center gap-x-1 print:break-inside-avoid section-item section-item-languages language-item">
+							<span className="font-bold">{item.language}</span>
+							{item.fluency && (
+								<span className="opacity-80 italic">
+									{item.fluency}
+								</span>
+							)}
+						</div>
+
+						{index !== visibleItems.length - 1 && (
+							<CircleIcon
+								className="text-(--page-primary-color)"
+								size={3}
+								weight="fill"
+							/>
+						)}
+					</Fragment>
+				))}
+			</div>
+		</section>
+	);
+}
+
+// ---------------------------------------------------------------------------
+// Summary Section
+// ---------------------------------------------------------------------------
+
+function HarvardSummarySection({
+	sectionClassName,
+}: {
+	sectionClassName?: string;
+}) {
+	const section = useResumeStore((state) => state.resume.data.summary);
+
+	// Guard: don't render heading for an empty rich-text field.
+	// TiptapContent renders an empty <p> for blank content, so stripHtml() is
+	// needed in addition to the falsy check on section.content.
+	if (section.hidden || !section.content || !stripHtml(section.content)) {
+		return null;
+	}
+
+	return (
+		<section
+			className={cn(
+				"page-section page-section-summary",
+				sectionClassName,
+			)}
+		>
+			<h6 className="mb-1 text-(--page-primary-color)">
+				{section.title || getSectionTitle("summary")}
+			</h6>
+
+			<div className="section-content">
+				<TiptapContent content={section.content} />
 			</div>
 		</section>
 	);
