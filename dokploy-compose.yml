@@ -40,8 +40,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.reactive-resume.rule=Host(`cv.umhl.dev`)"
-      - "traefik.http.routers.reactive-resume.entrypoints=websecure"
-      - "traefik.http.routers.reactive-resume.middlewares=secure-headers@file,rate-limit@file"
+      - "traefik.http.routers.reactive-resume.entrypoints=web"
+      - "traefik.http.routers.reactive-resume.middlewares=secure-headers@file"
       - "traefik.http.services.reactive-resume.loadbalancer.server.port=3000"
       - "traefik.docker.network=homeserver"
 
