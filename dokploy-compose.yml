@@ -1,7 +1,6 @@
 # ==============================================================================
 # dokploy-compose.yml
-# reactive-resume (custom fork) — isolated stack for cv.umhl.dev
-# Managed exclusively by Dokploy. All secrets injected via Dokploy env UI.
+# reactive-resume — cv.umhl.dev → Traefik:80 → rxresume-app:3000
 # ==============================================================================
 
 services:
@@ -14,7 +13,7 @@ services:
       - internal
       - dokploy-network
     environment:
-      - APP_URL=${APP_URL}
+      - APP_URL=https://cv.umhl.dev
       - AUTH_SECRET=${AUTH_SECRET}
       - PRINTER_ENDPOINT=${PRINTER_ENDPOINT}
       - PRINTER_APP_URL=http://app:3000
@@ -39,10 +38,10 @@ services:
       start_period: 60s
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.reactive-resume.rule=Host(`cv.umhl.dev`)"
-      - "traefik.http.routers.reactive-resume.entrypoints=web"
-      - "traefik.http.routers.reactive-resume.middlewares=secure-headers@file"
-      - "traefik.http.services.reactive-resume.loadbalancer.server.port=3000"
+      - "traefik.http.routers.rxresume.rule=Host(`cv.umhl.dev`)"
+      - "traefik.http.routers.rxresume.entrypoints=web"
+      - "traefik.http.routers.rxresume.middlewares=secure-headers@file"
+      - "traefik.http.services.rxresume.loadbalancer.server.port=3000"
       - "traefik.docker.network=dokploy-network"
 
   postgres:
@@ -86,9 +85,8 @@ services:
 networks:
   internal:
     driver: bridge
-  # Important: dokploy-network is created/managed by Dokploy itself in swarm.
-  # We only reference it by name here, not define it.
-  # no homeserver block anymore
+  dokploy-network:
+    external: true # Dokploy already created this in swarm mode
 
 volumes:
   postgres-data:
