@@ -12,7 +12,7 @@ services:
     restart: unless-stopped
     networks:
       - internal
-      - homeserver
+      - dokploy-network
     environment:
       - APP_URL=${APP_URL}
       - AUTH_SECRET=${AUTH_SECRET}
@@ -43,7 +43,7 @@ services:
       - "traefik.http.routers.reactive-resume.entrypoints=web"
       - "traefik.http.routers.reactive-resume.middlewares=secure-headers@file"
       - "traefik.http.services.reactive-resume.loadbalancer.server.port=3000"
-      - "traefik.docker.network=homeserver"
+      - "traefik.docker.network=dokploy-network"
 
   postgres:
     image: postgres:15-alpine
@@ -86,8 +86,9 @@ services:
 networks:
   internal:
     driver: bridge
-  homeserver:
-    external: true
+  # Important: dokploy-network is created/managed by Dokploy itself in swarm.
+  # We only reference it by name here, not define it.
+  # no homeserver block anymore
 
 volumes:
   postgres-data:
