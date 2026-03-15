@@ -1,6 +1,10 @@
 # ==============================================================================
 # dokploy-compose.yml
 # reactive-resume — cv.umhl.dev → Traefik:80 → rxresume-app:3000
+#
+# Environment variables to set in Dokploy UI:
+# - PRINTER_ENDPOINT: ws://printer:3000?token=<your-printer-token>
+# - PRINTER_TOKEN: <your-printer-token> (used by browserless and for the endpoint)
 # ==============================================================================
 
 services:
@@ -64,6 +68,7 @@ services:
     restart: unless-stopped
     networks:
       - internal
+      - dokploy-network
     environment:
       - TOKEN=${PRINTER_TOKEN}
       - TIMEOUT=60000
