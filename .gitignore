@@ -19,3 +19,5 @@ scripts/**/*.json
 public/workbox-*.js
 public/workbox-*.js.map
 *.filedumps/
+.opencode/
+install.sh

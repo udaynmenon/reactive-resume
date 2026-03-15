@@ -68,7 +68,6 @@ services:
     restart: unless-stopped
     networks:
       - internal
-      - dokploy-network
     environment:
       - TOKEN=${PRINTER_TOKEN}
       - TIMEOUT=60000
