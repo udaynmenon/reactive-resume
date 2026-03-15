@@ -68,6 +68,7 @@ services:
     restart: unless-stopped
     networks:
       - internal
+      - dokploy-network
     environment:
       - TOKEN=${PRINTER_TOKEN}
       - TIMEOUT=60000
@@ -83,12 +84,19 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.printer.rule=Host(`printer.cv.umhl.dev`)"
+      - "traefik.http.routers.printer.entrypoints=web"
+      - "traefik.http.routers.printer.service=printer-svc"
+      - "traefik.http.services.printer-svc.loadbalancer.server.port=3000"
 
 networks:
   internal:
     driver: bridge
   dokploy-network:
-    external: true # Dokploy already created this in swarm mode
+    # Dokploy already created this in swarm mode
+    external: true
 
 volumes:
   postgres-data:
