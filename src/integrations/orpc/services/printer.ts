@@ -17,7 +17,12 @@ async function getBrowser(): Promise<Browser> {
 	// Reuse existing connected browser if available
 	if (browserInstance?.connected) return browserInstance;
 
-	const args = ["--disable-dev-shm-usage", "--disable-features=LocalNetworkAccessChecks,site-per-process,FedCm"];
+	const args = [
+		"--disable-dev-shm-usage",
+		"--disable-features=LocalNetworkAccessChecks,site-per-process,FedCm",
+		"--no-sandbox",
+		"--disable-setuid-sandbox",
+	];
 
 	const endpoint = new URL(env.PRINTER_ENDPOINT);
 	const isWebSocket = endpoint.protocol.startsWith("ws");

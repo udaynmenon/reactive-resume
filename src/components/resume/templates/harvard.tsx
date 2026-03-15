@@ -1,12 +1,6 @@
 // src/components/resume/templates/harvard.tsx
 
-import {
-	CircleIcon,
-	EnvelopeIcon,
-	GlobeIcon,
-	MapPinIcon,
-	PhoneIcon,
-} from "@phosphor-icons/react";
+import { CircleIcon, EnvelopeIcon, GlobeIcon, MapPinIcon, PhoneIcon } from "@phosphor-icons/react";
 import { Fragment } from "react";
 import { TiptapContent } from "@/components/input/rich-input";
 import { getSectionTitle } from "@/utils/resume/section";
@@ -62,52 +56,22 @@ export function HarvardTemplate({ pageIndex, pageLayout }: TemplateProps) {
 	// getSectionComponent() — the same pattern used by every other template.
 	const renderSection = (section: string) => {
 		if (section === "summary") {
-			return (
-				<HarvardSummarySection
-					key={section}
-					sectionClassName={sectionClassName}
-				/>
-			);
+			return <HarvardSummarySection key={section} sectionClassName={sectionClassName} />;
 		}
 		if (section === "experience") {
-			return (
-				<HarvardExperienceSection
-					key={section}
-					sectionClassName={sectionClassName}
-				/>
-			);
+			return <HarvardExperienceSection key={section} sectionClassName={sectionClassName} />;
 		}
 		if (section === "education") {
-			return (
-				<HarvardEducationSection
-					key={section}
-					sectionClassName={sectionClassName}
-				/>
-			);
+			return <HarvardEducationSection key={section} sectionClassName={sectionClassName} />;
 		}
 		if (section === "projects") {
-			return (
-				<HarvardProjectsSection
-					key={section}
-					sectionClassName={sectionClassName}
-				/>
-			);
+			return <HarvardProjectsSection key={section} sectionClassName={sectionClassName} />;
 		}
 		if (section === "skills") {
-			return (
-				<HarvardSkillsSection
-					key={section}
-					sectionClassName={sectionClassName}
-				/>
-			);
+			return <HarvardSkillsSection key={section} sectionClassName={sectionClassName} />;
 		}
 		if (section === "languages") {
-			return (
-				<HarvardLanguagesSection
-					key={section}
-					sectionClassName={sectionClassName}
-				/>
-			);
+			return <HarvardLanguagesSection key={section} sectionClassName={sectionClassName} />;
 		}
 
 		const Component = getSectionComponent(section, { sectionClassName });
@@ -115,21 +79,15 @@ export function HarvardTemplate({ pageIndex, pageLayout }: TemplateProps) {
 	};
 
 	return (
-		<div className="space-y-(--page-gap-y) print:p-0 px-(--page-margin-x) pt-(--page-margin-y) template-harvard page-content">
+		<div className="template-harvard page-content space-y-(--page-gap-y) px-(--page-margin-x) pt-(--page-margin-y) print:p-0">
 			{isFirstPage && <Header />}
 
-			<main
-				data-layout="main"
-				className="group space-y-(--page-gap-y) page-main"
-			>
+			<main data-layout="main" className="group page-main space-y-(--page-gap-y)">
 				{main.map(renderSection)}
 			</main>
 
 			{!fullWidth && (
-				<aside
-					data-layout="sidebar"
-					className="group space-y-(--page-gap-y) page-sidebar"
-				>
+				<aside data-layout="sidebar" className="group page-sidebar space-y-(--page-gap-y)">
 					{sidebar.map(renderSection)}
 				</aside>
 			)}
@@ -145,39 +103,27 @@ function Header() {
 	const basics = useResumeStore((state) => state.resume.data.basics);
 
 	return (
-		<div className="flex justify-between items-center gap-x-(--page-gap-x) page-header">
+		<div className="page-header flex items-center justify-between gap-x-(--page-gap-x)">
 			{/* Left: name, headline, contact row */}
-			<div className="flex-1 space-y-1 page-basics">
+			<div className="page-basics flex-1 space-y-1">
 				<div>
-					<h2 className="text-(--page-primary-color) text-4xl! basics-name">
-						{basics.name}
-					</h2>
-					{basics.headline && (
-						<p className="opacity-75 italic basics-headline">
-							{basics.headline}
-						</p>
-					)}
+					<h2 className="basics-name text-(--page-primary-color) text-4xl!">{basics.name}</h2>
+					{basics.headline && <p className="basics-headline italic opacity-75">{basics.headline}</p>}
 				</div>
 
 				{/* Horizontal contact row */}
-				<div className="flex [&>div]:flex flex-wrap [&>div]:items-center gap-x-5 gap-y-0.5 [&>div]:gap-x-1.5 basics-items">
+				<div className="basics-items flex flex-wrap gap-x-5 gap-y-0.5 [&>div]:flex [&>div]:items-center [&>div]:gap-x-1.5">
 					{basics.email && (
 						<div className="basics-item-email">
 							<EnvelopeIcon />
-							<PageLink
-								url={`mailto:${basics.email}`}
-								label={basics.email}
-							/>
+							<PageLink url={`mailto:${basics.email}`} label={basics.email} />
 						</div>
 					)}
 
 					{basics.phone && (
 						<div className="basics-item-phone">
 							<PhoneIcon />
-							<PageLink
-								url={`tel:${basics.phone}`}
-								label={basics.phone}
-							/>
+							<PageLink url={`tel:${basics.phone}`} label={basics.phone} />
 						</div>
 					)}
 
@@ -198,11 +144,7 @@ function Header() {
 					{basics.customFields.map((field) => (
 						<div key={field.id} className="basics-item-custom">
 							<PageIcon icon={field.icon} />
-							{field.link ? (
-								<PageLink url={field.link} label={field.text} />
-							) : (
-								<span>{field.text}</span>
-							)}
+							{field.link ? <PageLink url={field.link} label={field.text} /> : <span>{field.text}</span>}
 						</div>
 					))}
 				</div>
@@ -225,14 +167,8 @@ function Header() {
 //     templates — fully backward-compatible).
 // ---------------------------------------------------------------------------
 
-function HarvardExperienceSection({
-	sectionClassName,
-}: {
-	sectionClassName?: string;
-}) {
-	const section = useResumeStore(
-		(state) => state.resume.data.sections.experience,
-	);
+function HarvardExperienceSection({ sectionClassName }: { sectionClassName?: string }) {
+	const section = useResumeStore((state) => state.resume.data.sections.experience);
 
 	if (section.hidden) return null;
 
@@ -240,43 +176,29 @@ function HarvardExperienceSection({
 	if (visibleItems.length === 0) return null;
 
 	return (
-		<section
-			className={cn(
-				"page-section page-section-experience",
-				sectionClassName,
-			)}
-		>
-			<h6 className="mb-1 text-(--page-primary-color)">
-				{section.title || getSectionTitle("experience")}
-			</h6>
+		<section className={cn("page-section page-section-experience", sectionClassName)}>
+			<h6 className="mb-1 text-(--page-primary-color)">{section.title || getSectionTitle("experience")}</h6>
 
-			<div className="space-y-(--page-gap-y) section-content">
+			<div className="section-content space-y-(--page-gap-y)">
 				{visibleItems.map((item) => {
 					const hasRoles = item.roles.length > 0;
 
 					return (
 						<div
 							key={item.id}
-							className="print:break-inside-avoid section-item section-item-experience experience-item"
+							className="section-item section-item-experience experience-item print:break-inside-avoid"
 						>
 							{/* Company header row — always shown */}
-							<div className="flex justify-between items-start gap-x-2 section-item-header experience-item-header">
+							<div className="section-item-header experience-item-header flex items-start justify-between gap-x-2">
 								<strong className="experience-item-company section-item-title">
-									{item.options?.showLinkInTitle &&
-									item.website.url ? (
-										<PageLink
-											url={item.website.url}
-											label={
-												item.website.label ||
-												item.company
-											}
-										/>
+									{item.options?.showLinkInTitle && item.website.url ? (
+										<PageLink url={item.website.url} label={item.website.label || item.company} />
 									) : (
 										item.company
 									)}
 								</strong>
 
-								<span className="text-end section-item-metadata experience-item-location shrink-0">
+								<span className="section-item-metadata experience-item-location shrink-0 text-end">
 									{item.location}
 								</span>
 							</div>
@@ -286,14 +208,14 @@ function HarvardExperienceSection({
 								<>
 									{/* Optional overall title / overall period span */}
 									{(item.position || item.period) && (
-										<div className="flex justify-between items-start gap-x-2">
+										<div className="flex items-start justify-between gap-x-2">
 											{item.position && (
-												<span className="opacity-75 italic section-item-metadata experience-item-overall-position">
+												<span className="section-item-metadata experience-item-overall-position italic opacity-75">
 													{item.position}
 												</span>
 											)}
 											{item.period && (
-												<span className="opacity-75 text-end section-item-metadata experience-item-overall-period shrink-0">
+												<span className="section-item-metadata experience-item-overall-period shrink-0 text-end opacity-75">
 													{item.period}
 												</span>
 											)}
@@ -301,32 +223,23 @@ function HarvardExperienceSection({
 									)}
 
 									{/* Individual roles with left accent bar */}
-									<div className="space-y-(--page-gap-y) mt-1 pl-3 border-(--page-primary-color)/25 border-l">
+									<div className="mt-1 space-y-(--page-gap-y) border-(--page-primary-color)/25 border-l pl-3">
 										{item.roles.map((role) => (
-											<div
-												key={role.id}
-												className="print:break-inside-avoid experience-item-role"
-											>
+											<div key={role.id} className="experience-item-role print:break-inside-avoid">
 												{/* Role position + period on same line */}
-												<div className="flex justify-between items-start gap-x-2">
-													<span className="font-medium italic section-item-metadata experience-item-position">
+												<div className="flex items-start justify-between gap-x-2">
+													<span className="section-item-metadata experience-item-position font-medium italic">
 														{role.position}
 													</span>
-													<span className="text-end section-item-metadata experience-item-period shrink-0">
+													<span className="section-item-metadata experience-item-period shrink-0 text-end">
 														{role.period}
 													</span>
 												</div>
 
 												{/* Role description */}
-												{stripHtml(
-													role.description,
-												) && (
+												{stripHtml(role.description) && (
 													<div className="section-item-description experience-item-description">
-														<TiptapContent
-															content={
-																role.description
-															}
-														/>
+														<TiptapContent content={role.description} />
 													</div>
 												)}
 											</div>
@@ -337,11 +250,11 @@ function HarvardExperienceSection({
 								// ── Single-role layout (backward-compatible) ───────────────
 								<>
 									{/* Position + period on same line */}
-									<div className="flex justify-between items-start gap-x-2">
-										<span className="font-medium italic section-item-metadata experience-item-position">
+									<div className="flex items-start justify-between gap-x-2">
+										<span className="section-item-metadata experience-item-position font-medium italic">
 											{item.position}
 										</span>
-										<span className="text-end section-item-metadata experience-item-period shrink-0">
+										<span className="section-item-metadata experience-item-period shrink-0 text-end">
 											{item.period}
 										</span>
 									</div>
@@ -349,25 +262,16 @@ function HarvardExperienceSection({
 									{/* Description */}
 									{stripHtml(item.description) && (
 										<div className="section-item-description experience-item-description">
-											<TiptapContent
-												content={item.description}
-											/>
+											<TiptapContent content={item.description} />
 										</div>
 									)}
 
 									{/* Optional website link (only when not shown in title) */}
-									{!item.options?.showLinkInTitle &&
-										item.website.url && (
-											<div className="mt-0.5 section-item-website experience-item-website">
-												<PageLink
-													url={item.website.url}
-													label={
-														item.website.label ||
-														item.website.url
-													}
-												/>
-											</div>
-										)}
+									{!item.options?.showLinkInTitle && item.website.url && (
+										<div className="section-item-website experience-item-website mt-0.5">
+											<PageLink url={item.website.url} label={item.website.label || item.website.url} />
+										</div>
+									)}
 								</>
 							)}
 						</div>
@@ -382,77 +286,55 @@ function HarvardExperienceSection({
 // Education Section
 // ---------------------------------------------------------------------------
 
-function HarvardEducationSection({
-	sectionClassName,
-}: {
-	sectionClassName?: string;
-}) {
-	const section = useResumeStore(
-		(state) => state.resume.data.sections.education,
-	);
+function HarvardEducationSection({ sectionClassName }: { sectionClassName?: string }) {
+	const section = useResumeStore((state) => state.resume.data.sections.education);
 
 	if (section.hidden) return null;
 	const visibleItems = section.items.filter((item) => !item.hidden);
 	if (visibleItems.length === 0) return null;
 
 	return (
-		<section
-			className={cn(
-				"page-section page-section-education",
-				sectionClassName,
-			)}
-		>
-			<h6 className="mb-1 text-(--page-primary-color)">
-				{section.title || getSectionTitle("education")}
-			</h6>
+		<section className={cn("page-section page-section-education", sectionClassName)}>
+			<h6 className="mb-1 text-(--page-primary-color)">{section.title || getSectionTitle("education")}</h6>
 
-			<div className="space-y-(--page-gap-y) section-content">
+			<div className="section-content space-y-(--page-gap-y)">
 				{visibleItems.map((item) => (
-					<div
-						key={item.id}
-						className="print:break-inside-avoid section-item section-item-education education-item"
-					>
+					<div key={item.id} className="section-item section-item-education education-item print:break-inside-avoid">
 						{/* School + Location */}
-						<div className="flex justify-between items-start gap-x-2 section-item-header education-item-header">
+						<div className="section-item-header education-item-header flex items-start justify-between gap-x-2">
 							<strong className="education-item-school section-item-title">
 								{item.website?.url ? (
 									<PageLink
 										{...item.website}
-										label={
-											item.website.label || item.school
-										}
+										label={item.website.label || item.school}
 										// fix: label fallback, no orphan arrow
 									/>
 								) : (
 									item.school
 								)}
 							</strong>
-							<span className="text-end section-item-metadata education-item-location shrink-0">
-								{item.location}
-							</span>
+							<span className="section-item-metadata education-item-location shrink-0 text-end">{item.location}</span>
 						</div>
 
 						{/* Degree + Period */}
-						<div className="flex justify-between items-start gap-x-2">
-							<span className="font-medium italic section-item-metadata education-item-degree">
+						<div className="flex items-start justify-between gap-x-2">
+							<span className="section-item-metadata education-item-degree font-medium italic">
 								{item.degree}
 								{item.area ? `, ${item.area}` : ""}
 							</span>
-							<span className="text-end section-item-metadata education-item-period shrink-0">
-								{item.period}
-							</span>
+							<span className="section-item-metadata education-item-period shrink-0 text-end">{item.period}</span>
 						</div>
 
 						{/* Grade */}
 						{item.grade && (
-							<div className="opacity-80 mt-0.5 text-[9pt]">
+							<div className="mt-0.5 text-[9pt] opacity-80">
 								<span>Grade: {item.grade}</span>
 							</div>
 						)}
 
 						{/* Description */}
 						{stripHtml(item.description) && (
-							<div className="mt-1 section-item-description education-item-description">
+							<div className="section-item-description education-item-description mt-1">
 								<TiptapContent content={item.description} />
 							</div>
 						)}
@@ -467,51 +349,26 @@ function HarvardEducationSection({
 // Projects Section
 // ---------------------------------------------------------------------------
 
-function HarvardProjectsSection({
-	sectionClassName,
-}: {
-	sectionClassName?: string;
-}) {
-	const section = useResumeStore(
-		(state) => state.resume.data.sections.projects,
-	);
+function HarvardProjectsSection({ sectionClassName }: { sectionClassName?: string }) {
+	const section = useResumeStore((state) => state.resume.data.sections.projects);
 
 	if (section.hidden) return null;
 	const visibleItems = section.items.filter((item) => !item.hidden);
 	if (visibleItems.length === 0) return null;
 
 	return (
-		<section
-			className={cn(
-				"page-section page-section-projects",
-				sectionClassName,
-			)}
-		>
-			<h6 className="mb-1 text-(--page-primary-color)">
-				{section.title || getSectionTitle("projects")}
-			</h6>
+		<section className={cn("page-section page-section-projects", sectionClassName)}>
+			<h6 className="mb-1 text-(--page-primary-color)">{section.title || getSectionTitle("projects")}</h6>
 
-			<div className="space-y-(--page-gap-y) section-content">
+			<div className="section-content space-y-(--page-gap-y)">
 				{visibleItems.map((item) => (
-					<div
-						key={item.id}
-						className="print:break-inside-avoid section-item section-item-projects project-item"
-					>
+					<div key={item.id} className="section-item section-item-projects project-item print:break-inside-avoid">
 						{/* Title + Period */}
-						<div className="flex justify-between items-start gap-x-2 section-item-header projects-item-header">
+						<div className="section-item-header projects-item-header flex items-start justify-between gap-x-2">
 							<strong className="project-item-name section-item-title">
-								{item.website?.url ? (
-									<PageLink
-										{...item.website}
-										label={item.website.label || item.name}
-									/>
-								) : (
-									item.name
-								)}
+								{item.website?.url ? <PageLink {...item.website} label={item.website.label || item.name} /> : item.name}
 							</strong>
-							<span className="text-end section-item-metadata project-item-period shrink-0">
-								{item.period}
-							</span>
+							<span className="section-item-metadata project-item-period shrink-0 text-end">{item.period}</span>
 						</div>
 
 						{/* Description */}
@@ -531,32 +388,22 @@ function HarvardProjectsSection({
 // Skills Section
 // ---------------------------------------------------------------------------
 
-function HarvardSkillsSection({
-	sectionClassName,
-}: {
-	sectionClassName?: string;
-}) {
-	const section = useResumeStore(
-		(state) => state.resume.data.sections.skills,
-	);
+function HarvardSkillsSection({ sectionClassName }: { sectionClassName?: string }) {
+	const section = useResumeStore((state) => state.resume.data.sections.skills);
 
 	if (section.hidden) return null;
 	const visibleItems = section.items.filter((item) => !item.hidden);
 	if (visibleItems.length === 0) return null;
 
 	return (
-		<section
-			className={cn("page-section page-section-skills", sectionClassName)}
-		>
-			<h6 className="mb-1 text-(--page-primary-color)">
-				{section.title || getSectionTitle("skills")}
-			</h6>
+		<section className={cn("page-section page-section-skills", sectionClassName)}>
+			<h6 className="mb-1 text-(--page-primary-color)">{section.title || getSectionTitle("skills")}</h6>
 
-			<div className="space-y-0.5 section-content">
+			<div className="section-content space-y-0.5">
 				{visibleItems.map((item) => (
 					<div
 						key={item.id}
-						className="flex items-center gap-x-1 print:break-inside-avoid section-item section-item-skills skill-item"
+						className="section-item section-item-skills skill-item flex items-center gap-x-1 print:break-inside-avoid"
 					>
 						<span className="font-bold">{item.name}</span>
 
@@ -567,11 +414,7 @@ function HarvardSkillsSection({
 									<Fragment key={`${item.id}-${index}`}>
 										<span>{keyword}</span>
 										{index !== item.keywords.length - 1 && (
-											<CircleIcon
-												className="text-(--page-primary-color)"
-												size={3}
-												weight="fill"
-											/>
+											<CircleIcon className="text-(--page-primary-color)" size={3} weight="fill" />
 										)}
 									</Fragment>
 								))}
@@ -588,48 +431,27 @@ function HarvardSkillsSection({
 // Languages Section
 // ---------------------------------------------------------------------------
 
-function HarvardLanguagesSection({
-	sectionClassName,
-}: {
-	sectionClassName?: string;
-}) {
-	const section = useResumeStore(
-		(state) => state.resume.data.sections.languages,
-	);
+function HarvardLanguagesSection({ sectionClassName }: { sectionClassName?: string }) {
+	const section = useResumeStore((state) => state.resume.data.sections.languages);
 
 	if (section.hidden) return null;
 	const visibleItems = section.items.filter((item) => !item.hidden);
 	if (visibleItems.length === 0) return null;
 
 	return (
-		<section
-			className={cn(
-				"page-section page-section-languages",
-				sectionClassName,
-			)}
-		>
-			<h6 className="mb-1 text-(--page-primary-color)">
-				{section.title || getSectionTitle("languages")}
-			</h6>
+		<section className={cn("page-section page-section-languages", sectionClassName)}>
+			<h6 className="mb-1 text-(--page-primary-color)">{section.title || getSectionTitle("languages")}</h6>
 
-			<div className="flex flex-wrap items-center gap-x-2 section-content">
+			<div className="section-content flex flex-wrap items-center gap-x-2">
 				{visibleItems.map((item, index) => (
 					<Fragment key={item.id}>
-						<div className="flex items-center gap-x-1 print:break-inside-avoid section-item section-item-languages language-item">
+						<div className="section-item section-item-languages language-item flex items-center gap-x-1 print:break-inside-avoid">
 							<span className="font-bold">{item.language}</span>
-							{item.fluency && (
-								<span className="opacity-80 italic">
-									{item.fluency}
-								</span>
-							)}
+							{item.fluency && <span className="italic opacity-80">{item.fluency}</span>}
 						</div>
 
 						{index !== visibleItems.length - 1 && (
-							<CircleIcon
-								className="text-(--page-primary-color)"
-								size={3}
-								weight="fill"
-							/>
+							<CircleIcon className="text-(--page-primary-color)" size={3} weight="fill" />
 						)}
 					</Fragment>
 				))}
@@ -642,11 +464,7 @@ function HarvardLanguagesSection({
 // Summary Section
 // ---------------------------------------------------------------------------
 
-function HarvardSummarySection({
-	sectionClassName,
-}: {
-	sectionClassName?: string;
-}) {
+function HarvardSummarySection({ sectionClassName }: { sectionClassName?: string }) {
 	const section = useResumeStore((state) => state.resume.data.summary);
 
 	// Guard: don't render heading for an empty rich-text field.
@@ -657,15 +475,8 @@ function HarvardSummarySection({
 	}
 
 	return (
-		<section
-			className={cn(
-				"page-section page-section-summary",
-				sectionClassName,
-			)}
-		>
-			<h6 className="mb-1 text-(--page-primary-color)">
-				{section.title || getSectionTitle("summary")}
-			</h6>
+		<section className={cn("page-section page-section-summary", sectionClassName)}>
+			<h6 className="mb-1 text-(--page-primary-color)">{section.title || getSectionTitle("summary")}</h6>
 
 			<div className="section-content">
 				<TiptapContent content={section.content} />
