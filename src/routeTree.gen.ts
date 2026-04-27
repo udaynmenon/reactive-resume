@@ -23,22 +23,32 @@ import { Route as AuthVerify2faRouteImport } from "./routes/auth/verify-2fa";
 import { Route as AuthResumePasswordRouteImport } from "./routes/auth/resume-password";
 import { Route as AuthResetPasswordRouteImport } from "./routes/auth/reset-password";
 import { Route as AuthRegisterRouteImport } from "./routes/auth/register";
+import { Route as AuthOauthRouteImport } from "./routes/auth/oauth";
 import { Route as AuthLoginRouteImport } from "./routes/auth/login";
 import { Route as AuthForgotPasswordRouteImport } from "./routes/auth/forgot-password";
 import { Route as ApiHealthRouteImport } from "./routes/api/health";
+import { Route as DotwellKnownOpenidConfigurationRouteImport } from "./routes/[.]well-known/openid-configuration";
+import { Route as DotwellKnownOauthProtectedResourceRouteImport } from "./routes/[.]well-known/oauth-protected-resource";
+import { Route as DotwellKnownOauthAuthorizationServerRouteImport } from "./routes/[.]well-known/oauth-authorization-server";
+import { Route as DotwellKnownSplatRouteImport } from "./routes/[.]well-known/$";
 import { Route as UsernameSlugRouteImport } from "./routes/$username/$slug";
 import { Route as BuilderResumeIdRouteRouteImport } from "./routes/builder/$resumeId/route";
 import { Route as DashboardResumesIndexRouteImport } from "./routes/dashboard/resumes/index";
+import { Route as DashboardJobSearchIndexRouteImport } from "./routes/dashboard/job-search/index";
 import { Route as BuilderResumeIdIndexRouteImport } from "./routes/builder/$resumeId/index";
 import { Route as UploadsUserIdSplatRouteImport } from "./routes/uploads/$userId.$";
 import { Route as DashboardSettingsProfileRouteImport } from "./routes/dashboard/settings/profile";
 import { Route as DashboardSettingsPreferencesRouteImport } from "./routes/dashboard/settings/preferences";
+import { Route as DashboardSettingsJobSearchRouteImport } from "./routes/dashboard/settings/job-search";
 import { Route as DashboardSettingsDangerZoneRouteImport } from "./routes/dashboard/settings/danger-zone";
 import { Route as DashboardSettingsApiKeysRouteImport } from "./routes/dashboard/settings/api-keys";
 import { Route as DashboardSettingsAiRouteImport } from "./routes/dashboard/settings/ai";
 import { Route as ApiRpcSplatRouteImport } from "./routes/api/rpc.$";
 import { Route as ApiOpenapiSplatRouteImport } from "./routes/api/openapi.$";
 import { Route as ApiAuthSplatRouteImport } from "./routes/api/auth.$";
+import { Route as DotwellKnownOauthProtectedResourceSplatRouteImport } from "./routes/[.]well-known/oauth-protected-resource.$";
+import { Route as DotwellKnownOauthAuthorizationServerSplatRouteImport } from "./routes/[.]well-known/oauth-authorization-server.$";
+import { Route as DotwellKnownMcpServerCardDotjsonRouteImport } from "./routes/[.]well-known/mcp/server-card[.]json";
 import { Route as DashboardSettingsAuthenticationIndexRouteImport } from "./routes/dashboard/settings/authentication/index";
 
 const SchemaDotjsonRoute = SchemaDotjsonRouteImport.update({
@@ -110,6 +120,11 @@ const AuthRegisterRoute = AuthRegisterRouteImport.update({
   path: "/register",
   getParentRoute: () => AuthRouteRoute,
 } as any);
+const AuthOauthRoute = AuthOauthRouteImport.update({
+  id: "/oauth",
+  path: "/oauth",
+  getParentRoute: () => AuthRouteRoute,
+} as any);
 const AuthLoginRoute = AuthLoginRouteImport.update({
   id: "/login",
   path: "/login",
@@ -125,6 +140,29 @@ const ApiHealthRoute = ApiHealthRouteImport.update({
   path: "/api/health",
   getParentRoute: () => rootRouteImport,
 } as any);
+const DotwellKnownOpenidConfigurationRoute =
+  DotwellKnownOpenidConfigurationRouteImport.update({
+    id: "/.well-known/openid-configuration",
+    path: "/.well-known/openid-configuration",
+    getParentRoute: () => rootRouteImport,
+  } as any);
+const DotwellKnownOauthProtectedResourceRoute =
+  DotwellKnownOauthProtectedResourceRouteImport.update({
+    id: "/.well-known/oauth-protected-resource",
+    path: "/.well-known/oauth-protected-resource",
+    getParentRoute: () => rootRouteImport,
+  } as any);
+const DotwellKnownOauthAuthorizationServerRoute =
+  DotwellKnownOauthAuthorizationServerRouteImport.update({
+    id: "/.well-known/oauth-authorization-server",
+    path: "/.well-known/oauth-authorization-server",
+    getParentRoute: () => rootRouteImport,
+  } as any);
+const DotwellKnownSplatRoute = DotwellKnownSplatRouteImport.update({
+  id: "/.well-known/$",
+  path: "/.well-known/$",
+  getParentRoute: () => rootRouteImport,
+} as any);
 const UsernameSlugRoute = UsernameSlugRouteImport.update({
   id: "/$username/$slug",
   path: "/$username/$slug",
@@ -138,6 +176,11 @@ const BuilderResumeIdRouteRoute = BuilderResumeIdRouteRouteImport.update({
 const DashboardResumesIndexRoute = DashboardResumesIndexRouteImport.update({
   id: "/resumes/",
   path: "/resumes/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardJobSearchIndexRoute = DashboardJobSearchIndexRouteImport.update({
+  id: "/job-search/",
+  path: "/job-search/",
   getParentRoute: () => DashboardRouteRoute,
 } as any);
 const BuilderResumeIdIndexRoute = BuilderResumeIdIndexRouteImport.update({
@@ -160,6 +203,12 @@ const DashboardSettingsPreferencesRoute =
   DashboardSettingsPreferencesRouteImport.update({
     id: "/settings/preferences",
     path: "/settings/preferences",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardSettingsJobSearchRoute =
+  DashboardSettingsJobSearchRouteImport.update({
+    id: "/settings/job-search",
+    path: "/settings/job-search",
     getParentRoute: () => DashboardRouteRoute,
   } as any);
 const DashboardSettingsDangerZoneRoute =
@@ -194,6 +243,24 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: "/api/auth/$",
   getParentRoute: () => rootRouteImport,
 } as any);
+const DotwellKnownOauthProtectedResourceSplatRoute =
+  DotwellKnownOauthProtectedResourceSplatRouteImport.update({
+    id: "/$",
+    path: "/$",
+    getParentRoute: () => DotwellKnownOauthProtectedResourceRoute,
+  } as any);
+const DotwellKnownOauthAuthorizationServerSplatRoute =
+  DotwellKnownOauthAuthorizationServerSplatRouteImport.update({
+    id: "/$",
+    path: "/$",
+    getParentRoute: () => DotwellKnownOauthAuthorizationServerRoute,
+  } as any);
+const DotwellKnownMcpServerCardDotjsonRoute =
+  DotwellKnownMcpServerCardDotjsonRouteImport.update({
+    id: "/.well-known/mcp/server-card.json",
+    path: "/.well-known/mcp/server-card.json",
+    getParentRoute: () => rootRouteImport,
+  } as any);
 const DashboardSettingsAuthenticationIndexRoute =
   DashboardSettingsAuthenticationIndexRouteImport.update({
     id: "/settings/authentication/",
@@ -208,9 +275,14 @@ export interface FileRoutesByFullPath {
   "/schema.json": typeof SchemaDotjsonRoute;
   "/builder/$resumeId": typeof BuilderResumeIdRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
+  "/.well-known/$": typeof DotwellKnownSplatRoute;
+  "/.well-known/oauth-authorization-server": typeof DotwellKnownOauthAuthorizationServerRouteWithChildren;
+  "/.well-known/oauth-protected-resource": typeof DotwellKnownOauthProtectedResourceRouteWithChildren;
+  "/.well-known/openid-configuration": typeof DotwellKnownOpenidConfigurationRoute;
   "/api/health": typeof ApiHealthRoute;
   "/auth/forgot-password": typeof AuthForgotPasswordRoute;
   "/auth/login": typeof AuthLoginRoute;
+  "/auth/oauth": typeof AuthOauthRoute;
   "/auth/register": typeof AuthRegisterRoute;
   "/auth/reset-password": typeof AuthResetPasswordRoute;
   "/auth/resume-password": typeof AuthResumePasswordRoute;
@@ -220,25 +292,35 @@ export interface FileRoutesByFullPath {
   "/auth/": typeof AuthIndexRoute;
   "/dashboard/": typeof DashboardIndexRoute;
   "/mcp/": typeof McpIndexRoute;
+  "/.well-known/mcp/server-card.json": typeof DotwellKnownMcpServerCardDotjsonRoute;
+  "/.well-known/oauth-authorization-server/$": typeof DotwellKnownOauthAuthorizationServerSplatRoute;
+  "/.well-known/oauth-protected-resource/$": typeof DotwellKnownOauthProtectedResourceSplatRoute;
   "/api/auth/$": typeof ApiAuthSplatRoute;
   "/api/openapi/$": typeof ApiOpenapiSplatRoute;
   "/api/rpc/$": typeof ApiRpcSplatRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
   "/dashboard/settings/danger-zone": typeof DashboardSettingsDangerZoneRoute;
+  "/dashboard/settings/job-search": typeof DashboardSettingsJobSearchRoute;
   "/dashboard/settings/preferences": typeof DashboardSettingsPreferencesRoute;
   "/dashboard/settings/profile": typeof DashboardSettingsProfileRoute;
   "/uploads/$userId/$": typeof UploadsUserIdSplatRoute;
   "/builder/$resumeId/": typeof BuilderResumeIdIndexRoute;
+  "/dashboard/job-search/": typeof DashboardJobSearchIndexRoute;
   "/dashboard/resumes/": typeof DashboardResumesIndexRoute;
   "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
 }
 export interface FileRoutesByTo {
   "/schema.json": typeof SchemaDotjsonRoute;
   "/$username/$slug": typeof UsernameSlugRoute;
+  "/.well-known/$": typeof DotwellKnownSplatRoute;
+  "/.well-known/oauth-authorization-server": typeof DotwellKnownOauthAuthorizationServerRouteWithChildren;
+  "/.well-known/oauth-protected-resource": typeof DotwellKnownOauthProtectedResourceRouteWithChildren;
+  "/.well-known/openid-configuration": typeof DotwellKnownOpenidConfigurationRoute;
   "/api/health": typeof ApiHealthRoute;
   "/auth/forgot-password": typeof AuthForgotPasswordRoute;
   "/auth/login": typeof AuthLoginRoute;
+  "/auth/oauth": typeof AuthOauthRoute;
   "/auth/register": typeof AuthRegisterRoute;
   "/auth/reset-password": typeof AuthResetPasswordRoute;
   "/auth/resume-password": typeof AuthResumePasswordRoute;
@@ -249,16 +331,21 @@ export interface FileRoutesByTo {
   "/auth": typeof AuthIndexRoute;
   "/dashboard": typeof DashboardIndexRoute;
   "/mcp": typeof McpIndexRoute;
+  "/.well-known/mcp/server-card.json": typeof DotwellKnownMcpServerCardDotjsonRoute;
+  "/.well-known/oauth-authorization-server/$": typeof DotwellKnownOauthAuthorizationServerSplatRoute;
+  "/.well-known/oauth-protected-resource/$": typeof DotwellKnownOauthProtectedResourceSplatRoute;
   "/api/auth/$": typeof ApiAuthSplatRoute;
   "/api/openapi/$": typeof ApiOpenapiSplatRoute;
   "/api/rpc/$": typeof ApiRpcSplatRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
   "/dashboard/settings/danger-zone": typeof DashboardSettingsDangerZoneRoute;
+  "/dashboard/settings/job-search": typeof DashboardSettingsJobSearchRoute;
   "/dashboard/settings/preferences": typeof DashboardSettingsPreferencesRoute;
   "/dashboard/settings/profile": typeof DashboardSettingsProfileRoute;
   "/uploads/$userId/$": typeof UploadsUserIdSplatRoute;
   "/builder/$resumeId": typeof BuilderResumeIdIndexRoute;
+  "/dashboard/job-search": typeof DashboardJobSearchIndexRoute;
   "/dashboard/resumes": typeof DashboardResumesIndexRoute;
   "/dashboard/settings/authentication": typeof DashboardSettingsAuthenticationIndexRoute;
 }
@@ -270,9 +357,14 @@ export interface FileRoutesById {
   "/schema.json": typeof SchemaDotjsonRoute;
   "/builder/$resumeId": typeof BuilderResumeIdRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
+  "/.well-known/$": typeof DotwellKnownSplatRoute;
+  "/.well-known/oauth-authorization-server": typeof DotwellKnownOauthAuthorizationServerRouteWithChildren;
+  "/.well-known/oauth-protected-resource": typeof DotwellKnownOauthProtectedResourceRouteWithChildren;
+  "/.well-known/openid-configuration": typeof DotwellKnownOpenidConfigurationRoute;
   "/api/health": typeof ApiHealthRoute;
   "/auth/forgot-password": typeof AuthForgotPasswordRoute;
   "/auth/login": typeof AuthLoginRoute;
+  "/auth/oauth": typeof AuthOauthRoute;
   "/auth/register": typeof AuthRegisterRoute;
   "/auth/reset-password": typeof AuthResetPasswordRoute;
   "/auth/resume-password": typeof AuthResumePasswordRoute;
@@ -283,16 +375,21 @@ export interface FileRoutesById {
   "/auth/": typeof AuthIndexRoute;
   "/dashboard/": typeof DashboardIndexRoute;
   "/mcp/": typeof McpIndexRoute;
+  "/.well-known/mcp/server-card.json": typeof DotwellKnownMcpServerCardDotjsonRoute;
+  "/.well-known/oauth-authorization-server/$": typeof DotwellKnownOauthAuthorizationServerSplatRoute;
+  "/.well-known/oauth-protected-resource/$": typeof DotwellKnownOauthProtectedResourceSplatRoute;
   "/api/auth/$": typeof ApiAuthSplatRoute;
   "/api/openapi/$": typeof ApiOpenapiSplatRoute;
   "/api/rpc/$": typeof ApiRpcSplatRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
   "/dashboard/settings/danger-zone": typeof DashboardSettingsDangerZoneRoute;
+  "/dashboard/settings/job-search": typeof DashboardSettingsJobSearchRoute;
   "/dashboard/settings/preferences": typeof DashboardSettingsPreferencesRoute;
   "/dashboard/settings/profile": typeof DashboardSettingsProfileRoute;
   "/uploads/$userId/$": typeof UploadsUserIdSplatRoute;
   "/builder/$resumeId/": typeof BuilderResumeIdIndexRoute;
+  "/dashboard/job-search/": typeof DashboardJobSearchIndexRoute;
   "/dashboard/resumes/": typeof DashboardResumesIndexRoute;
   "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
 }
@@ -305,9 +402,14 @@ export interface FileRouteTypes {
     | "/schema.json"
     | "/builder/$resumeId"
     | "/$username/$slug"
+    | "/.well-known/$"
+    | "/.well-known/oauth-authorization-server"
+    | "/.well-known/oauth-protected-resource"
+    | "/.well-known/openid-configuration"
     | "/api/health"
     | "/auth/forgot-password"
     | "/auth/login"
+    | "/auth/oauth"
     | "/auth/register"
     | "/auth/reset-password"
     | "/auth/resume-password"
@@ -317,25 +419,35 @@ export interface FileRouteTypes {
     | "/auth/"
     | "/dashboard/"
     | "/mcp/"
+    | "/.well-known/mcp/server-card.json"
+    | "/.well-known/oauth-authorization-server/$"
+    | "/.well-known/oauth-protected-resource/$"
     | "/api/auth/$"
     | "/api/openapi/$"
     | "/api/rpc/$"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
     | "/dashboard/settings/danger-zone"
+    | "/dashboard/settings/job-search"
     | "/dashboard/settings/preferences"
     | "/dashboard/settings/profile"
     | "/uploads/$userId/$"
     | "/builder/$resumeId/"
+    | "/dashboard/job-search/"
     | "/dashboard/resumes/"
     | "/dashboard/settings/authentication/";
   fileRoutesByTo: FileRoutesByTo;
   to:
     | "/schema.json"
     | "/$username/$slug"
+    | "/.well-known/$"
+    | "/.well-known/oauth-authorization-server"
+    | "/.well-known/oauth-protected-resource"
+    | "/.well-known/openid-configuration"
     | "/api/health"
     | "/auth/forgot-password"
     | "/auth/login"
+    | "/auth/oauth"
     | "/auth/register"
     | "/auth/reset-password"
     | "/auth/resume-password"
@@ -346,16 +458,21 @@ export interface FileRouteTypes {
     | "/auth"
     | "/dashboard"
     | "/mcp"
+    | "/.well-known/mcp/server-card.json"
+    | "/.well-known/oauth-authorization-server/$"
+    | "/.well-known/oauth-protected-resource/$"
     | "/api/auth/$"
     | "/api/openapi/$"
     | "/api/rpc/$"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
     | "/dashboard/settings/danger-zone"
+    | "/dashboard/settings/job-search"
     | "/dashboard/settings/preferences"
     | "/dashboard/settings/profile"
     | "/uploads/$userId/$"
     | "/builder/$resumeId"
+    | "/dashboard/job-search"
     | "/dashboard/resumes"
     | "/dashboard/settings/authentication";
   id:
@@ -366,9 +483,14 @@ export interface FileRouteTypes {
     | "/schema.json"
     | "/builder/$resumeId"
     | "/$username/$slug"
+    | "/.well-known/$"
+    | "/.well-known/oauth-authorization-server"
+    | "/.well-known/oauth-protected-resource"
+    | "/.well-known/openid-configuration"
     | "/api/health"
     | "/auth/forgot-password"
     | "/auth/login"
+    | "/auth/oauth"
     | "/auth/register"
     | "/auth/reset-password"
     | "/auth/resume-password"
@@ -379,16 +501,21 @@ export interface FileRouteTypes {
     | "/auth/"
     | "/dashboard/"
     | "/mcp/"
+    | "/.well-known/mcp/server-card.json"
+    | "/.well-known/oauth-authorization-server/$"
+    | "/.well-known/oauth-protected-resource/$"
     | "/api/auth/$"
     | "/api/openapi/$"
     | "/api/rpc/$"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
     | "/dashboard/settings/danger-zone"
+    | "/dashboard/settings/job-search"
     | "/dashboard/settings/preferences"
     | "/dashboard/settings/profile"
     | "/uploads/$userId/$"
     | "/builder/$resumeId/"
+    | "/dashboard/job-search/"
     | "/dashboard/resumes/"
     | "/dashboard/settings/authentication/";
   fileRoutesById: FileRoutesById;
@@ -400,9 +527,14 @@ export interface RootRouteChildren {
   SchemaDotjsonRoute: typeof SchemaDotjsonRoute;
   BuilderResumeIdRouteRoute: typeof BuilderResumeIdRouteRouteWithChildren;
   UsernameSlugRoute: typeof UsernameSlugRoute;
+  DotwellKnownSplatRoute: typeof DotwellKnownSplatRoute;
+  DotwellKnownOauthAuthorizationServerRoute: typeof DotwellKnownOauthAuthorizationServerRouteWithChildren;
+  DotwellKnownOauthProtectedResourceRoute: typeof DotwellKnownOauthProtectedResourceRouteWithChildren;
+  DotwellKnownOpenidConfigurationRoute: typeof DotwellKnownOpenidConfigurationRoute;
   ApiHealthRoute: typeof ApiHealthRoute;
   PrinterResumeIdRoute: typeof PrinterResumeIdRoute;
   McpIndexRoute: typeof McpIndexRoute;
+  DotwellKnownMcpServerCardDotjsonRoute: typeof DotwellKnownMcpServerCardDotjsonRoute;
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute;
   ApiOpenapiSplatRoute: typeof ApiOpenapiSplatRoute;
   ApiRpcSplatRoute: typeof ApiRpcSplatRoute;
@@ -509,6 +641,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AuthRegisterRouteImport;
       parentRoute: typeof AuthRouteRoute;
     };
+    "/auth/oauth": {
+      id: "/auth/oauth";
+      path: "/oauth";
+      fullPath: "/auth/oauth";
+      preLoaderRoute: typeof AuthOauthRouteImport;
+      parentRoute: typeof AuthRouteRoute;
+    };
     "/auth/login": {
       id: "/auth/login";
       path: "/login";
@@ -530,6 +669,34 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof ApiHealthRouteImport;
       parentRoute: typeof rootRouteImport;
     };
+    "/.well-known/openid-configuration": {
+      id: "/.well-known/openid-configuration";
+      path: "/.well-known/openid-configuration";
+      fullPath: "/.well-known/openid-configuration";
+      preLoaderRoute: typeof DotwellKnownOpenidConfigurationRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/.well-known/oauth-protected-resource": {
+      id: "/.well-known/oauth-protected-resource";
+      path: "/.well-known/oauth-protected-resource";
+      fullPath: "/.well-known/oauth-protected-resource";
+      preLoaderRoute: typeof DotwellKnownOauthProtectedResourceRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/.well-known/oauth-authorization-server": {
+      id: "/.well-known/oauth-authorization-server";
+      path: "/.well-known/oauth-authorization-server";
+      fullPath: "/.well-known/oauth-authorization-server";
+      preLoaderRoute: typeof DotwellKnownOauthAuthorizationServerRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/.well-known/$": {
+      id: "/.well-known/$";
+      path: "/.well-known/$";
+      fullPath: "/.well-known/$";
+      preLoaderRoute: typeof DotwellKnownSplatRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     "/$username/$slug": {
       id: "/$username/$slug";
       path: "/$username/$slug";
@@ -549,6 +716,13 @@ declare module "@tanstack/react-router" {
       path: "/resumes";
       fullPath: "/dashboard/resumes/";
       preLoaderRoute: typeof DashboardResumesIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/job-search/": {
+      id: "/dashboard/job-search/";
+      path: "/job-search";
+      fullPath: "/dashboard/job-search/";
+      preLoaderRoute: typeof DashboardJobSearchIndexRouteImport;
       parentRoute: typeof DashboardRouteRoute;
     };
     "/builder/$resumeId/": {
@@ -577,6 +751,13 @@ declare module "@tanstack/react-router" {
       path: "/settings/preferences";
       fullPath: "/dashboard/settings/preferences";
       preLoaderRoute: typeof DashboardSettingsPreferencesRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/settings/job-search": {
+      id: "/dashboard/settings/job-search";
+      path: "/settings/job-search";
+      fullPath: "/dashboard/settings/job-search";
+      preLoaderRoute: typeof DashboardSettingsJobSearchRouteImport;
       parentRoute: typeof DashboardRouteRoute;
     };
     "/dashboard/settings/danger-zone": {
@@ -621,6 +802,27 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof ApiAuthSplatRouteImport;
       parentRoute: typeof rootRouteImport;
     };
+    "/.well-known/oauth-protected-resource/$": {
+      id: "/.well-known/oauth-protected-resource/$";
+      path: "/$";
+      fullPath: "/.well-known/oauth-protected-resource/$";
+      preLoaderRoute: typeof DotwellKnownOauthProtectedResourceSplatRouteImport;
+      parentRoute: typeof DotwellKnownOauthProtectedResourceRoute;
+    };
+    "/.well-known/oauth-authorization-server/$": {
+      id: "/.well-known/oauth-authorization-server/$";
+      path: "/$";
+      fullPath: "/.well-known/oauth-authorization-server/$";
+      preLoaderRoute: typeof DotwellKnownOauthAuthorizationServerSplatRouteImport;
+      parentRoute: typeof DotwellKnownOauthAuthorizationServerRoute;
+    };
+    "/.well-known/mcp/server-card.json": {
+      id: "/.well-known/mcp/server-card.json";
+      path: "/.well-known/mcp/server-card.json";
+      fullPath: "/.well-known/mcp/server-card.json";
+      preLoaderRoute: typeof DotwellKnownMcpServerCardDotjsonRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     "/dashboard/settings/authentication/": {
       id: "/dashboard/settings/authentication/";
       path: "/settings/authentication";
@@ -646,6 +848,7 @@ const HomeRouteRouteWithChildren = HomeRouteRoute._addFileChildren(
 interface AuthRouteRouteChildren {
   AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute;
   AuthLoginRoute: typeof AuthLoginRoute;
+  AuthOauthRoute: typeof AuthOauthRoute;
   AuthRegisterRoute: typeof AuthRegisterRoute;
   AuthResetPasswordRoute: typeof AuthResetPasswordRoute;
   AuthResumePasswordRoute: typeof AuthResumePasswordRoute;
@@ -657,6 +860,7 @@ interface AuthRouteRouteChildren {
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
   AuthForgotPasswordRoute: AuthForgotPasswordRoute,
   AuthLoginRoute: AuthLoginRoute,
+  AuthOauthRoute: AuthOauthRoute,
   AuthRegisterRoute: AuthRegisterRoute,
   AuthResetPasswordRoute: AuthResetPasswordRoute,
   AuthResumePasswordRoute: AuthResumePasswordRoute,
@@ -674,8 +878,10 @@ interface DashboardRouteRouteChildren {
   DashboardSettingsAiRoute: typeof DashboardSettingsAiRoute;
   DashboardSettingsApiKeysRoute: typeof DashboardSettingsApiKeysRoute;
   DashboardSettingsDangerZoneRoute: typeof DashboardSettingsDangerZoneRoute;
+  DashboardSettingsJobSearchRoute: typeof DashboardSettingsJobSearchRoute;
   DashboardSettingsPreferencesRoute: typeof DashboardSettingsPreferencesRoute;
   DashboardSettingsProfileRoute: typeof DashboardSettingsProfileRoute;
+  DashboardJobSearchIndexRoute: typeof DashboardJobSearchIndexRoute;
   DashboardResumesIndexRoute: typeof DashboardResumesIndexRoute;
   DashboardSettingsAuthenticationIndexRoute: typeof DashboardSettingsAuthenticationIndexRoute;
 }
@@ -685,8 +891,10 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardSettingsAiRoute: DashboardSettingsAiRoute,
   DashboardSettingsApiKeysRoute: DashboardSettingsApiKeysRoute,
   DashboardSettingsDangerZoneRoute: DashboardSettingsDangerZoneRoute,
+  DashboardSettingsJobSearchRoute: DashboardSettingsJobSearchRoute,
   DashboardSettingsPreferencesRoute: DashboardSettingsPreferencesRoute,
   DashboardSettingsProfileRoute: DashboardSettingsProfileRoute,
+  DashboardJobSearchIndexRoute: DashboardJobSearchIndexRoute,
   DashboardResumesIndexRoute: DashboardResumesIndexRoute,
   DashboardSettingsAuthenticationIndexRoute:
     DashboardSettingsAuthenticationIndexRoute,
@@ -707,6 +915,36 @@ const BuilderResumeIdRouteRouteChildren: BuilderResumeIdRouteRouteChildren = {
 const BuilderResumeIdRouteRouteWithChildren =
   BuilderResumeIdRouteRoute._addFileChildren(BuilderResumeIdRouteRouteChildren);
 
+interface DotwellKnownOauthAuthorizationServerRouteChildren {
+  DotwellKnownOauthAuthorizationServerSplatRoute: typeof DotwellKnownOauthAuthorizationServerSplatRoute;
+}
+
+const DotwellKnownOauthAuthorizationServerRouteChildren: DotwellKnownOauthAuthorizationServerRouteChildren =
+  {
+    DotwellKnownOauthAuthorizationServerSplatRoute:
+      DotwellKnownOauthAuthorizationServerSplatRoute,
+  };
+
+const DotwellKnownOauthAuthorizationServerRouteWithChildren =
+  DotwellKnownOauthAuthorizationServerRoute._addFileChildren(
+    DotwellKnownOauthAuthorizationServerRouteChildren,
+  );
+
+interface DotwellKnownOauthProtectedResourceRouteChildren {
+  DotwellKnownOauthProtectedResourceSplatRoute: typeof DotwellKnownOauthProtectedResourceSplatRoute;
+}
+
+const DotwellKnownOauthProtectedResourceRouteChildren: DotwellKnownOauthProtectedResourceRouteChildren =
+  {
+    DotwellKnownOauthProtectedResourceSplatRoute:
+      DotwellKnownOauthProtectedResourceSplatRoute,
+  };
+
+const DotwellKnownOauthProtectedResourceRouteWithChildren =
+  DotwellKnownOauthProtectedResourceRoute._addFileChildren(
+    DotwellKnownOauthProtectedResourceRouteChildren,
+  );
+
 const rootRouteChildren: RootRouteChildren = {
   HomeRouteRoute: HomeRouteRouteWithChildren,
   AuthRouteRoute: AuthRouteRouteWithChildren,
@@ -714,9 +952,16 @@ const rootRouteChildren: RootRouteChildren = {
   SchemaDotjsonRoute: SchemaDotjsonRoute,
   BuilderResumeIdRouteRoute: BuilderResumeIdRouteRouteWithChildren,
   UsernameSlugRoute: UsernameSlugRoute,
+  DotwellKnownSplatRoute: DotwellKnownSplatRoute,
+  DotwellKnownOauthAuthorizationServerRoute:
+    DotwellKnownOauthAuthorizationServerRouteWithChildren,
+  DotwellKnownOauthProtectedResourceRoute:
+    DotwellKnownOauthProtectedResourceRouteWithChildren,
+  DotwellKnownOpenidConfigurationRoute: DotwellKnownOpenidConfigurationRoute,
   ApiHealthRoute: ApiHealthRoute,
   PrinterResumeIdRoute: PrinterResumeIdRoute,
   McpIndexRoute: McpIndexRoute,
+  DotwellKnownMcpServerCardDotjsonRoute: DotwellKnownMcpServerCardDotjsonRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiOpenapiSplatRoute: ApiOpenapiSplatRoute,
   ApiRpcSplatRoute: ApiRpcSplatRoute,

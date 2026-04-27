@@ -1,0 +1,38 @@
+name: autofix.ci
+
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  autofix:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v6
+
+      - name: Setup Vite+
+        uses: voidzero-dev/setup-vp@v1
+        with:
+          node-version: "24"
+          cache: true
+
+      - name: Install Dependencies
+        run: vp install --frozen-lockfile
+
+      - name: Run Tests
+        run: vp test
+
+      - name: Run Lint and Format
+        run: vp check --fix
+
+      - name: Autofix
+        uses: autofix-ci/action@7a166d7532b277f34e16238930461bf77f9d7ed8

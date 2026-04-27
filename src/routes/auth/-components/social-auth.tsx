@@ -1,98 +1,177 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { GithubLogoIcon, GoogleLogoIcon, VaultIcon } from "@phosphor-icons/react";
+import { FingerprintIcon, GithubLogoIcon, GoogleLogoIcon, LinkedinLogoIcon, VaultIcon } from "@phosphor-icons/react";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "@tanstack/react-router";
 import { toast } from "sonner";
+
+import type { RouterOutput } from "@/integrations/orpc/client";
+
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { authClient } from "@/integrations/auth/client";
 import { orpc } from "@/integrations/orpc/client";
 import { cn } from "@/utils/style";
 
 export function SocialAuth() {
-	const router = useRouter();
-	const { data: authProviders = {} } = useQuery(orpc.auth.providers.list.queryOptions());
+  const { data: providers = {}, isLoading } = useQuery(orpc.auth.providers.list.queryOptions());
 
-	const handleSocialLogin = async (provider: string) => {
-		const toastId = toast.loading(t`Signing in...`);
+  return (
+    <>
+      <div className="flex items-center gap-x-2">
+        <hr className="flex-1" />
+        <span className="text-xs font-medium tracking-wide">
+          <Trans context="Choose to authenticate with a social provider (Google, GitHub, etc.) instead of email and password">
+            or continue with
+          </Trans>
+        </span>
+        <hr className="flex-1" />
+      </div>
 
-		const { error } = await authClient.signIn.social({
-			provider,
-			callbackURL: "/dashboard",
-		});
+      {isLoading ? <SocialAuthSkeleton /> : <SocialAuthButtons providers={providers} />}
+    </>
+  );
+}
 
-		if (error) {
-			toast.error(error.message, { id: toastId });
-			return;
-		}
+function SocialAuthSkeleton() {
+  return (
+    <div className="grid grid-cols-2 gap-4">
+      <Skeleton className="h-9 w-full" />
+      <Skeleton className="h-9 w-full" />
+      <Skeleton className="h-9 w-full" />
+      <Skeleton className="h-9 w-full" />
+    </div>
+  );
+}
 
-		toast.dismiss(toastId);
-		router.invalidate();
-	};
+type SocialAuthButtonsProps = {
+  providers: RouterOutput["auth"]["providers"]["list"];
+};
 
-	const handleOAuthLogin = async () => {
-		const toastId = toast.loading(t`Signing in...`);
+function SocialAuthButtons({ providers }: SocialAuthButtonsProps) {
+  const router = useRouter();
 
-		const { error } = await authClient.signIn.oauth2({
-			providerId: "custom",
-			callbackURL: "/dashboard",
-		});
+  const handleSocialLogin = async (provider: string) => {
+    const toastId = toast.loading(t`Signing in...`);
 
-		if (error) {
-			toast.error(error.message, { id: toastId });
-			return;
-		}
+    const { error } = await authClient.signIn.social({
+      provider,
+      callbackURL: "/dashboard",
+    });
 
-		toast.dismiss(toastId);
-		router.invalidate();
-	};
+    if (error) {
+      toast.error(
+        error.message ||
+          t({
+            comment: "Fallback toast when social sign-in fails without a provider error message",
+            message: "Failed to sign in. Please try again.",
+          }),
+        { id: toastId },
+      );
+      return;
+    }
 
-	return (
-		<>
-			<div className="flex items-center gap-x-2">
-				<hr className="flex-1" />
-				<span className="font-medium text-xs tracking-wide">
-					<Trans context="Choose to authenticate with a social provider (Google, GitHub, etc.) instead of email and password">
-						or continue with
-					</Trans>
-				</span>
-				<hr className="flex-1" />
-			</div>
+    toast.dismiss(toastId);
+    await router.invalidate();
+  };
 
-			<div>
-				<div className="grid grid-cols-2 gap-4">
-					<Button
-						variant="secondary"
-						onClick={handleOAuthLogin}
-						className={cn("hidden", "custom" in authProviders && "inline-flex")}
-					>
-						<VaultIcon />
-						{authProviders.custom}
-					</Button>
+  const handleOAuthLogin = async () => {
+    const toastId = toast.loading(t`Signing in...`);
 
-					<Button
-						onClick={() => handleSocialLogin("google")}
-						className={cn(
-							"hidden flex-1 bg-[#4285F4] text-white hover:bg-[#4285F4]/80",
-							"google" in authProviders && "inline-flex",
-						)}
-					>
-						<GoogleLogoIcon />
-						Google
-					</Button>
+    const { error } = await authClient.signIn.oauth2({
+      providerId: "custom",
+      callbackURL: "/dashboard",
+    });
 
-					<Button
-						onClick={() => handleSocialLogin("github")}
-						className={cn(
-							"hidden flex-1 bg-[#2b3137] text-white hover:bg-[#2b3137]/80",
-							"github" in authProviders && "inline-flex",
-						)}
-					>
-						<GithubLogoIcon />
-						GitHub
-					</Button>
-				</div>
-			</div>
-		</>
-	);
+    if (error) {
+      toast.error(
+        error.message ||
+          t({
+            comment: "Fallback toast when custom OAuth sign-in fails without a provider error message",
+            message: "Failed to sign in. Please try again.",
+          }),
+        { id: toastId },
+      );
+      return;
+    }
+
+    toast.dismiss(toastId);
+    await router.invalidate();
+  };
+
+  const handlePasskeyLogin = async () => {
+    const toastId = toast.loading(t`Signing in...`);
+
+    const { error } = await authClient.signIn.passkey({ autoFill: false });
+
+    if (error) {
+      toast.error(
+        error.message ||
+          t({
+            comment: "Fallback toast when passkey sign-in fails without an error message",
+            message: "Failed to sign in. Please try again.",
+          }),
+        { id: toastId },
+      );
+      return;
+    }
+
+    toast.dismiss(toastId);
+    await router.invalidate();
+  };
+
+  return (
+    <div className="grid grid-cols-2 gap-4">
+      <Button
+        variant="secondary"
+        onClick={handleOAuthLogin}
+        className={cn("hidden", "custom" in providers && "inline-flex")}
+      >
+        <VaultIcon />
+        {providers.custom}
+      </Button>
+
+      <Button
+        variant="secondary"
+        onClick={handlePasskeyLogin}
+        className={cn("hidden", "passkey" in providers && "inline-flex")}
+      >
+        <FingerprintIcon />
+        <Trans comment="Label for passkey sign-in button">Passkey</Trans>
+      </Button>
+
+      <Button
+        onClick={() => handleSocialLogin("google")}
+        className={cn(
+          "hidden flex-1 bg-[#4285F4] text-white hover:bg-[#4285F4]/80",
+          "google" in providers && "inline-flex",
+        )}
+      >
+        <GoogleLogoIcon />
+        <Trans comment="Brand name label for Google social sign-in button">Google</Trans>
+      </Button>
+
+      <Button
+        onClick={() => handleSocialLogin("github")}
+        className={cn(
+          "hidden flex-1 bg-[#2b3137] text-white hover:bg-[#2b3137]/80",
+          "github" in providers && "inline-flex",
+        )}
+      >
+        <GithubLogoIcon />
+        <Trans comment="Brand name label for GitHub social sign-in button">GitHub</Trans>
+      </Button>
+
+      <Button
+        onClick={() => handleSocialLogin("linkedin")}
+        className={cn(
+          "hidden flex-1 bg-[#0A66C2] text-white hover:bg-[#0A66C2]/80",
+          "linkedin" in providers && "inline-flex",
+        )}
+      >
+        <LinkedinLogoIcon />
+        <Trans comment="Brand name label for LinkedIn social sign-in button">LinkedIn</Trans>
+      </Button>
+    </div>
+  );
 }

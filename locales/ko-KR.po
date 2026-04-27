@@ -8,15 +8,15 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: reactive-resume\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-03-05 10:46\n"
+"PO-Revision-Date: 2026-04-27 06:49\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Crowdin-Project: reactive-resume\n"
 "X-Crowdin-Project-ID: 503410\n"
 "X-Crowdin-Language: ko\n"
-"X-Crowdin-File: /main/locales/en-US.po\n"
-"X-Crowdin-File-ID: 518\n"
+"X-Crowdin-File: /locales/en-US.po\n"
+"X-Crowdin-File-ID: 536\n"
 
 #. js-lingui-explicit-id
 #: src/routes/dashboard/resumes/index.tsx
@@ -45,21 +45,43 @@ msgstr "{0, plural, other {#개 항목}}"
 #. placeholder {0}: item.roles.length
 #: src/routes/builder/$resumeId/-sidebar/left/sections/experience.tsx
 msgid "{0, plural, one {# role} other {# roles}}"
-msgstr ""
+msgstr "{0, plural, other {# 개 역할}}"
+
+#. placeholder {0}: quota.used
+#. placeholder {1}: quota.limit
+#: src/routes/dashboard/job-search/index.tsx
+msgid "{0} / {1} requests used"
+msgstr "{0} / {1} 사용 요청"
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "{column, plural, one {# Column} other {# Columns}}"
 msgstr "{column, plural, other {#개 열}}"
 
+#: src/routes/dashboard/job-search/-components/job-utils.ts
+msgid "{diffDays, plural, one {# day ago} other {# days ago}}"
+msgstr "{diffDays, plural, one {#일전} other {#일전}}"
+
+#: src/routes/dashboard/job-search/-components/job-utils.ts
+msgid "{months, plural, one {# month ago} other {# months ago}}"
+msgstr "{months, plural, one {# 한달 전} other {# 한달 전}}"
+
+#: src/routes/dashboard/settings/job-search.tsx
+msgid "{used} of {limit} requests used ({remaining} remaining)"
+msgstr "{used} 사용된 {limit} 요청 중 ({remaining} 남은)"
+
+#: src/routes/dashboard/job-search/-components/job-utils.ts
+msgid "{weeks, plural, one {# week ago} other {# weeks ago}}"
+msgstr "{weeks, plural, one {#주전} other {#주전}}"
+
 #: src/routes/_home/-sections/hero.tsx
 msgid "<0>Finally,</0><1>A free and open-source resume builder</1>"
 msgstr "<0>마침내,</0><1>무료 오픈 소스 이력서 작성 도구</1>"
 
 #: src/routes/_home/-sections/faq.tsx
-msgctxt "Every word needs to be wrapped in a tag"
+msgctxt "Home page FAQ section heading with each word visually separated into individual spans"
 msgid "<0>Frequently</0><1>Asked</1><2>Questions</2>"
-msgstr "<0>자주</0><1>묻는</1><2>질문</2>"
+msgstr "<0>자주 묻는 질문</0><1>자주 묻는 질문</1><2>질문</2>"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
 msgid "<0>Thank you for using Reactive Resume! This app is a labor of love, created mostly in my spare time, with wonderful support from open-source contributors around the world.</0><1>If Reactive Resume has been helpful to you, and you'd like to help keep it free and open for everyone, please consider making a donation. Every little bit is appreciated!</1>"
@@ -110,10 +132,10 @@ msgstr "새로운 인증 링크가 이메일 주소로 전송되었습니다. �
 msgid "A passion project by <0>Amruth Pillai</0>."
 msgstr "<0>Amruth Pillai</0>가 만든 열정 프로젝트입니다."
 
-#: src/dialogs/resume/index.tsx
-#: src/dialogs/resume/index.tsx
-msgid "A resume with this slug already exists."
-msgstr "이 슬러그를 사용하는 이력서가 이미 존재합니다."
+#. Error description when generated slug for duplicated tailored resume already exists
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "A resume with this slug already exists. Please try again."
+msgstr "이 슬러그가 포함된 이력서가 이미 있습니다. 다시 시도하세요."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "A4"
@@ -131,6 +153,11 @@ msgstr "API를 사용해 이력서와 데이터를 프로그래밍 방식으로 
 msgid "Add a custom field"
 msgstr "사용자 지정 필드 추가"
 
+#: src/components/input/chip-input.tsx
+msgid "Add a keyword..."
+msgstr "키워드 추가..."
+
+#. Tooltip for action button that opens URL label editor
 #: src/components/input/url-input.tsx
 msgid "Add a label to the URL"
 msgstr "URL에 레이블 추가"
@@ -200,9 +227,13 @@ msgstr "뒤에 열 추가"
 msgid "Add Column Before"
 msgstr "앞에 열 추가"
 
+#: src/components/input/chip-input.tsx
+msgid "Add keyword"
+msgstr "키워드 추가"
+
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Add multiple roles to show career progression at the same company."
-msgstr ""
+msgstr "같은 회사에서의 경력 발전을 보여주기 위해 여러 역할을 추가하세요."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Add Page"
@@ -210,7 +241,7 @@ msgstr "페이지 추가"
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Add Role"
-msgstr ""
+msgstr "역할 추가"
 
 #: src/components/input/rich-input.tsx
 msgid "Add Row After"
@@ -220,22 +251,26 @@ msgstr "뒤에 행 추가"
 msgid "Add Row Before"
 msgstr "앞에 행 추가"
 
-#: src/components/ai/chat.tsx
-msgid "Added"
-msgstr ""
+#. placeholder {0}: skillsToSync.length
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "Added {0} new skills to your original resume"
+msgstr "기존 이력서에 {0} 새 기술 추가"
+
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Advanced Filters"
+msgstr "고급 필터"
 
 #: src/utils/locale.ts
 msgid "Afrikaans"
 msgstr "아프리칸스어"
 
 #: src/dialogs/resume/import.tsx
-#: src/dialogs/resume/import.tsx
 msgid "AI"
 msgstr "AI"
 
-#: src/components/ai/chat.tsx
-msgid "AI Chat"
-msgstr ""
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "AI returned some invalid references"
+msgstr "AI가 일부 잘못된 참조를 반환했습니다."
 
 #: src/utils/locale.ts
 msgid "Albanian"
@@ -246,8 +281,8 @@ msgid "Allow Public Access"
 msgstr "공개 액세스 허용"
 
 #: src/routes/auth/register.tsx
-msgid "Already have an account? <0><1>Sign in now <2/></1></0>"
-msgstr "이미 계정이 있으신가요? <0><1>지금 로그인하기 <2/></1></0>"
+msgid "Already have an account? <0/>"
+msgstr "이미 계정이 있으신가요? <0/>"
 
 #: src/utils/locale.ts
 msgid "Amharic"
@@ -258,13 +293,39 @@ msgstr "암하라어"
 msgid "An error occurred while loading the page."
 msgstr "페이지를 불러오는 동안 오류가 발생했습니다."
 
+#. Fallback toast when importing a resume fails for an unknown reason
 #: src/dialogs/resume/import.tsx
 msgid "An unknown error occurred while importing your resume."
 msgstr "이력서를 가져오는 동안 알 수 없는 오류가 발생했습니다."
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
+msgid "Analyze Resume"
+msgstr "이력서 분석"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
+msgid "Analyzing..."
+msgstr "분석 중..."
+
 #: src/routes/_home/-sections/features.tsx
 msgid "And many more..."
 msgstr "그 외에도 더 많은 기능이 있습니다..."
+
+#. AI provider option label in dashboard AI settings
+#: src/routes/dashboard/settings/ai.tsx
+msgid "Anthropic Claude"
+msgstr "인류학적 클로드"
+
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Any level"
+msgstr "모든 레벨"
+
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Any time"
+msgstr "언제든지"
+
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Any type"
+msgstr "모든 유형"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Anyone visiting the resume's public URL must enter this password to access it."
@@ -287,7 +348,6 @@ msgid "API Key"
 msgstr "API Key"
 
 #: src/components/command-palette/pages/navigation.tsx
-#: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "API Keys"
@@ -297,6 +357,10 @@ msgstr "API Key"
 msgid "API Reference"
 msgstr "API 레퍼런스"
 
+#: src/routes/dashboard/settings/job-search.tsx
+msgid "API Usage"
+msgstr "API 사용"
+
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "App"
 msgstr "앱"
@@ -305,17 +369,42 @@ msgstr "앱"
 msgid "Application Statistics"
 msgstr "애플리케이션 통계"
 
+#: src/routes/dashboard/job-search/-components/job-detail.tsx
+msgid "Apply"
+msgstr "신청하기"
+
+#: src/routes/dashboard/job-search/-components/job-detail.tsx
+msgid "Apply for this job"
+msgstr "이 직무에 지원하세요"
+
+#. Fallback publisher name for a third-party job application link
+#: src/routes/dashboard/job-search/-components/job-detail.tsx
+msgid "Apply Link"
+msgstr "신청 링크"
+
+#: src/routes/dashboard/job-search/-components/job-detail.tsx
+msgid "Apply Via"
+msgstr "다음을 통해 신청"
+
 #: src/utils/locale.ts
 msgid "Arabic"
 msgstr "아랍어"
 
 #: src/hooks/use-form-blocker.tsx
 msgid "Are you sure you want to close this dialog?"
-msgstr ""
+msgstr "이 대화상자를 닫으시겠습니까?"
 
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "Are you sure you want to delete this API key?"
 msgstr "이 API 키를 삭제하시겠습니까?"
+
+#: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
+msgid "Are you sure you want to delete this custom section?"
+msgstr "이 사용자 지정 섹션을 삭제하시겠습니까?"
+
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+msgid "Are you sure you want to delete this item?"
+msgstr "이 항목을 삭제하시겠습니까?"
 
 #: src/routes/builder/$resumeId/-components/header.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
@@ -337,26 +426,24 @@ msgstr "이 이력서를 잠그시겠습니까?"
 msgid "Are you sure you want to remove password protection?"
 msgstr "비밀번호 보호를 제거하시겠습니까?"
 
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
+msgid "Are you sure you want to reset this section?"
+msgstr "이 섹션을 재설정하시겠습니까?"
+
 #: src/dialogs/resume/sections/education.tsx
 msgid "Area of Study"
 msgstr "연구 분야"
 
-#: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/ai.tsx
 msgid "Artificial Intelligence"
 msgstr "인공지능"
 
-#: src/components/ai/chat.tsx
-msgid "Ask me to update your resume..."
-msgstr ""
-
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Aspect Ratio"
 msgstr "가로세로 비율"
 
-#: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/authentication/index.tsx
@@ -381,6 +468,7 @@ msgstr "수상 내역"
 msgid "Azerbaijani"
 msgstr "아제르바이잔어"
 
+#. Secondary navigation button on 2FA verification screen
 #: src/routes/auth/verify-2fa.tsx
 msgid "Back to Login"
 msgstr "로그인 화면으로 돌아가기"
@@ -405,6 +493,10 @@ msgstr "기본 사항"
 msgid "Beautiful templates to choose from, with more on the way."
 msgstr "선택할 수 있는 아름다운 템플릿이 준비되어 있으며, 앞으로 더 추가될 예정입니다."
 
+#: src/routes/dashboard/job-search/-components/job-detail.tsx
+msgid "Benefits"
+msgstr "혜택"
+
 #: src/utils/locale.ts
 msgid "Bengali"
 msgstr "벵골어"
@@ -426,6 +518,7 @@ msgstr "모서리 반경"
 msgid "Border Width"
 msgstr "테두리 두께"
 
+#. Screen-reader dialog title for the command palette in the resume builder
 #: src/components/command-palette/index.tsx
 msgid "Builder Command Palette"
 msgstr "빌더 명령 팔레트"
@@ -438,6 +531,7 @@ msgstr "불가리아어"
 msgid "Bullet List"
 msgstr "글머리 기호 목록"
 
+#. Tagline shown in app footer/about area
 #: src/components/ui/copyright.tsx
 #: src/routes/_home/-sections/features.tsx
 #: src/routes/_home/-sections/prefooter.tsx
@@ -452,39 +546,35 @@ msgstr "템플릿을 사용자 지정할 수 있나요?"
 msgid "Can I export my resume to PDF?"
 msgstr "이력서를 PDF로 내보낼 수 있나요?"
 
+#. API key deletion confirmation dialog cancel action in settings
+#. Account deletion confirmation dialog cancel action in danger zone
+#. Confirmation dialog button label to abort deleting a custom section in resume builder
+#. Confirmation dialog button label to abort deleting a section item in resume builder
+#. Confirmation dialog button label to abort resetting a resume section
+#. Profile settings form action to discard unsaved edits
+#. Secondary action button to close two-factor setup dialog
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/resume/sections/award.tsx
-#: src/dialogs/resume/sections/award.tsx
-#: src/dialogs/resume/sections/certification.tsx
 #: src/dialogs/resume/sections/certification.tsx
 #: src/dialogs/resume/sections/cover-letter.tsx
-#: src/dialogs/resume/sections/cover-letter.tsx
-#: src/dialogs/resume/sections/custom.tsx
 #: src/dialogs/resume/sections/custom.tsx
 #: src/dialogs/resume/sections/education.tsx
-#: src/dialogs/resume/sections/education.tsx
-#: src/dialogs/resume/sections/experience.tsx
 #: src/dialogs/resume/sections/experience.tsx
 #: src/dialogs/resume/sections/interest.tsx
-#: src/dialogs/resume/sections/interest.tsx
-#: src/dialogs/resume/sections/language.tsx
 #: src/dialogs/resume/sections/language.tsx
 #: src/dialogs/resume/sections/profile.tsx
-#: src/dialogs/resume/sections/profile.tsx
-#: src/dialogs/resume/sections/project.tsx
 #: src/dialogs/resume/sections/project.tsx
 #: src/dialogs/resume/sections/publication.tsx
-#: src/dialogs/resume/sections/publication.tsx
-#: src/dialogs/resume/sections/reference.tsx
 #: src/dialogs/resume/sections/reference.tsx
 #: src/dialogs/resume/sections/skill.tsx
-#: src/dialogs/resume/sections/skill.tsx
 #: src/dialogs/resume/sections/summary-item.tsx
-#: src/dialogs/resume/sections/summary-item.tsx
-#: src/dialogs/resume/sections/volunteer.tsx
 #: src/dialogs/resume/sections/volunteer.tsx
 #: src/hooks/use-prompt.tsx
+#: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
 #: src/routes/dashboard/settings/api-keys.tsx
 #: src/routes/dashboard/settings/danger-zone.tsx
 #: src/routes/dashboard/settings/profile.tsx
@@ -544,21 +634,32 @@ msgstr "중국어(간체)"
 msgid "Chinese (Traditional)"
 msgstr "중국어(번체)"
 
+#. Preset or custom shade refer to the color picker
+#: src/components/input/rich-input.tsx
+msgid "Choose a preset or custom shade."
+msgstr "사전 설정 또는 사용자 지정 색조를 선택합니다."
+
 #: src/components/level/combobox.tsx
 msgid "Circle"
 msgstr "원"
 
-#: src/components/ai/chat.tsx
-msgid "Clear chat history"
-msgstr ""
+#. Clear the text color
+#: src/components/input/rich-input.tsx
+msgid "Clear"
+msgstr "지우기"
 
-#: src/components/ui/multiple-combobox.tsx
-msgid "Clear selection"
-msgstr "선택 해제"
+#: src/routes/dashboard/job-search/index.tsx
+msgid "Clear all"
+msgstr "모두 지우기"
 
 #: src/dialogs/resume/import.tsx
 msgid "Click here to select a file to import"
 msgstr "가져올 파일을 선택하려면 여기를 클릭하세요"
+
+#: src/components/ui/dialog.tsx
+#: src/components/ui/sheet.tsx
+msgid "Close"
+msgstr "닫기"
 
 #: src/components/input/rich-input.tsx
 msgid "Code Block"
@@ -568,6 +669,17 @@ msgstr "코드 블록"
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "Columns"
 msgstr "열"
+
+#. Accessible label for command list region inside command palette
+#. Accessible label for the command palette dialog
+#: src/components/command-palette/index.tsx
+msgid "Command Palette"
+msgstr "명령 팔레트"
+
+#. Accessible label for command palette dialog when browsing a nested command page
+#: src/components/command-palette/index.tsx
+msgid "Command Palette - {currentPage}"
+msgstr "명령 팔레트 - {currentPage}"
 
 #: src/routes/_home/-sections/footer.tsx
 msgid "Community"
@@ -581,6 +693,12 @@ msgstr "회사"
 msgid "Completely free, forever, no hidden costs."
 msgstr "완전히 무료이며, 영원히 숨은 비용이 없습니다."
 
+#: src/routes/dashboard/job-search/index.tsx
+msgid "Configure Job Search"
+msgstr "채용 정보 검색 구성"
+
+#. Account deletion confirmation dialog confirm action in danger zone
+#. Create API key dialog acknowledgment action after copying
 #: src/dialogs/api-key/create.tsx
 #: src/hooks/use-prompt.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
@@ -588,6 +706,7 @@ msgstr "완전히 무료이며, 영원히 숨은 비용이 없습니다."
 msgid "Confirm"
 msgstr "확인"
 
+#. Authentication settings action to link a social login provider
 #: src/routes/dashboard/settings/authentication/-components/social-provider.tsx
 msgid "Connect"
 msgstr "연결"
@@ -595,10 +714,11 @@ msgstr "연결"
 #: src/dialogs/resume/sections/cover-letter.tsx
 #: src/dialogs/resume/sections/summary-item.tsx
 msgid "Content"
-msgstr ""
+msgstr "내용"
 
-#: src/dialogs/auth/enable-two-factor.tsx
-#: src/dialogs/auth/enable-two-factor.tsx
+#. Button label to continue to dashboard after successful registration
+#. Final action button after saving backup codes
+#. Primary action button to proceed to next step in two-factor setup
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/register.tsx
 msgid "Continue"
@@ -613,10 +733,15 @@ msgstr "중단한 곳부터 계속하기"
 msgid "Continue where you left off by importing an existing resume you created using Reactive Resume or any another resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Reactive Resume."
 msgstr "Reactive Resume나 다른 이력서 작성 도구로 이미 만든 이력서를 가져와 중단한 곳부터 계속 진행하세요. PDF, Microsoft Word, Reactive Resume의 JSON 파일 형식을 지원합니다."
 
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Contractor"
+msgstr "계약자"
+
 #: src/routes/_home/-sections/donate.tsx
 msgid "Contributions fund bug fixes, security updates, and continuous improvements to keep the app running smoothly."
 msgstr "기여금은 버그 수정, 보안 업데이트 및 지속적인 개선에 사용되어 앱이 원활하게 동작하도록 돕습니다."
 
+#. Action button to copy two-factor backup codes to clipboard
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Copy"
 msgstr "복사"
@@ -637,11 +762,54 @@ msgstr "이 비밀 키를 복사해 애플리케이션에 붙여넣어 데이터
 msgid "Copy URL"
 msgstr "URL 복사"
 
+#. Error description when syncing newly detected skills to source resume fails due to invalid patch
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "Could not apply skill updates to your original resume."
+msgstr "원래 이력서에 스킬 업데이트를 적용할 수 없습니다."
+
+#. Fallback error description when duplicating a resume for tailoring fails
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "Could not duplicate your resume."
+msgstr "이력서를 복제할 수 없습니다."
+
+#: src/routes/dashboard/job-search/index.tsx
+msgid "Could not fetch jobs"
+msgstr "작업을 가져올 수 없습니다."
+
+#. Error shown when job search API is unavailable while searching jobs
+#: src/routes/dashboard/job-search/-components/use-job-search.ts
+msgid "Could not fetch jobs from JSearch API. Please try again."
+msgstr "JSearch API에서 작업을 가져올 수 없습니다. 다시 시도하세요."
+
+#. Error shown when JSearch API connection test fails in job search settings
+#: src/routes/dashboard/settings/job-search.tsx
+msgid "Could not reach JSearch API. Check your API key and try again."
+msgstr "JSearch API에 연결할 수 없습니다. API 키를 확인하고 다시 시도하세요."
+
+#. Error description when AI provider cannot be reached during resume analysis
+#. Error description when AI provider is unreachable during resume tailoring
+#. Error shown when AI provider is unreachable during PDF/DOCX resume import
+#. Error shown when the configured AI provider cannot be reached during connection test
+#: src/dialogs/resume/import.tsx
+#: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+#: src/routes/dashboard/settings/ai.tsx
+msgid "Could not reach the AI provider. Please try again."
+msgstr "AI 제공업체에 연결할 수 없습니다. 다시 시도하세요."
+
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Country"
+msgstr "국가"
+
+#. Fallback title for a custom cover letter item in resume builder when recipient is empty
+#. Fallback title for a custom cover letter item in resume builder when recipient is unavailable
 #: src/dialogs/resume/sections/custom.tsx
+#: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Cover Letter"
-msgstr ""
+msgstr "자기소개서"
 
+#. Create API key dialog submit action
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/sections/award.tsx
@@ -681,7 +849,7 @@ msgstr "새 자격증 만들기"
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 msgid "Create a new cover letter"
-msgstr ""
+msgstr "새 자기소개서 만들기"
 
 #: src/dialogs/resume/sections/custom.tsx
 msgid "Create a new custom section"
@@ -732,7 +900,7 @@ msgstr "새 기술 만들기"
 
 #: src/dialogs/resume/sections/summary-item.tsx
 msgid "Create a new summary item"
-msgstr ""
+msgstr "새 요약 항목 만들기"
 
 #: src/dialogs/resume/sections/volunteer.tsx
 msgid "Create a new volunteer experience"
@@ -746,11 +914,20 @@ msgstr "샘플 이력서 만들기"
 msgid "Create as many resumes as you want, without limits."
 msgstr "원하는 만큼 이력서를 무제한으로 생성할 수 있습니다."
 
+#. Call-to-action link from login page to account registration page
+#: src/routes/auth/login.tsx
+msgid "Create one now"
+msgstr "지금 만들기"
+
+#. Accessible label for create-resume split button group
+#: src/dialogs/resume/index.tsx
+msgid "Create resume with options"
+msgstr "옵션으로 이력서 만들기"
+
 #: src/dialogs/api-key/create.tsx
 msgid "Creating your API key..."
 msgstr "API 키를 생성하는 중입니다..."
 
-#: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/index.tsx
 msgid "Creating your resume..."
 msgstr "이력서를 생성하는 중입니다..."
@@ -759,10 +936,19 @@ msgstr "이력서를 생성하는 중입니다..."
 msgid "Current Password"
 msgstr "현재 비밀번호"
 
+#: src/components/input/rich-input.tsx
+msgid "Custom"
+msgstr "사용자 지정"
+
 #: src/routes/_home/-sections/features.tsx
 #: src/utils/resume/section.tsx
 msgid "Custom CSS"
 msgstr "사용자 지정 CSS"
+
+#. Authentication provider display name in account settings
+#: src/routes/dashboard/settings/authentication/-components/hooks.tsx
+msgid "Custom OAuth"
+msgstr "사용자 지정 OAuth"
 
 #: src/utils/resume/section.tsx
 msgid "Custom Sections"
@@ -773,7 +959,6 @@ msgid "Czech"
 msgstr "체코어"
 
 #: src/components/command-palette/pages/navigation.tsx
-#: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "Danger Zone"
@@ -783,6 +968,7 @@ msgstr "위험 구역"
 msgid "Danish"
 msgstr "덴마크어"
 
+#. Appearance theme option for dark mode
 #: src/components/user/dropdown-menu.tsx
 #: src/utils/theme.ts
 msgid "Dark"
@@ -802,16 +988,27 @@ msgstr "데이터 보안"
 msgid "Date"
 msgstr "날짜"
 
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Date Posted"
+msgstr "게시 날짜"
+
 #: src/dialogs/resume/sections/education.tsx
 msgid "Degree"
 msgstr "학위"
 
+#. API key deletion confirmation dialog confirm action in settings
+#. Destructive confirmation button label when deleting a custom section in resume builder
+#. Destructive confirmation button label when deleting a section item in resume builder
+#. Passkey row action to remove the selected passkey
+#. Resume card context menu destructive action to remove a resume
+#. Resume card dropdown destructive action to remove a resume
 #: src/routes/builder/$resumeId/-components/header.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 #: src/routes/dashboard/settings/api-keys.tsx
+#: src/routes/dashboard/settings/authentication/-components/passkeys.tsx
 msgid "Delete"
 msgstr "삭제"
 
@@ -826,6 +1023,10 @@ msgstr "열 삭제"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Delete Page"
 msgstr "페이지 삭제"
+
+#: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
+msgid "Delete picture"
+msgstr "사진 삭제"
 
 #: src/components/input/rich-input.tsx
 msgid "Delete Row"
@@ -853,11 +1054,11 @@ msgstr "이력서를 삭제하는 중입니다..."
 #: src/dialogs/resume/sections/certification.tsx
 #: src/dialogs/resume/sections/education.tsx
 #: src/dialogs/resume/sections/experience.tsx
-#: src/dialogs/resume/sections/experience.tsx
 #: src/dialogs/resume/sections/project.tsx
 #: src/dialogs/resume/sections/publication.tsx
 #: src/dialogs/resume/sections/reference.tsx
 #: src/dialogs/resume/sections/volunteer.tsx
+#: src/routes/dashboard/job-search/-components/job-detail.tsx
 msgid "Description"
 msgstr "설명"
 
@@ -865,6 +1066,19 @@ msgstr "설명"
 msgid "Design"
 msgstr "디자인"
 
+#: src/routes/dashboard/job-search/-components/job-detail.tsx
+msgid "Direct"
+msgstr "직접"
+
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Direct Apply"
+msgstr "직접 신청"
+
+#: src/routes/dashboard/job-search/-components/use-job-search.ts
+msgid "Direct apply only"
+msgstr "직접 신청만 가능"
+
+#. Destructive action button to turn off two-factor authentication
 #: src/dialogs/auth/disable-two-factor.tsx
 #: src/routes/dashboard/settings/authentication/-components/two-factor.tsx
 msgid "Disable 2FA"
@@ -882,6 +1096,7 @@ msgstr "비활성화됨"
 msgid "Disabling two-factor authentication..."
 msgstr "2단계 인증을 비활성화하는 중입니다..."
 
+#. Authentication settings action to unlink a connected social login provider
 #: src/routes/dashboard/settings/authentication/-components/social-provider.tsx
 msgid "Disconnect"
 msgstr "연결 해제"
@@ -890,23 +1105,32 @@ msgstr "연결 해제"
 msgid "Discord"
 msgstr "디스코드"
 
+#. Dialog description for the mobile sidebar panel
+#: src/components/ui/sidebar.tsx
+msgid "Displays the mobile sidebar."
+msgstr "모바일 사이드바를 표시합니다."
+
 #: src/routes/_home/-sections/footer.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
 msgid "Documentation"
 msgstr "문서"
 
 #: src/routes/auth/login.tsx
-msgid "Don't have an account? <0><1>Create one now <2/></1></0>"
-msgstr "계정이 없으신가요? <0><1>지금 가입하기 <2/></1></0>"
+msgid "Don't have an account? <0/>"
+msgstr "계정이 없으신가요? <0/>"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
 msgid "Donate to Reactive Resume"
 msgstr "Reactive Resume에 기부하기"
 
+#. Action button to download two-factor backup codes as a text file
 #: src/dialogs/auth/enable-two-factor.tsx
-#: src/routes/$username/$slug.tsx
 msgid "Download"
 msgstr "다운로드"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
+msgid "Download a copy of your resume as a Word document. Use this file to further customize your resume in Microsoft Word or Google Docs."
+msgstr "이력서 사본을 Word 문서로 다운로드합니다. 이 파일을 사용하여 Microsoft Word 또는 Google 문서 도구에서 이력서를 추가로 사용자 지정할 수 있습니다."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
 msgid "Download a copy of your resume in JSON format. Use this file for backup or to import your resume into other applications, including AI assistants."
@@ -917,16 +1141,16 @@ msgid "Download a copy of your resume in PDF format. Use this file for printing 
 msgstr "이력서를 PDF 형식으로 다운로드하세요. 인쇄용으로 사용하거나 채용 담당자에게 쉽게 공유할 수 있습니다."
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
+msgid "Download DOCX"
+msgstr "DOCX 다운로드"
+
+#: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download JSON"
 msgstr "JSON 다운로드"
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 msgid "Download PDF"
 msgstr "PDF 다운로드"
-
-#: src/routes/$username/$slug.tsx
-msgid "Downloading..."
-msgstr "다운로드 중..."
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Downloads"
@@ -936,6 +1160,8 @@ msgstr "다운로드"
 msgid "Drag and drop sections here to move them between columns"
 msgstr "섹션을 이곳으로 끌어다 놓아 열 사이에서 이동하세요"
 
+#. Resume card context menu action to create a copy
+#. Resume card dropdown action to create a copy
 #: src/dialogs/resume/index.tsx
 #: src/routes/builder/$resumeId/-components/header.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
@@ -961,9 +1187,41 @@ msgstr "이력서를 복제하는 중입니다..."
 msgid "Dutch"
 msgstr "네덜란드어"
 
-#: src/components/ai/chat.tsx
-msgid "e.g. Change my name to..."
-msgstr ""
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "e.g. 150000"
+msgstr "예: 150000"
+
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "e.g. 50000"
+msgstr "예: 50000"
+
+#. Example placeholder text in job search input field
+#: src/routes/dashboard/job-search/index.tsx
+msgid "e.g. frontend developer jobs in Berlin"
+msgstr "예: 베를린의 프론트엔드 개발자 채용 정보"
+
+#. Example model-name placeholder in AI settings
+#: src/routes/dashboard/settings/ai.tsx
+msgid "e.g., gpt-4, claude-3-opus, gemini-pro"
+msgstr "예: GPT-4, 클로드-3-오퍼스, 제미니-프로"
+
+#. Screen reader label for button that edits a keyword chip. Variable is the current keyword text.
+#: src/components/input/chip-input.tsx
+msgid "Edit {chip}"
+msgstr "{chip} 수정"
+
+#. Screen reader description for the fullscreen rich-text editor dialog
+#: src/components/input/rich-input.tsx
+msgid "Edit content in fullscreen mode"
+msgstr "전체 화면 모드에서 콘텐츠 편집"
+
+#: src/components/input/chip-input.tsx
+msgid "Edit keyword"
+msgstr "키워드 수정"
+
+#: src/components/input/chip-input.tsx
+msgid "Editing keyword..."
+msgstr "키워드 편집 중..."
 
 #: src/dialogs/resume/sections/custom.tsx
 #: src/utils/resume/section.tsx
@@ -974,6 +1232,9 @@ msgstr "학력"
 msgid "Email"
 msgstr "이메일"
 
+#. Label for email input on forgot-password form
+#. Label for email input on registration form
+#. Label for login identifier input that accepts email or username
 #: src/routes/auth/forgot-password.tsx
 #: src/routes/auth/login.tsx
 #: src/routes/auth/register.tsx
@@ -1014,9 +1275,17 @@ msgstr "2단계 인증을 활성화하는 중입니다..."
 msgid "English"
 msgstr "영어"
 
+#: src/utils/locale.ts
+msgid "English (United Kingdom)"
+msgstr "영어 (영국)"
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Enhance the security of your account with additional layers of protection."
 msgstr "계정 보안을 강화하기 위해 추가 보호 계층을 적용하세요."
+
+#: src/routes/dashboard/settings/authentication/-components/passkeys.tsx
+msgid "Enter a name for your passkey."
+msgstr "비밀번호 키의 이름을 입력합니다."
 
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Enter one of your saved backup codes to access your account"
@@ -1042,6 +1311,10 @@ msgstr "2단계 인증을 설정하려면 비밀번호를 입력해 확인하세
 msgid "Enter your password to disable two-factor authentication. Your account will be less secure without 2FA enabled."
 msgstr "2단계 인증을 비활성화하려면 비밀번호를 입력하세요. 2단계 인증을 사용하지 않으면 계정 보안이 낮아집니다."
 
+#: src/routes/dashboard/settings/job-search.tsx
+msgid "Enter your RapidAPI key"
+msgstr "RapidAPI 키를 입력하세요."
+
 #: src/routes/_home/-sections/donate.tsx
 msgid "Every contribution, big or small, makes a huge difference to the project.<0/>Thank you for your support!"
 msgstr "크든 작든 모든 기여는 프로젝트에 큰 변화를 가져옵니다.<0/>후원해 주셔서 감사합니다!"
@@ -1054,11 +1327,24 @@ msgstr "여기에 입력한 모든 내용은 브라우저에 로컬로 저장됩
 msgid "Everything you need to create, customize, and share professional resumes. Built with privacy in mind, powered by open source, and completely free forever."
 msgstr "전문적인 이력서를 만들고, 사용자 지정하고, 공유하는 데 필요한 모든 것을 제공합니다. 개인정보 보호를 최우선으로 설계되었으며, 오픈 소스로 구동되고, 완전히 무료입니다."
 
+#: src/routes/dashboard/job-search/-components/use-job-search.ts
+msgid "Exclude {value}"
+msgstr "{value} 제외"
+
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Exclude Companies"
+msgstr "회사 제외"
+
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Exclude Keywords"
+msgstr "키워드 제외"
+
 #: src/components/input/rich-input.tsx
 msgid "Exit Fullscreen"
-msgstr ""
+msgstr "전체 화면 종료"
 
 #: src/dialogs/resume/sections/custom.tsx
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
 #: src/utils/resume/section.tsx
 msgid "Experience"
 msgstr "경력"
@@ -1084,13 +1370,157 @@ msgstr "Reactive Resume API를 애플리케이션과 통합하는 방법을 알�
 msgid "Export"
 msgstr "내보내기"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
+msgid "Failed to analyze resume."
+msgstr "이력서를 분석하지 못했습니다."
+
+#. Fallback toast when creating an API key fails
+#: src/dialogs/api-key/create.tsx
+msgid "Failed to create API key. Please try again."
+msgstr "API 키를 생성하지 못했습니다. 다시 시도하세요."
+
+#. Fallback toast when account registration fails without a server error message
+#: src/routes/auth/register.tsx
+msgid "Failed to create your account. Please try again."
+msgstr "계정을 만들지 못했습니다. 다시 시도해 주세요."
+
+#. Fallback toast when deleting a passkey fails
+#: src/routes/dashboard/settings/authentication/-components/passkeys.tsx
+msgid "Failed to delete passkey. Please try again."
+msgstr "패스키를 삭제하지 못했습니다. 다시 시도하세요."
+
+#. Fallback toast when deleting an API key fails
+#: src/routes/dashboard/settings/api-keys.tsx
+msgid "Failed to delete the API key. Please try again."
+msgstr "API 키를 삭제하지 못했습니다. 다시 시도하세요."
+
+#. Fallback toast when account deletion fails
+#: src/routes/dashboard/settings/danger-zone.tsx
+msgid "Failed to delete your account. Please try again."
+msgstr "계정을 삭제하지 못했습니다. 다시 시도해 주세요."
+
+#. Fallback toast when disabling two-factor authentication fails
+#: src/dialogs/auth/disable-two-factor.tsx
+msgid "Failed to disable two-factor authentication. Please try again."
+msgstr "2단계 인증을 비활성화하지 못했습니다. 다시 시도하세요."
+
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "Failed to duplicate resume"
+msgstr "이력서 복제에 실패했습니다."
+
+#. Fallback toast when enabling two-factor authentication fails
+#: src/dialogs/auth/enable-two-factor.tsx
+msgid "Failed to enable two-factor authentication. Please try again."
+msgstr "2단계 인증을 활성화하지 못했습니다. 다시 시도하세요."
+
+#. Fallback toast when linking a social authentication provider fails
+#: src/routes/dashboard/settings/authentication/-components/hooks.tsx
+msgid "Failed to link provider. Please try again."
+msgstr "공급자를 연결하지 못했습니다. 다시 시도하세요."
+
+#. Fallback toast when passkey registration fails
+#: src/routes/dashboard/settings/authentication/-components/passkeys.tsx
+msgid "Failed to register passkey. Please try again."
+msgstr "패스키를 등록하지 못했습니다. 다시 시도하세요."
+
+#. Fallback toast when renaming a passkey fails
+#: src/routes/dashboard/settings/authentication/-components/passkeys.tsx
+msgid "Failed to rename passkey. Please try again."
+msgstr "패스키 이름을 변경하지 못했습니다. 다시 시도하세요."
+
+#. Fallback toast when requesting email change confirmation fails
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Failed to request email change. Please try again."
+msgstr "이메일 변경을 요청하지 못했습니다. 다시 시도하세요."
+
+#. Fallback toast when resending account verification email fails
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Failed to resend verification email. Please try again."
+msgstr "인증 이메일을 다시 보내지 못했습니다. 다시 시도해 주세요."
+
+#. Fallback toast when resetting password fails and no backend message is available
+#: src/routes/auth/reset-password.tsx
+msgid "Failed to reset your password. Please try again."
+msgstr "비밀번호를 재설정하지 못했습니다. 다시 시도해 주세요."
+
+#. Fallback error shown when job search request fails
+#: src/routes/dashboard/job-search/-components/use-job-search.ts
+msgid "Failed to search jobs. Please try again."
+msgstr "일자리를 검색하지 못했습니다. 다시 시도하세요."
+
+#. Fallback toast when requesting password reset email fails without backend message
+#: src/routes/auth/forgot-password.tsx
+msgid "Failed to send password reset email. Please try again."
+msgstr "비밀번호 재설정 이메일을 보내지 못했습니다. 다시 시도하세요."
+
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Failed to setup two-factor authentication."
 msgstr "2단계 인증 설정에 실패했습니다."
 
+#. Fallback toast when custom OAuth sign-in fails without a provider error message
+#. Fallback toast when passkey sign-in fails without an error message
+#. Fallback toast when sign-in fails and no server error message is available
+#. Fallback toast when social sign-in fails without a provider error message
+#: src/routes/auth/-components/social-auth.tsx
 #: src/routes/auth/login.tsx
 msgid "Failed to sign in. Please try again."
-msgstr ""
+msgstr "로그인에 실패했습니다. 다시 시도해 주세요."
+
+#. Fallback toast when signing out fails
+#: src/components/user/dropdown-menu.tsx
+msgid "Failed to sign out. Please try again."
+msgstr "로그아웃하지 못했습니다. 다시 시도해 주세요."
+
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "Failed to sync skills"
+msgstr "스킬 동기화에 실패했습니다."
+
+#. Fallback toast when testing AI provider connection fails
+#: src/routes/dashboard/settings/ai.tsx
+msgid "Failed to test AI provider connection. Please try again."
+msgstr "AI 공급자 연결을 테스트하지 못했습니다. 다시 시도하세요."
+
+#. Fallback toast when testing RapidAPI job search connection fails
+#: src/routes/dashboard/settings/job-search.tsx
+msgid "Failed to test RapidAPI connection. Please try again."
+msgstr "RapidAPI 연결을 테스트하지 못했습니다. 다시 시도하세요."
+
+#. Fallback toast when unlinking a social authentication provider fails
+#: src/routes/dashboard/settings/authentication/-components/hooks.tsx
+msgid "Failed to unlink provider. Please try again."
+msgstr "공급자 연결을 해제하지 못했습니다. 다시 시도하세요."
+
+#. Fallback toast when changing account password fails
+#: src/dialogs/auth/change-password.tsx
+msgid "Failed to update your password. Please try again."
+msgstr "비밀번호를 업데이트하지 못했습니다. 다시 시도해 주세요."
+
+#. Fallback toast when updating profile details fails
+#: src/routes/dashboard/settings/profile.tsx
+msgid "Failed to update your profile. Please try again."
+msgstr "프로필을 업데이트하지 못했습니다. 다시 시도해 주세요."
+
+#. Fallback toast when uploading profile picture for resume fails
+#: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
+msgid "Failed to upload picture. Please try again."
+msgstr "사진을 업로드하지 못했습니다. 다시 시도하세요."
+
+#. Fallback toast when resume password verification fails unexpectedly
+#: src/routes/auth/resume-password.tsx
+msgid "Failed to verify the password. Please try again."
+msgstr "비밀번호를 인증하지 못했습니다. 다시 시도해 주세요."
+
+#. Fallback toast when verifying a backup two-factor authentication code fails
+#: src/routes/auth/verify-2fa-backup.tsx
+msgid "Failed to verify your backup code. Please try again."
+msgstr "백업 코드를 인증하지 못했습니다. 다시 시도해 주세요."
+
+#. Fallback toast when verifying a two-factor authentication code fails
+#. Fallback toast when verifying two-factor setup code fails
+#: src/dialogs/auth/enable-two-factor.tsx
+#: src/routes/auth/verify-2fa.tsx
+msgid "Failed to verify your code. Please try again."
+msgstr "코드를 인증하지 못했습니다. 다시 시도해 주세요."
 
 #: src/routes/_home/-sections/features.tsx
 msgid "Features"
@@ -1113,11 +1543,9 @@ msgid "Fluency"
 msgstr "유창도"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
-#: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
 msgid "Font Family"
 msgstr "글꼴"
 
-#: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
 msgid "Font Size"
 msgstr "글자 크기"
@@ -1142,6 +1570,7 @@ msgstr "예를 들어, 이 이력서를 어떤 회사에 보냈는지, 해당 �
 msgid "For security reasons, this key will only be displayed once."
 msgstr "보안상의 이유로 이 키는 한 번만 표시됩니다."
 
+#. Link label to password reset page from login form
 #: src/routes/auth/login.tsx
 msgid "Forgot Password?"
 msgstr "비밀번호를 잊으셨나요?"
@@ -1167,26 +1596,61 @@ msgstr "자유 형식"
 msgid "French"
 msgstr "프랑스어"
 
+#. Layout editor toggle label that makes a page single-column
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Full Width"
 msgstr "전체 너비"
 
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Full-time"
+msgstr "풀타임"
+
 #: src/components/input/rich-input.tsx
 msgid "Fullscreen"
-msgstr ""
+msgstr "전체 화면"
+
+#. Screen reader title for the fullscreen rich-text editor dialog
+#: src/components/input/rich-input.tsx
+msgid "Fullscreen Editor"
+msgstr "전체 화면 편집기"
 
 #: src/dialogs/resume/index.tsx
 msgid "Generate a random name"
 msgstr "무작위 이름 생성"
 
+#. Error description when generated patch operations cannot be applied to tailored resume
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "Generated resume changes were invalid. Please try again."
+msgstr "생성된 이력서 변경 내용이 유효하지 않습니다. 다시 시도해 주세요."
+
 #: src/utils/locale.ts
 msgid "German"
 msgstr "독일어"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
+msgid "Get a review of your resume with an overall score, strengths, and actionable suggestions."
+msgstr "전체 점수, 강점, 실행 가능한 제안이 포함된 이력서 검토를 받아보세요."
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
+msgid "Get an in-depth AI-powered review of your resume with an overall score, key strengths, and practical suggestions. To activate this feature, please update your AI settings."
+msgstr "전체 점수, 주요 강점, 실용적인 제안을 통해 이력서에 대한 심층적인 AI 기반 검토를 받아보세요. 이 기능을 활성화하려면 AI 설정을 업데이트하세요."
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Get Started"
 msgstr "시작하기"
 
+#: src/routes/dashboard/settings/job-search.tsx
+msgid "Get your API key from RapidAPI by subscribing to the JSearch API."
+msgstr "JSearch API를 구독하여 RapidAPI에서 API 키를 받으세요."
+
+#. Authentication provider display name in account settings
+#. Brand name label for GitHub social sign-in button
+#: src/routes/auth/-components/social-auth.tsx
+#: src/routes/dashboard/settings/authentication/-components/hooks.tsx
+msgid "GitHub"
+msgstr "GitHub"
+
+#. Secondary navigation button on backup-code verification screen
 #: src/components/layout/not-found-screen.tsx
 #: src/routes/auth/verify-2fa-backup.tsx
 msgid "Go Back"
@@ -1196,9 +1660,30 @@ msgstr "뒤로 가기"
 msgid "Go to dashboard"
 msgstr "대시보드로 이동"
 
+#. Accessible label for button navigating from builder to resumes dashboard
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Go to resumes dashboard"
+msgstr "이력서 대시보드로 이동"
+
+#: src/routes/dashboard/job-search/index.tsx
+msgid "Go to Settings"
+msgstr "설정으로 이동"
+
 #: src/components/command-palette/pages/navigation.tsx
 msgid "Go to..."
 msgstr "이동..."
+
+#. Authentication provider display name in account settings
+#. Brand name label for Google social sign-in button
+#: src/routes/auth/-components/social-auth.tsx
+#: src/routes/dashboard/settings/authentication/-components/hooks.tsx
+msgid "Google"
+msgstr "Google"
+
+#. AI provider option label in dashboard AI settings
+#: src/routes/dashboard/settings/ai.tsx
+msgid "Google Gemini"
+msgstr "구글 제미니 자리"
 
 #: src/dialogs/resume/sections/education.tsx
 msgid "Grade"
@@ -1285,6 +1770,29 @@ msgstr "숨기기"
 msgid "Hide all icons on the resume"
 msgstr "이력서의 모든 아이콘 숨기기"
 
+#. Accessible label for button that hides password in registration form
+#. Accessible label for button that hides password in reset-password form
+#. Accessible label for button that hides password on protected resume screen
+#. Accessible label for button that hides the password in login form
+#. Accessible label for toggle button that hides the visible current password
+#. Accessible label for toggle button that hides the visible new password
+#. Accessible label for toggle button that hides the visible password in two-factor disable dialog
+#. Accessible label for toggle button that hides the visible password in two-factor setup
+#: src/dialogs/auth/change-password.tsx
+#: src/dialogs/auth/disable-two-factor.tsx
+#: src/dialogs/auth/enable-two-factor.tsx
+#: src/routes/auth/login.tsx
+#: src/routes/auth/register.tsx
+#: src/routes/auth/reset-password.tsx
+#: src/routes/auth/resume-password.tsx
+msgid "Hide password"
+msgstr "비밀번호 숨기기"
+
+#. Impact severity label in resume analysis suggestion card
+#: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
+msgid "High"
+msgstr "높음"
+
 #: src/components/input/rich-input.tsx
 msgid "Highlight"
 msgstr "형광펜"
@@ -1293,7 +1801,6 @@ msgstr "형광펜"
 msgid "Hindi"
 msgstr "힌디어"
 
-#: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 msgid "Home"
 msgstr "홈"
@@ -1337,6 +1844,10 @@ msgstr "이력서를 가져오는 중입니다..."
 msgid "Importing..."
 msgstr "가져오는 중..."
 
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Include Keywords"
+msgstr "키워드 포함"
+
 #: src/utils/locale.ts
 msgid "Indonesian"
 msgstr "인도네시아어"
@@ -1357,6 +1868,15 @@ msgstr "표 삽입"
 #: src/utils/resume/section.tsx
 msgid "Interests"
 msgstr "관심사"
+
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Intern"
+msgstr "인턴"
+
+#. Error shown when AI provider credentials or base URL are invalid in AI settings
+#: src/routes/dashboard/settings/ai.tsx
+msgid "Invalid AI provider configuration. Please check your settings."
+msgstr "잘못된 AI 공급자 구성입니다. 설정을 확인하세요."
 
 #: src/routes/_home/-sections/faq.tsx
 msgid "Is Reactive Resume available in multiple languages?"
@@ -1382,6 +1902,59 @@ msgstr "기울임"
 msgid "Japanese"
 msgstr "일본어"
 
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/job-search/index.tsx
+msgid "Job Search"
+msgstr "채용 정보 검색"
+
+#: src/routes/dashboard/-components/sidebar.tsx
+#: src/routes/dashboard/settings/job-search.tsx
+msgid "Job Search API"
+msgstr "채용 정보 검색 API"
+
+#. Accessible label for free-text job search query field
+#: src/routes/dashboard/job-search/index.tsx
+msgid "Job search query"
+msgstr "채용 정보 검색 쿼리"
+
+#. Example full name placeholder on profile settings form
+#. Example full name placeholder on registration form
+#: src/routes/auth/register.tsx
+#: src/routes/dashboard/settings/profile.tsx
+msgid "John Doe"
+msgstr "신원 미상"
+
+#. Example username placeholder on profile settings form
+#. Example username placeholder on registration form
+#: src/routes/auth/register.tsx
+#: src/routes/dashboard/settings/profile.tsx
+msgid "john.doe"
+msgstr "john.doe"
+
+#. Example email placeholder for login identifier field
+#. Example email placeholder on forgot-password form
+#. Example email placeholder on profile settings form
+#. Example email placeholder on registration form
+#: src/routes/auth/forgot-password.tsx
+#: src/routes/auth/login.tsx
+#: src/routes/auth/register.tsx
+#: src/routes/dashboard/settings/profile.tsx
+msgid "john.doe@example.com"
+msgstr "john.doe@example.com"
+
+#: src/routes/dashboard/settings/job-search.tsx
+msgid "JSearch aggregates job listings from multiple job boards using Google for Jobs. You can filter by country (ISO alpha-2 code), date posted, job type, remote options, and experience level."
+msgstr "JSearch는 Google 채용 정보를 사용하여 여러 구인 게시판의 채용 공고를 집계합니다. 국가(ISO 알파-2 코드), 게시된 날짜, 직종, 원격 옵션, 경력 수준별로 필터링할 수 있습니다."
+
+#: src/routes/dashboard/settings/job-search.tsx
+msgid "JSearch API Documentation"
+msgstr "JSearch API 문서"
+
+#. Import source option for standard JSON Resume format
+#: src/dialogs/resume/import.tsx
+msgid "JSON Resume"
+msgstr "JSON 이력서"
+
 #: src/components/input/rich-input.tsx
 msgid "Justify Align"
 msgstr "양쪽 정렬"
@@ -1403,14 +1976,17 @@ msgstr "크메르어"
 msgid "Korean"
 msgstr "한국어"
 
+#. Short field label for custom display text associated with a URL
 #: src/components/input/url-input.tsx
 msgid "Label"
 msgstr "레이블"
 
+#. Preset button for setting picture aspect ratio to landscape orientation
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Landscape"
 msgstr "가로"
 
+#. Menu item that opens language selection submenu
 #: src/components/command-palette/pages/preferences/language.tsx
 #: src/components/user/dropdown-menu.tsx
 #: src/dialogs/resume/sections/language.tsx
@@ -1423,6 +1999,15 @@ msgstr "언어"
 #: src/utils/resume/section.tsx
 msgid "Languages"
 msgstr "언어"
+
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Last 3 days"
+msgstr "지난 3일"
+
+#. placeholder {0}: new Date(analysis.updatedAt).toLocaleString()
+#: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
+msgid "Last analyzed on {0}"
+msgstr "마지막 분석: {0}"
 
 #. placeholder {0}: statistics.lastDownloadedAt.toDateString()
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
@@ -1451,13 +2036,14 @@ msgstr "레이아웃"
 msgid "Learn More"
 msgstr "자세히 알아보기"
 
+#. Help link text to documentation about fitting resume content onto a page
 #: src/components/resume/preview.tsx
 msgid "Learn more about how to fit content on a page"
 msgstr "페이지에 콘텐츠를 맞추는 방법에 대해 자세히 알아보세요"
 
 #: src/hooks/use-form-blocker.tsx
 msgid "Leave"
-msgstr ""
+msgstr "나가기"
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
 msgid "Leave empty to reset the title to the original."
@@ -1477,6 +2063,7 @@ msgstr "레터"
 msgid "Level"
 msgstr "레벨"
 
+#. Accessible label for skill/proficiency level indicator, where level is current value out of 5
 #: src/components/level/display.tsx
 msgid "Level {level} of 5"
 msgstr "5점 만점에 {level}점"
@@ -1485,6 +2072,7 @@ msgstr "5점 만점에 {level}점"
 msgid "Licensed under <0>MIT</0>."
 msgstr "<0>MIT</0> 라이선스로 배포됩니다."
 
+#. Appearance theme option for light mode
 #: src/components/user/dropdown-menu.tsx
 #: src/utils/theme.ts
 msgid "Light"
@@ -1495,9 +2083,15 @@ msgid "Light theme"
 msgstr "라이트 테마"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
-#: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
 msgid "Line Height"
 msgstr "줄 간격"
+
+#. Authentication provider display name in account settings
+#. Brand name label for LinkedIn social sign-in button
+#: src/routes/auth/-components/social-auth.tsx
+#: src/routes/dashboard/settings/authentication/-components/hooks.tsx
+msgid "LinkedIn"
+msgstr "LinkedIn"
 
 #: src/routes/dashboard/settings/authentication/-components/hooks.tsx
 msgid "Linking your {providerName} account..."
@@ -1510,6 +2104,11 @@ msgstr "목록"
 #: src/utils/locale.ts
 msgid "Lithuanian"
 msgstr "리투아니아어"
+
+#. Accessible label for loading spinner icon
+#: src/components/ui/spinner.tsx
+msgid "Loading"
+msgstr "로드 중"
 
 #: src/components/command-palette/pages/resumes.tsx
 msgid "Loading resumes..."
@@ -1526,12 +2125,15 @@ msgstr "로딩 중..."
 msgid "Location"
 msgstr "위치"
 
+#. Resume card context menu action to prevent edits
+#. Resume card dropdown action to prevent edits
 #: src/routes/builder/$resumeId/-components/header.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Lock"
 msgstr "잠금"
 
+#. User menu action to sign out of current account
 #: src/components/user/dropdown-menu.tsx
 msgid "Logout"
 msgstr "로그아웃"
@@ -1540,10 +2142,17 @@ msgstr "로그아웃"
 msgid "Long-term Sustainability"
 msgstr "장기적인 지속 가능성"
 
+#. Link to backup-code verification flow when authenticator app is unavailable
 #: src/routes/auth/verify-2fa.tsx
 msgid "Lost access to your authenticator?"
 msgstr "인증 앱에 접근할 수 없으신가요?"
 
+#. Impact severity label in resume analysis suggestion card
+#: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
+msgid "Low"
+msgstr "낮음"
+
+#. Layout editor column label for the primary content area
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Main"
 msgstr "메인"
@@ -1572,9 +2181,31 @@ msgstr "여백(가로)"
 msgid "Margin (Vertical)"
 msgstr "여백(세로)"
 
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Maximum Salary"
+msgstr "최대 급여"
+
+#. Impact severity label in resume analysis suggestion card
+#: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
+msgid "Medium"
+msgstr "Medium"
+
+#. File format label in import source selector
+#: src/dialogs/resume/import.tsx
+msgid "Microsoft Word"
+msgstr "Microsoft Word"
+
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Minimum Salary"
+msgstr "최저 급여"
+
 #: src/routes/dashboard/settings/ai.tsx
 msgid "Model"
 msgstr "모델"
+
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "More than 3 years"
+msgstr "3년 이상"
 
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 msgid "Move to"
@@ -1584,6 +2215,12 @@ msgstr "이동"
 msgid "Multilingual"
 msgstr "다국어 지원"
 
+#. Placeholder text for custom link URL field in resume builder
+#: src/routes/builder/$resumeId/-sidebar/left/sections/custom-fields.tsx
+msgid "Must start with https://"
+msgstr "https:// 으로 시작해야 합니다."
+
+#. Label for full name input on registration form
 #: src/dialogs/api-key/create.tsx
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/sections/interest.tsx
@@ -1616,6 +2253,7 @@ msgstr "새 줄"
 msgid "New Page"
 msgstr "새 페이지"
 
+#. Label for new password input on reset-password form
 #: src/dialogs/auth/change-password.tsx
 #: src/routes/auth/reset-password.tsx
 msgid "New Password"
@@ -1625,14 +2263,46 @@ msgstr "새 비밀번호"
 msgid "New Section"
 msgstr "새 섹션"
 
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "New Skills Detected"
+msgstr "새로운 기술 감지"
+
+#: src/routes/dashboard/job-search/index.tsx
+msgid "Next"
+msgstr "다음"
+
 #: src/routes/_home/-sections/features.tsx
 msgid "No Advertising, No Tracking"
 msgstr "광고 없음, 추적 없음"
 
+#. Error shown when AI import endpoint returns no parsed resume data
+#: src/dialogs/resume/import.tsx
+msgid "No data was returned from the AI provider."
+msgstr "AI 제공업체로부터 반환된 데이터가 없습니다."
+
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "No degree required"
+msgstr "학위 불필요"
+
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "No experience"
+msgstr "경험 없음"
+
+#: src/routes/dashboard/job-search/index.tsx
+msgid "No jobs found. Try a different search query."
+msgstr "채용 공고가 없습니다. 다른 검색어를 입력해 보세요."
+
+#: src/routes/dashboard/settings/authentication/-components/passkeys.tsx
+msgid "No passkeys registered yet."
+msgstr "아직 등록된 패스키가 없습니다."
+
 #: src/components/ui/combobox.tsx
-#: src/components/ui/multiple-combobox.tsx
 msgid "No results found."
 msgstr "결과가 없습니다."
+
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "No resumes found. Create a resume first."
+msgstr "이력서를 찾을 수 없습니다. 먼저 이력서를 만들어 보세요."
 
 #: src/utils/locale.ts
 msgid "Norwegian"
@@ -1646,6 +2316,11 @@ msgstr "노트"
 msgid "Odia"
 msgstr "오디아어"
 
+#. AI provider option label in dashboard AI settings
+#: src/routes/dashboard/settings/ai.tsx
+msgid "Ollama"
+msgstr "Ollama"
+
 #: src/routes/_home/-sections/features.tsx
 msgid "One-Click Sign-In"
 msgstr "원클릭 로그인"
@@ -1654,11 +2329,18 @@ msgstr "원클릭 로그인"
 msgid "Ongoing Maintenance"
 msgstr "지속적인 유지 관리"
 
+#. Resume card context menu action to open the resume editor
+#. Resume card dropdown action to open the resume editor
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
 #: src/routes/dashboard/resumes/-components/menus/dropdown-menu.tsx
 msgid "Open"
 msgstr "열기"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
+msgid "Open AI Settings"
+msgstr "AI 설정 열기"
+
+#. Button label to open the user's default email app
 #: src/routes/auth/forgot-password.tsx
 msgid "Open Email Client"
 msgstr "이메일 클라이언트 열기"
@@ -1667,12 +2349,25 @@ msgstr "이메일 클라이언트 열기"
 msgid "Open Source"
 msgstr "오픈 소스"
 
+#. AI provider option label in dashboard AI settings
+#: src/routes/dashboard/settings/ai.tsx
+msgid "OpenAI"
+msgstr "OpenAI"
+
+#. AI provider option label in dashboard AI settings
+#: src/routes/dashboard/settings/ai.tsx
+msgid "OpenRouter"
+msgstr "OpenRouter"
+
 #: src/routes/_home/-sections/donate.tsx
-#: src/routes/_home/-sections/donate.tsx
-#: src/routes/_home/-sections/footer.tsx
 #: src/routes/_home/-sections/footer.tsx
 msgid "opens in new tab"
 msgstr "새 탭에서 열림"
+
+#. placeholder {0}: job.job_title
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "Optimizing summary, experience, and skills for {0}"
+msgstr "요약, 경험 및 기술 최적화 {0}"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Optionally, set a password so that only people with the password can view your resume through the link."
@@ -1691,24 +2386,26 @@ msgstr "번호 매기기 목록"
 msgid "Organization"
 msgstr "기관"
 
-#: src/dialogs/resume/sections/experience.tsx
-msgid "Overall Period"
-msgstr ""
-
-#: src/dialogs/resume/sections/experience.tsx
-msgid "Overall Title (optional)"
-msgstr ""
+#: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
+msgid "Overall Score"
+msgstr "전체 점수"
 
 #: src/utils/resume/section.tsx
 msgid "Page"
 msgstr "페이지"
 
+#. Layout editor page label with 1-based page number
 #. placeholder {0}: pageIndex + 1
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Page {0}"
 msgstr "페이지 {0}"
 
+#: src/routes/dashboard/job-search/index.tsx
+msgid "Page {currentPage}"
+msgstr "페이지 {currentPage}"
+
+#. Page counter label shown above resume preview pages
 #: src/components/resume/preview.tsx
 msgid "Page {pageNumber} of {totalNumberOfPages}"
 msgstr "페이지 {pageNumber} / {totalNumberOfPages}"
@@ -1717,15 +2414,43 @@ msgstr "페이지 {pageNumber} / {totalNumberOfPages}"
 msgid "Paragraph"
 msgstr "문단"
 
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Part-time"
+msgstr "파트타임"
+
+#. Authentication provider display name in account settings
+#. Label for passkey sign-in button
+#: src/routes/auth/-components/social-auth.tsx
+#: src/routes/dashboard/settings/authentication/-components/hooks.tsx
+msgid "Passkey"
+msgstr "패스키"
+
+#: src/routes/dashboard/settings/authentication/-components/passkeys.tsx
+msgid "Passkey deleted successfully."
+msgstr "패스키가 성공적으로 삭제되었습니다."
+
+#: src/routes/dashboard/settings/authentication/-components/passkeys.tsx
+msgid "Passkey registered successfully."
+msgstr "패스키가 성공적으로 등록되었습니다."
+
+#: src/routes/dashboard/settings/authentication/-components/passkeys.tsx
+msgid "Passkeys"
+msgstr "패스키"
+
 #: src/routes/_home/-sections/features.tsx
 msgid "Passkeys & 2FA"
 msgstr "패스키 & 2단계 인증"
 
+#. Authentication provider display name in account settings
+#. Label for password input on login form
+#. Label for password input on protected resume access form
+#. Label for password input on registration form
 #: src/dialogs/auth/disable-two-factor.tsx
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/routes/auth/login.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/auth/resume-password.tsx
+#: src/routes/dashboard/settings/authentication/-components/hooks.tsx
 #: src/routes/dashboard/settings/authentication/-components/password.tsx
 msgid "Password"
 msgstr "비밀번호"
@@ -1746,8 +2471,12 @@ msgstr "비밀번호 보호가 비활성화되었습니다."
 msgid "Password protection has been enabled."
 msgstr "비밀번호 보호가 활성화되었습니다."
 
+#. File format label in import source selector
+#: src/dialogs/resume/import.tsx
+msgid "PDF"
+msgstr "PDF"
+
 #: src/dialogs/resume/sections/education.tsx
-#: src/dialogs/resume/sections/experience.tsx
 #: src/dialogs/resume/sections/experience.tsx
 #: src/dialogs/resume/sections/project.tsx
 #: src/dialogs/resume/sections/volunteer.tsx
@@ -1792,6 +2521,7 @@ msgstr "PDF를 생성하는 동안 잠시만 기다려 주세요..."
 msgid "Polish"
 msgstr "폴란드어"
 
+#. Preset button for setting picture aspect ratio to portrait orientation
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Portrait"
 msgstr "세로"
@@ -1805,12 +2535,10 @@ msgid "Portuguese (Portugal)"
 msgstr "포르투갈어(포르투갈)"
 
 #: src/dialogs/resume/sections/experience.tsx
-#: src/dialogs/resume/sections/experience.tsx
 #: src/dialogs/resume/sections/reference.tsx
 msgid "Position"
 msgstr "직책"
 
-#: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/preferences/index.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
@@ -1818,9 +2546,22 @@ msgstr "직책"
 msgid "Preferences"
 msgstr "환경 설정"
 
+#: src/components/input/rich-input.tsx
+msgid "Presets"
+msgstr "사전 설정"
+
 #: src/components/input/chip-input.tsx
 msgid "Press <0>{RETURN_KEY}</0> or <1>{COMMA_KEY}</1> to add or save the current keyword."
 msgstr "현재 키워드를 추가하거나 저장하려면 <0>{RETURN_KEY}</0> 또는 <1>{COMMA_KEY}</1>를 누르세요."
+
+#. Command palette hint that pressing Enter opens the selected resume
+#: src/components/command-palette/pages/resumes.tsx
+msgid "Press <0>Enter</0> to open"
+msgstr "<0>Enter</0> 키를 눌러 열기"
+
+#: src/routes/dashboard/job-search/index.tsx
+msgid "Previous"
+msgstr "이전 게시물"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Primary Color"
@@ -1830,7 +2571,6 @@ msgstr "기본 색상"
 msgid "Proficiency"
 msgstr "숙련도"
 
-#: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
 #: src/routes/dashboard/settings/profile.tsx
@@ -1872,9 +2612,23 @@ msgstr "출판물"
 msgid "Publisher"
 msgstr "발행인"
 
+#. placeholder {0}: quota.remaining
+#: src/routes/dashboard/job-search/index.tsx
+msgid "Quota: {0} remaining"
+msgstr "할당량: {0} 남은"
+
+#: src/routes/dashboard/settings/job-search.tsx
+msgid "RapidAPI Key"
+msgstr "RapidAPI 키"
+
 #: src/routes/_home/-sections/header.tsx
 msgid "Reactive Resume - Go to homepage"
 msgstr "Reactive Resume - 홈페이지로 이동"
+
+#. Import source option for current Reactive Resume JSON format
+#: src/dialogs/resume/import.tsx
+msgid "Reactive Resume (JSON)"
+msgstr "리액티브 이력서(JSON)"
 
 #: src/routes/_home/-sections/prefooter.tsx
 msgid "Reactive Resume continues to grow thanks to its vibrant community. This project owes its progress to numerous individuals who've dedicated their time and skills to make it better. We celebrate the coders who've enhanced its features on GitHub, the linguists whose translations on Crowdin have made it accessible to a broader audience, and the people who've donated to support its continued development."
@@ -1896,9 +2650,19 @@ msgstr "Reactive Resume가 오늘 Product Hunt에 출시됩니다. 방문해 응
 msgid "Reactive Resume is open-source, privacy-focused, and completely free. Unlike other resume builders, it doesn't show ads, track your data, or limit your features behind a paywall."
 msgstr "Reactive Resume는 오픈 소스, 개인정보 보호 중심, 완전 무료 서비스입니다. 다른 이력서 작성 도구와 달리 광고를 표시하지 않고, 데이터를 추적하지 않으며, 기능을 페이월 뒤에 숨기지도 않습니다."
 
+#. App version label in footer; includes semantic version variable
+#: src/components/ui/copyright.tsx
+msgid "Reactive Resume v{__APP_VERSION__}"
+msgstr "반응형 이력서 v{__APP_VERSION__}"
+
+#. Import source option for legacy Reactive Resume v4 JSON format
+#: src/dialogs/resume/import.tsx
+msgid "Reactive Resume v4 (JSON)"
+msgstr "리액티브 이력서 v4(JSON)"
+
 #: src/dialogs/resume/sections/cover-letter.tsx
 msgid "Recipient"
-msgstr ""
+msgstr "수신인"
 
 #: src/components/level/combobox.tsx
 msgid "Rectangle"
@@ -1922,21 +2686,36 @@ msgstr "추천인"
 msgid "Refresh"
 msgstr "새로고침"
 
+#: src/routes/dashboard/settings/authentication/-components/passkeys.tsx
+msgid "Register New Device"
+msgstr "새 장치 등록"
+
 #: src/routes/auth/forgot-password.tsx
-msgid "Remember your password? <0><1>Sign in now <2/></1></0>"
-msgstr "비밀번호가 기억나시나요? <0><1>지금 로그인하기 <2/></1></0>"
+msgid "Remember your password? <0/>"
+msgstr "비밀번호가 기억나시나요? <0/>"
+
+#: src/routes/dashboard/job-search/-components/job-card.tsx
+#: src/routes/dashboard/job-search/-components/job-detail.tsx
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Remote"
+msgstr "원격"
+
+#: src/routes/dashboard/job-search/-components/use-job-search.ts
+msgid "Remote only"
+msgstr "원격 전용"
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Remove"
-msgstr ""
+msgstr "제거"
+
+#. Screen reader label for button that removes a keyword chip. Variable is the current keyword text.
+#: src/components/input/chip-input.tsx
+msgid "Remove {chip}"
+msgstr "{chip} 제거"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Remove Password"
 msgstr "비밀번호 제거"
-
-#: src/components/ai/chat.tsx
-msgid "Removed"
-msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Removing password protection..."
@@ -1948,7 +2727,7 @@ msgstr "이름 바꾸기"
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Reorder"
-msgstr ""
+msgstr "순서 변경"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
 msgid "Report a Bug"
@@ -1958,6 +2737,10 @@ msgstr "버그 신고"
 msgid "Report an issue"
 msgstr "문제 신고"
 
+#: src/routes/dashboard/job-search/-components/job-detail.tsx
+msgid "Required Skills"
+msgstr "필수 기술"
+
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Resend verification email"
 msgstr "인증 이메일 다시 보내기"
@@ -1966,10 +2749,13 @@ msgstr "인증 이메일 다시 보내기"
 msgid "Resending verification email..."
 msgstr "인증 이메일을 다시 보내는 중입니다..."
 
+#. Destructive confirmation button label when resetting a resume section
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Reset"
 msgstr "초기화"
 
+#. Primary action button label on reset-password form
 #: src/routes/auth/reset-password.tsx
 msgid "Reset Password"
 msgstr "비밀번호 재설정"
@@ -1986,10 +2772,19 @@ msgstr "비밀번호를 재설정하는 중입니다..."
 msgid "Resources"
 msgstr "리소스"
 
+#: src/utils/resume/section.tsx
+msgid "Resume Analysis"
+msgstr "이력서 분석"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
+msgid "Resume analysis complete."
+msgstr "이력서 분석 완료."
+
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "Resume tailored successfully"
+msgstr "성공적으로 맞춤화된 이력서"
+
 #: src/components/command-palette/pages/navigation.tsx
-#: src/components/command-palette/pages/navigation.tsx
-#: src/components/command-palette/pages/resumes.tsx
-#: src/components/command-palette/pages/resumes.tsx
 #: src/components/command-palette/pages/resumes.tsx
 #: src/routes/_home/-sections/statistics.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
@@ -1997,13 +2792,17 @@ msgstr "리소스"
 msgid "Resumes"
 msgstr "이력서"
 
+#: src/routes/dashboard/job-search/index.tsx
+msgid "Retry"
+msgstr "다시 시도"
+
 #: src/components/input/rich-input.tsx
 msgid "Right Align"
 msgstr "오른쪽 정렬"
 
 #: src/dialogs/resume/sections/experience.tsx
 msgid "Role Progression"
-msgstr ""
+msgstr "역할 진행"
 
 #: src/utils/locale.ts
 msgid "Romanian"
@@ -2013,9 +2812,24 @@ msgstr "루마니아어"
 msgid "Rotation"
 msgstr "회전"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
+msgid "Run your first analysis to get a scorecard, strengths, and prioritized suggestions."
+msgstr "첫 번째 분석을 실행하여 스코어카드, 강점, 우선순위가 지정된 제안을 확인하세요."
+
 #: src/utils/locale.ts
 msgid "Russian"
 msgstr "러시아어"
+
+#. Passkey rename prompt confirm action in authentication settings
+#: src/routes/dashboard/settings/authentication/-components/passkeys.tsx
+msgid "Save"
+msgstr "저장"
+
+#. Button label to save the selected number of detected skills to the original resume
+#. placeholder {0}: selectedSkills.size
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "Save {0} Skills"
+msgstr "{0} 스킬 저장"
 
 #: src/dialogs/resume/index.tsx
 #: src/dialogs/resume/sections/award.tsx
@@ -2045,7 +2859,25 @@ msgstr "아래 QR 코드를 선호하는 인증 앱으로 스캔하세요. 아�
 msgid "School"
 msgstr "학교"
 
-#: src/components/input/icon-picker.tsx
+#: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
+msgid "Scorecard"
+msgstr "스코어카드"
+
+#: src/routes/dashboard/job-search/index.tsx
+msgid "Search"
+msgstr "검색"
+
+#. Accessible label for command palette search input
+#: src/components/command-palette/index.tsx
+msgid "Search commands"
+msgstr "검색 명령"
+
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Search countries"
+msgstr "국가 검색"
+
+#. Accessible label for icon picker search input
+#. Placeholder text in icon picker search input
 #: src/components/input/icon-picker.tsx
 msgid "Search for an icon"
 msgstr "아이콘 검색"
@@ -2054,8 +2886,9 @@ msgstr "아이콘 검색"
 msgid "Search for..."
 msgstr "검색..."
 
+#. Placeholder in command palette input on nested pages
+#: src/components/command-palette/index.tsx
 #: src/components/ui/combobox.tsx
-#: src/components/ui/multiple-combobox.tsx
 msgid "Search..."
 msgstr "검색..."
 
@@ -2067,8 +2900,17 @@ msgstr "비밀 키가 클립보드에 복사되었습니다."
 msgid "Section Type"
 msgstr "섹션 유형"
 
+#. placeholder {0}: job.job_title
+#. placeholder {1}: job.employer_name
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "Select a resume to tailor for \"{0}\" at {1}. A copy will be created."
+msgstr "{1}에서 \"{0}\" 에 맞게 조정할 이력서를 선택합니다. 사본이 생성됩니다."
+
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Select country"
+msgstr "국가 선택"
+
 #: src/components/ui/combobox.tsx
-#: src/components/ui/multiple-combobox.tsx
 msgid "Select..."
 msgstr "선택..."
 
@@ -2076,6 +2918,7 @@ msgstr "선택..."
 msgid "Self-Host with Docker"
 msgstr "Docker로 자체 호스팅"
 
+#. Primary action button label on forgot-password form
 #: src/routes/auth/forgot-password.tsx
 msgid "Send Password Reset Email"
 msgstr "비밀번호 재설정 이메일 보내기"
@@ -2093,13 +2936,10 @@ msgid "Serbian"
 msgstr "세르비아어"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
-#: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 #: src/routes/dashboard/settings/authentication/-components/password.tsx
 msgid "Set Password"
 msgstr "비밀번호 설정"
 
-#: src/components/command-palette/pages/navigation.tsx
-#: src/components/command-palette/pages/navigation.tsx
 #: src/components/command-palette/pages/navigation.tsx
 #: src/routes/dashboard/-components/sidebar.tsx
 msgid "Settings"
@@ -2141,8 +2981,29 @@ msgstr "표시"
 #: src/dialogs/resume/sections/reference.tsx
 #: src/dialogs/resume/sections/volunteer.tsx
 msgid "Show link in title"
-msgstr ""
+msgstr "제목에 링크 표시"
 
+#. Accessible label for button that reveals password in registration form
+#. Accessible label for button that reveals password in reset-password form
+#. Accessible label for button that reveals password on protected resume screen
+#. Accessible label for button that reveals the password in login form
+#. Accessible label for toggle button that reveals the masked current password
+#. Accessible label for toggle button that reveals the masked new password
+#. Accessible label for toggle button that reveals the masked password in two-factor disable dialog
+#. Accessible label for toggle button that reveals the masked password in two-factor setup
+#: src/dialogs/auth/change-password.tsx
+#: src/dialogs/auth/disable-two-factor.tsx
+#: src/dialogs/auth/enable-two-factor.tsx
+#: src/routes/auth/login.tsx
+#: src/routes/auth/register.tsx
+#: src/routes/auth/reset-password.tsx
+#: src/routes/auth/resume-password.tsx
+msgid "Show password"
+msgstr "비밀번호 표시"
+
+#. Dialog title for the mobile navigation sidebar panel
+#. Layout editor column label for the secondary sidebar area
+#: src/components/ui/sidebar.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Sidebar"
 msgstr "사이드바"
@@ -2151,10 +3012,19 @@ msgstr "사이드바"
 msgid "Sidebar Width"
 msgstr "사이드바 너비"
 
+#. Primary action button label on login form
 #: src/routes/auth/login.tsx
 msgid "Sign in"
 msgstr "로그인"
 
+#. Call-to-action link from forgot-password page to login page
+#. Call-to-action link from registration page to login page
+#: src/routes/auth/forgot-password.tsx
+#: src/routes/auth/register.tsx
+msgid "Sign in now"
+msgstr "지금 로그인"
+
+#. Title on the login page
 #: src/routes/auth/login.tsx
 msgid "Sign in to your account"
 msgstr "계정에 로그인"
@@ -2163,11 +3033,11 @@ msgstr "계정에 로그인"
 msgid "Sign in with GitHub, Google or a custom OAuth provider."
 msgstr "GitHub, Google 또는 사용자 지정 OAuth 제공자를 통해 로그인할 수 있습니다."
 
+#. Primary action button label on registration form
 #: src/routes/auth/register.tsx
 msgid "Sign up"
 msgstr "가입"
 
-#: src/routes/auth/-components/social-auth.tsx
 #: src/routes/auth/-components/social-auth.tsx
 #: src/routes/auth/login.tsx
 msgid "Signing in..."
@@ -2194,6 +3064,10 @@ msgid "Single-column with a sidebar and clean grid layout; versatile for any pro
 msgstr "사이드바와 깔끔한 그리드 레이아웃을 갖춘 단일 열 템플릿으로, 대부분의 직군이나 기술 직무에 두루 활용할 수 있습니다."
 
 #: src/dialogs/resume/template/data.ts
+msgid "Single-column with an inline three-column entry header (position · organization · period); compact and ATS-friendly, well-suited for Asian resume conventions (CN/JP/KR)."
+msgstr "인라인 3열 항목 헤더(직위-조직-기간)가 있는 단일 열로, 컴팩트하고 ATS 친화적이며 아시아 이력서 양식(CN/JP/KR)에 적합합니다."
+
+#: src/dialogs/resume/template/data.ts
 msgid "Single-column; polished and serious for senior or enterprise-level positions."
 msgstr "단일 열 구성에 세련되고 진중한 느낌을 더한 템플릿으로, 시니어 혹은 엔터프라이즈급 포지션에 적합합니다."
 
@@ -2206,6 +3080,10 @@ msgstr "크기"
 msgid "Skills"
 msgstr "기술"
 
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "Skip"
+msgstr "건너뛰기"
+
 #: src/routes/_home/route.tsx
 msgid "Skip to main content"
 msgstr "본문으로 바로 가기"
@@ -2214,12 +3092,29 @@ msgstr "본문으로 바로 가기"
 msgid "Slovak"
 msgstr "슬로바키아어"
 
+#: src/utils/locale.ts
+msgid "Slovenian"
+msgstr ""
+
 #: src/dialogs/resume/index.tsx
 msgid "Slug"
 msgstr "슬러그"
 
-#: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
-#: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
+#. Fallback error description when resume analysis request fails
+#: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
+msgid "Something went wrong while analyzing your resume."
+msgstr "이력서를 분석하는 동안 문제가 발생했습니다."
+
+#. Fallback error description when syncing newly detected skills fails
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "Something went wrong while syncing skills."
+msgstr "스킬을 동기화하는 동안 문제가 발생했습니다."
+
+#. Fallback error description when tailoring pipeline fails
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "Something went wrong while tailoring your resume."
+msgstr "이력서를 수정하는 동안 문제가 발생했습니다."
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "Something went wrong. Please try again."
 msgstr "문제가 발생했습니다. 다시 시도해 주세요."
@@ -2253,6 +3148,7 @@ msgstr "스폰서"
 msgid "Sponsorships"
 msgstr "후원"
 
+#. Preset button for setting picture aspect ratio to square
 #: src/components/level/combobox.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Square"
@@ -2282,7 +3178,11 @@ msgstr "통계"
 
 #: src/hooks/use-form-blocker.tsx
 msgid "Stay"
-msgstr ""
+msgstr "머물기"
+
+#: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
+msgid "Strengths"
+msgstr "강점"
 
 #: src/components/input/rich-input.tsx
 msgid "Strike"
@@ -2292,7 +3192,14 @@ msgstr "취소선"
 msgid "Subreddit"
 msgstr "서브레딧"
 
+#: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
+msgid "Suggestions"
+msgstr "제안 사항"
+
+#. Fallback title for a custom summary item in resume builder when content is empty
+#. Fallback title for a custom summary item in resume builder when content is unavailable
 #: src/dialogs/resume/sections/custom.tsx
+#: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/utils/resume/section.tsx
 msgid "Summary"
 msgstr "요약"
@@ -2329,6 +3236,19 @@ msgstr "태그"
 msgid "Tags can be used to categorize your resume by keywords."
 msgstr "태그는 키워드로 이력서를 분류하는 데 사용할 수 있습니다."
 
+#: src/routes/dashboard/job-search/-components/job-detail.tsx
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "Tailor Resume"
+msgstr "이력서 맞춤 설정"
+
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "Tailoring failed"
+msgstr "맞춤 설정 실패"
+
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "Tailoring your resume..."
+msgstr "이력서 맞춤 설정하기..."
+
 #: src/utils/locale.ts
 msgid "Tamil"
 msgstr "타밀어"
@@ -2350,6 +3270,7 @@ msgid "Templates"
 msgstr "템플릿"
 
 #: src/routes/dashboard/settings/ai.tsx
+#: src/routes/dashboard/settings/job-search.tsx
 msgid "Test Connection"
 msgstr "연결 테스트"
 
@@ -2357,6 +3278,7 @@ msgstr "연결 테스트"
 msgid "Testimonials"
 msgstr "후기"
 
+#: src/components/input/rich-input.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Text Color"
 msgstr "텍스트 색상"
@@ -2364,6 +3286,24 @@ msgstr "텍스트 색상"
 #: src/utils/locale.ts
 msgid "Thai"
 msgstr "태국어"
+
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "The AI identified new skills from your experience that match this job. Select which ones to save back to your original resume for future applications. This will permanently modify your original resume and cannot be undone."
+msgstr "AI가 귀하의 경험에서 이 직무와 일치하는 새로운 기술을 식별했습니다. 향후 지원을 위해 원래 이력서에 다시 저장할 항목을 선택하세요. 이렇게 하면 원래 이력서가 영구적으로 수정되며 되돌릴 수 없습니다."
+
+#. Error description when AI returns invalid resume analysis format
+#: src/routes/builder/$resumeId/-sidebar/right/sections/resume-analysis.tsx
+msgid "The AI returned an invalid analysis format. Please try again."
+msgstr "AI가 잘못된 분석 형식을 반환했습니다. 다시 시도하세요."
+
+#. Error description when AI tailoring output is invalid
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "The AI returned invalid tailoring data. Please try again."
+msgstr "AI가 잘못된 맞춤 데이터를 반환했습니다. 다시 시도하세요."
+
+#: src/routes/dashboard/job-search/-components/tailor-dialog.tsx
+msgid "The AI will optimize it for this position."
+msgstr "AI가 이 포지션에 맞게 최적화합니다."
 
 #: src/routes/dashboard/settings/api-keys.tsx
 msgid "The API key has been deleted successfully."
@@ -2373,13 +3313,20 @@ msgstr "API 키가 성공적으로 삭제되었습니다."
 msgid "The API key will no longer be able to access your data after deletion. This action cannot be undone."
 msgstr "API 키를 삭제하면 더 이상 데이터에 액세스할 수 없습니다. 이 작업은 되돌릴 수 없습니다."
 
+#. Empty-state message when no command palette results match the search query
 #: src/components/command-palette/index.tsx
 msgid "The command you're looking for doesn't exist."
 msgstr "찾으시는 명령이 없습니다."
 
+#. Warning shown when resume content exceeds printable page height
 #: src/components/resume/preview.tsx
 msgid "The content is too tall for this page, this may cause undesirable results when exporting to PDF."
 msgstr "이 페이지의 콘텐츠가 너무 길어 PDF로 내보낼 때 예기치 않은 결과가 발생할 수 있습니다."
+
+#. Error shown when AI parsing returns invalid resume structure during import
+#: src/dialogs/resume/import.tsx
+msgid "The imported file could not be parsed into a valid resume."
+msgstr "가져온 파일을 유효한 이력서로 구문 분석할 수 없습니다."
 
 #: src/routes/auth/resume-password.tsx
 msgid "The password you entered is incorrect"
@@ -2393,6 +3340,7 @@ msgstr "접근하려는 이력서는 비밀번호로 보호되어 있습니다"
 msgid "The URL you entered is not valid."
 msgstr "입력하신 URL이 올바르지 않습니다."
 
+#. Menu item that opens appearance theme selection submenu
 #: src/components/command-palette/pages/preferences/theme.tsx
 #: src/components/user/dropdown-menu.tsx
 #: src/routes/dashboard/settings/preferences.tsx
@@ -2405,12 +3353,13 @@ msgstr "그 다음, 앱에 표시된 6자리 코드를 입력해 계속 진행�
 
 #: src/routes/builder/$resumeId/-components/dock.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
+msgid "There was a problem while generating the DOCX, please try again."
+msgstr "DOCX를 생성하는 동안 문제가 발생했습니다. 다시 시도하세요."
+
+#: src/routes/builder/$resumeId/-components/dock.tsx
+#: src/routes/builder/$resumeId/-sidebar/right/sections/export.tsx
 msgid "There was a problem while generating the PDF, please try again in some time."
 msgstr "PDF를 생성하는 동안 문제가 발생했습니다. 잠시 후 다시 시도해 주세요."
-
-#: src/components/ai/chat.tsx
-msgid "Thinking..."
-msgstr ""
 
 #: src/routes/builder/$resumeId/-components/header.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
@@ -2422,7 +3371,6 @@ msgstr "이 작업은 되돌릴 수 없습니다."
 msgid "This action cannot be undone. All your data will be permanently deleted."
 msgstr "이 작업은 되돌릴 수 없습니다. 모든 데이터가 영구적으로 삭제됩니다."
 
-#: src/dialogs/resume/import.tsx
 #: src/dialogs/resume/import.tsx
 msgid "This feature requires AI Integration to be enabled. Please enable it in the settings."
 msgstr "이 기능을 사용하려면 AI 통합을 활성화해야 합니다. 설정에서 활성화해 주세요."
@@ -2440,6 +3388,10 @@ msgstr "AI 제공자의 응답 속도에 따라 몇 분 정도 걸릴 수 있습
 msgid "This may take a while depending on the server capacity. Please do not close the window or refresh the page."
 msgstr "서버 용량에 따라 시간이 다소 걸릴 수 있습니다. 창을 닫거나 페이지를 새로 고치지 마세요."
 
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "This month"
+msgstr "이번 달"
+
 #: src/components/resume/store/resume.ts
 msgid "This resume is locked and cannot be updated."
 msgstr "이 이력서는 잠겨 있어 수정할 수 없습니다."
@@ -2452,9 +3404,21 @@ msgstr "이 섹션은 이 이력서에 대한 개인적인 노트 전용 공간�
 msgid "This step is optional, but recommended."
 msgstr "이 단계는 선택 사항이지만 권장됩니다."
 
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "This week"
+msgstr "이번 주"
+
 #: src/dialogs/api-key/create.tsx
 msgid "This will generate a new API key to access the Reactive Resume API to allow machines to interact with your resume data."
 msgstr "이 작업은 Reactive Resume API에 액세스할 수 있는 새 API 키를 생성하여, 기계가 이력서 데이터와 상호 작용할 수 있도록 합니다."
+
+#: src/routes/dashboard/settings/authentication/-components/passkeys.tsx
+msgid "This will help you identify it later, if you plan to have multiple passkeys."
+msgstr "나중에 여러 개의 패스키를 사용하려는 경우 이를 식별하는 데 도움이 됩니다."
+
+#: src/routes/builder/$resumeId/-sidebar/left/shared/section-menu.tsx
+msgid "This will remove all items from this section."
+msgstr "이렇게 하면 이 섹션에서 모든 항목이 제거됩니다."
 
 #: src/routes/_home/-sections/hero.tsx
 msgid "Timelapse demonstration of building a resume with Reactive Resume"
@@ -2478,6 +3442,32 @@ msgstr "제목"
 #: src/routes/dashboard/settings/danger-zone.tsx
 msgid "To delete your account, you need to enter the confirmation text and click the button below."
 msgstr "계정을 삭제하려면 확인 문구를 입력한 뒤 아래 버튼을 클릭해야 합니다."
+
+#: src/routes/dashboard/job-search/index.tsx
+msgid "To search for job listings, you need to configure your RapidAPI key in settings."
+msgstr "채용공고를 검색하려면 설정에서 RapidAPI 키를 구성해야 합니다."
+
+#: src/routes/dashboard/job-search/-components/job-utils.ts
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Today"
+msgstr "오늘"
+
+#. Screen-reader label for opening or closing the left sidebar in resume builder
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Toggle left sidebar"
+msgstr "왼쪽 사이드바 토글"
+
+#. Screen-reader label for opening or closing the right sidebar in resume builder
+#: src/routes/builder/$resumeId/-components/header.tsx
+msgid "Toggle right sidebar"
+msgstr "오른쪽 사이드바 토글"
+
+#. Accessible label for draggable/clickable sidebar rail that toggles sidebar visibility
+#. Screen-reader-only label for button that opens or closes the app sidebar
+#. Tooltip text for sidebar rail toggle action
+#: src/components/ui/sidebar.tsx
+msgid "Toggle Sidebar"
+msgstr "사이드바 토글"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/statistics.tsx
 msgid "Track your resume's views and downloads"
@@ -2545,8 +3535,14 @@ msgstr "2단계 인증이 성공적으로 비활성화되었습니다."
 msgid "Two-factor authentication has been setup successfully."
 msgstr "2단계 인증이 성공적으로 설정되었습니다."
 
+#. Accessible title for QR code image shown during two-factor setup
+#: src/dialogs/auth/enable-two-factor.tsx
+msgid "Two-Factor Authentication QR Code"
+msgstr "2단계 인증 QR코드"
+
 #: src/dialogs/resume/import.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
 msgid "Type"
 msgstr "유형"
 
@@ -2554,6 +3550,8 @@ msgstr "유형"
 msgid "Type \"{CONFIRMATION_TEXT}\" to confirm"
 msgstr "확인하려면 \"{CONFIRMATION_TEXT}\"를 입력하세요"
 
+#. Placeholder in command palette input on root page
+#. Screen-reader dialog description instructing users how to use the command palette
 #: src/components/command-palette/index.tsx
 msgid "Type a command or search..."
 msgstr "명령을 입력하거나 검색하세요..."
@@ -2565,6 +3563,10 @@ msgstr "타이포그래피"
 #: src/utils/locale.ts
 msgid "Ukrainian"
 msgstr "우크라이나어"
+
+#: src/routes/dashboard/job-search/-components/search-filters.tsx
+msgid "Under 3 years"
+msgstr "3년 미만"
 
 #: src/components/input/rich-input.tsx
 msgid "Underline"
@@ -2583,6 +3585,9 @@ msgstr "무제한 이력서"
 msgid "Unlinking your {providerName} account..."
 msgstr "{providerName} 계정 연결을 해제하는 중입니다..."
 
+#. Primary action button label to unlock a password-protected resume
+#. Resume card context menu action to remove edit lock
+#. Resume card dropdown action to remove edit lock
 #: src/routes/auth/resume-password.tsx
 #: src/routes/builder/$resumeId/-components/header.tsx
 #: src/routes/dashboard/resumes/-components/menus/context-menu.tsx
@@ -2590,10 +3595,22 @@ msgstr "{providerName} 계정 연결을 해제하는 중입니다..."
 msgid "Unlock"
 msgstr "잠금 해제"
 
+#: src/routes/dashboard/settings/authentication/-components/passkeys.tsx
+msgid "Unnamed passkey"
+msgstr "이름 없는 패스키"
+
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Unverified"
 msgstr "인증되지 않음"
 
+#. Salary label when only an upper salary bound is available
+#. placeholder {0}: formatCurrency(max)
+#: src/routes/dashboard/job-search/-components/job-utils.ts
+msgid "Up to {0}{periodSuffix}"
+msgstr "최대 {0}{periodSuffix}"
+
+#. Resume card context menu action to edit resume metadata
+#. Resume card dropdown action to edit resume metadata
 #: src/routes/builder/$resumeId/-components/header.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/sections/custom.tsx
 #: src/routes/builder/$resumeId/-sidebar/left/shared/section-item.tsx
@@ -2612,7 +3629,7 @@ msgstr "기존 자격증 업데이트"
 
 #: src/dialogs/resume/sections/cover-letter.tsx
 msgid "Update an existing cover letter"
-msgstr ""
+msgstr "기존 자기소개서 업데이트"
 
 #: src/dialogs/resume/sections/custom.tsx
 msgid "Update an existing custom section"
@@ -2656,12 +3673,13 @@ msgstr "기존 기술 업데이트"
 
 #: src/dialogs/resume/sections/summary-item.tsx
 msgid "Update an existing summary item"
-msgstr ""
+msgstr "기존 요약 항목 업데이트"
 
 #: src/dialogs/resume/sections/volunteer.tsx
 msgid "Update an existing volunteer experience"
 msgstr "기존 봉사 경험 업데이트"
 
+#. Primary action button to submit changed password
 #: src/dialogs/auth/change-password.tsx
 #: src/routes/dashboard/settings/authentication/-components/password.tsx
 msgid "Update Password"
@@ -2675,10 +3693,6 @@ msgstr "이력서 업데이트"
 msgid "Update your password"
 msgstr "비밀번호 업데이트"
 
-#: src/components/ai/chat.tsx
-msgid "Updated"
-msgstr ""
-
 #: src/dialogs/auth/change-password.tsx
 msgid "Updating your password..."
 msgstr "비밀번호를 업데이트하는 중입니다..."
@@ -2688,13 +3702,24 @@ msgid "Updating your resume..."
 msgstr "이력서를 업데이트하는 중입니다..."
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
+msgid "Upload picture"
+msgstr "사진 업로드"
+
+#: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
 msgid "Uploading picture..."
 msgstr "사진을 업로드하는 중입니다..."
 
+#. Form field label for the generated public resume link in sharing settings
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
+#: src/routes/builder/$resumeId/-sidebar/right/sections/sharing.tsx
 msgid "URL"
 msgstr "URL"
 
+#: src/components/input/rich-input.tsx
+msgid "Use color {color}"
+msgstr "색상 사용 {color}"
+
+#. Label for username input on registration form
 #: src/dialogs/resume/sections/profile.tsx
 #: src/routes/auth/register.tsx
 #: src/routes/dashboard/settings/profile.tsx
@@ -2713,10 +3738,17 @@ msgstr "우즈베크어"
 msgid "Valid URLs must start with http:// or https://."
 msgstr "유효한 URL은 http:// 또는 https://로 시작해야 합니다."
 
+#. AI provider option label in dashboard AI settings
+#: src/routes/dashboard/settings/ai.tsx
+msgid "Vercel AI Gateway"
+msgstr "버셀 AI 게이트웨이"
+
 #: src/routes/dashboard/settings/profile.tsx
 msgid "Verified"
 msgstr "인증됨"
 
+#. Primary action button to submit 2FA code
+#. Primary action button to submit backup code
 #: src/routes/auth/verify-2fa-backup.tsx
 #: src/routes/auth/verify-2fa.tsx
 msgid "Verify"
@@ -2773,6 +3805,10 @@ msgstr "웹사이트"
 msgid "What do you want to rename this section to?"
 msgstr "이 섹션의 이름을 무엇으로 바꾸고 싶으신가요?"
 
+#: src/routes/dashboard/settings/job-search.tsx
+msgid "What is JSearch API?"
+msgstr "JSearch API란 무엇인가요?"
+
 #: src/routes/_home/-sections/faq.tsx
 msgid "What makes Reactive Resume different from other resume builders?"
 msgstr "Reactive Resume는 다른 이력서 작성 도구와 무엇이 다른가요?"
@@ -2803,6 +3839,10 @@ msgstr "네! 모든 템플릿은 완전히 사용자 지정할 수 있습니다.
 msgid "Yes! Reactive Resume is completely free to use, with no hidden costs, premium tiers, or subscription fees. It's open-source and will always remain free."
 msgstr "네! Reactive Resume는 숨은 비용, 프리미엄 플랜, 구독료 없이 완전히 무료로 사용할 수 있습니다. 오픈 소스이며 앞으로도 계속 무료로 제공됩니다."
 
+#: src/routes/dashboard/job-search/-components/job-utils.ts
+msgid "Yesterday"
+msgstr "어제"
+
 #: src/routes/_home/-sections/features.tsx
 msgid "You also have the option to deploy on your own servers using the Docker image."
 msgstr "또한 Docker 이미지를 사용해 직접 서버에 배포할 수도 있습니다."
@@ -2817,7 +3857,7 @@ msgstr "고유한 공개 URL로 이력서를 공유하고, 비밀번호로 보�
 
 #: src/hooks/use-form-blocker.tsx
 msgid "You have unsaved changes that will be lost."
-msgstr ""
+msgstr "저장되지 않은 변경 사항이 있으며, 이 내용은 사라집니다."
 
 #: src/routes/auth/forgot-password.tsx
 #: src/routes/auth/register.tsx
@@ -2848,6 +3888,10 @@ msgstr "데이터는 브라우저에 로컬로 저장됩니다"
 msgid "Your data is stored securely and is never shared with third parties. You can also self-host Reactive Resume on your own servers for complete control over your data."
 msgstr "데이터는 안전하게 저장되며 제3자와 공유되지 않습니다. 또한 Reactive Resume를 직접 서버에 호스팅해 데이터에 대한 완전한 제어권을 가질 수 있습니다."
 
+#: src/components/resume/store/resume.ts
+msgid "Your latest changes could not be saved. Please make sure you are connected to the internet and try again."
+msgstr "최근 변경 내용을 저장하지 못했습니다. 인터넷에 연결되어 있는지 확인한 후 다시 시도하세요."
+
 #: src/routes/auth/reset-password.tsx
 msgid "Your password has been reset successfully. You can now sign in with your new password."
 msgstr "비밀번호가 성공적으로 재설정되었습니다. 이제 새 비밀번호로 로그인할 수 있습니다."
@@ -2860,7 +3904,10 @@ msgstr "비밀번호가 성공적으로 업데이트되었습니다."
 msgid "Your profile has been updated successfully."
 msgstr "프로필이 성공적으로 업데이트되었습니다."
 
-#: src/dialogs/resume/index.tsx
+#: src/routes/dashboard/settings/job-search.tsx
+msgid "Your RapidAPI key is stored locally on your browser. It is only sent to the server when making a request to search for jobs, and is never stored or logged on our servers."
+msgstr "RapidAPI 키는 브라우저에 로컬로 저장됩니다. 작업 검색을 요청할 때만 서버로 전송되며, 당사 서버에 저장되거나 기록되지 않습니다."
+
 #: src/dialogs/resume/index.tsx
 msgid "Your resume has been created successfully."
 msgstr "이력서가 성공적으로 생성되었습니다."
@@ -2902,4 +3949,3 @@ msgstr "축소"
 #: src/utils/locale.ts
 msgid "Zulu"
 msgstr "줄루어"
-

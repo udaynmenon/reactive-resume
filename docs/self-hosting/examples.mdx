@@ -10,7 +10,9 @@ Every self-hosted setup is unique. You might be running on a single VPS, a Kuber
 These examples go beyond the basic setup in the [Self-Hosting with Docker](/self-hosting/docker) guide, showing production-ready configurations with reverse proxies, SSL termination, and other common patterns.
 
 <Info>
-  **Help others by sharing your setup!** If you have a working configuration that isn't covered here, I'd love to include it. Simply [open a pull request](https://github.com/amruthpillai/reactive-resume) with your example added to this page. Your contribution helps the community and makes self-hosting easier for everyone.
+  **Help others by sharing your setup!** If you have a working configuration that isn't covered here, I'd love to
+  include it. Simply [open a pull request](https://github.com/amruthpillai/reactive-resume) with your example added to
+  this page. Your contribution helps the community and makes self-hosting easier for everyone.
 </Info>
 
 ---
@@ -20,7 +22,8 @@ These examples go beyond the basic setup in the [Self-Hosting with Docker](/self
 This example uses [Traefik](https://traefik.io/) as a reverse proxy with automatic SSL certificate management via Let's Encrypt. Only the Reactive Resume app is exposed through Traefik—Postgres and the printer remain on an internal network.
 
 <Tip>
-  Traefik automatically discovers services via Docker labels and handles SSL certificates, making it ideal for setups where you want minimal configuration.
+  Traefik automatically discovers services via Docker labels and handles SSL certificates, making it ideal for setups
+  where you want minimal configuration.
 </Tip>
 
 ```yaml compose-traefik.yml lines expandable
@@ -82,12 +85,11 @@ services:
       - QUEUED=10
       - HEALTH=true
       - CONCURRENT=5
-      # Optional: Set a token for authentication
-      # - TOKEN=your-secret-token
+      - TOKEN=${BROWSERLESS_TOKEN}
     networks:
       - reactive_resume_network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/pressure?token=your-secret-token"]
+      test: ["CMD-SHELL", 'curl -fsS "http://localhost:3000/pressure?token=${BROWSERLESS_TOKEN}" > /dev/null']
       interval: 30s
       timeout: 10s
       retries: 3
@@ -99,7 +101,7 @@ services:
       - APP_URL=https://resume.${DOMAIN}
       - PRINTER_APP_URL=http://reactive_resume:3000
       - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/postgres
-      - PRINTER_ENDPOINT=http://printer:3000
+      - PRINTER_ENDPOINT=ws://printer:3000?token=${BROWSERLESS_TOKEN}
       - AUTH_SECRET=${AUTH_SECRET}
       # Add other optional env vars as needed (SMTP, S3, OAuth, etc.)
     volumes:
@@ -140,6 +142,7 @@ DOMAIN="example.com"
 ACME_EMAIL="admin@example.com"
 POSTGRES_PASSWORD="your-secure-postgres-password"
 AUTH_SECRET="your-auth-secret-from-openssl-rand-hex-32"
+BROWSERLESS_TOKEN="your-browserless-token"
 # Optional: Traefik dashboard auth (generate with: htpasswd -nb admin password)
 TRAEFIK_DASHBOARD_AUTH="admin:$$apr1$$..."
 ```
@@ -188,10 +191,14 @@ services:
       - QUEUED=10
       - HEALTH=true
       - CONCURRENT=5
-      # Optional: Set a token for authentication
-      # - TOKEN=your-secret-token
+      - TOKEN=${BROWSERLESS_TOKEN}
     networks:
       - reactive_resume_network
+    healthcheck:
+      test: ["CMD-SHELL", 'curl -fsS "http://localhost:3000/pressure?token=${BROWSERLESS_TOKEN}" > /dev/null']
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   reactive_resume:
     image: amruthpillai/reactive-resume:latest
@@ -200,7 +207,7 @@ services:
       - APP_URL=https://resume.${DOMAIN}
       - PRINTER_APP_URL=http://reactive_resume:3000
       - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/postgres
-      - PRINTER_ENDPOINT=http://printer:3000
+      - PRINTER_ENDPOINT=ws://printer:3000?token=${BROWSERLESS_TOKEN}
       - AUTH_SECRET=${AUTH_SECRET}
       # Add other optional env vars as needed (SMTP, S3, OAuth, etc.)
     volumes:
@@ -291,7 +298,8 @@ http {
 ```
 
 <Tip>
-  For automatic SSL certificates with nginx, consider using [certbot](https://certbot.eff.org/) with the `--nginx` plugin, or a companion container like [nginx-proxy-acme](https://github.com/nginx-proxy/acme-companion).
+  For automatic SSL certificates with nginx, consider using [certbot](https://certbot.eff.org/) with the `--nginx`
+  plugin, or a companion container like [nginx-proxy-acme](https://github.com/nginx-proxy/acme-companion).
 </Tip>
 
 ---
@@ -301,7 +309,8 @@ http {
 This example demonstrates a production-grade Docker Swarm deployment with multiple replicas, health checks, rolling updates, and Traefik integration. It includes SeaweedFS for S3-compatible storage and a PostgreSQL database with custom configuration.
 
 <Tip>
-  Docker Swarm is great for multi-node deployments where you need high availability and easy scaling. The app service is configured with 2 replicas and rolling update strategy.
+  Docker Swarm is great for multi-node deployments where you need high availability and easy scaling. The app service is
+  configured with 2 replicas and rolling update strategy.
 </Tip>
 
 ```yaml compose-swarm.yml lines expandable
@@ -334,10 +343,9 @@ services:
       - QUEUED=10
       - HEALTH=true
       - CONCURRENT=5
-      # Optional: Set a token for authentication
-      # - TOKEN=your-secret-token
+      - TOKEN=$BROWSERLESS_TOKEN
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/pressure?token=your-secret-token"]
+      test: ["CMD-SHELL", 'curl -fsS "http://localhost:3000/pressure?token=$BROWSERLESS_TOKEN" > /dev/null']
       interval: 30s
       timeout: 10s
       retries: 3
@@ -400,6 +408,8 @@ services:
       - GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET
       - GITHUB_CLIENT_ID=$GITHUB_CLIENT_ID
       - GITHUB_CLIENT_SECRET=$GITHUB_CLIENT_SECRET
+      - LINKEDIN_CLIENT_ID=$LINKEDIN_CLIENT_ID
+      - LINKEDIN_CLIENT_SECRET=$LINKEDIN_CLIENT_SECRET
       - SMTP_HOST=$SMTP_HOST
       - SMTP_PORT=$SMTP_PORT
       - SMTP_USER=$SMTP_USER
@@ -462,17 +472,18 @@ docker stack deploy -c compose-swarm.yml reactive_resume
 docker stack services reactive_resume
 
 # View logs for the app
-docker service logs -f reactive_resume_app
+docker service logs -f reactive_resume_reactive_resume
 
 # Scale the app
-docker service scale reactive_resume_app=3
+docker service scale reactive_resume_reactive_resume=3
 
 # Remove the stack
 docker stack rm reactive_resume
 ```
 
 <Note>
-  This example assumes you have an external Traefik network already set up. Adjust the `traefik_network` reference and labels based on your Traefik configuration.
+  This example assumes you have an external Traefik network already set up. Adjust the `traefik_network` reference and
+  labels based on your Traefik configuration.
 </Note>
 
 ---

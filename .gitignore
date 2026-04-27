@@ -2,9 +2,11 @@ dist
 .env*
 /data
 .nitro
+.agents
 .output
 .vercel
 .cursor
+.claude
 TODO.md
 coverage
 .netlify
