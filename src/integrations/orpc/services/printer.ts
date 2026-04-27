@@ -77,11 +77,14 @@ function throwPrinterStepError(step: string, hint: string, error: unknown): neve
   });
 }
 
-// Close browser on process termination
-process.on("exit", async () => {
-  await closeBrowser();
-  process.exit(0);
-});
+// Gracefully close browser on process termination signals
+for (const signal of ["SIGTERM", "SIGINT"] as const) {
+  process.on(signal, () => {
+    void closeBrowser().finally(() => {
+      process.exit(0);
+    });
+  });
+}
 
 /**
  * Generates a PDF from a resume and uploads it to storage.

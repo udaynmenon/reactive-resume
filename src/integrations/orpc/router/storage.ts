@@ -39,34 +39,45 @@ export const storageRouter = {
       }),
     )
     .handler(async ({ context, input: file }) => {
-      const originalMimeType = file.type;
-      const isImage = isImageFile(originalMimeType);
+      try {
+        const originalMimeType = file.type;
+        const isImage = isImageFile(originalMimeType);
 
-      let data: Uint8Array;
-      let contentType: string;
+        let data: Uint8Array;
+        let contentType: string;
 
-      if (isImage) {
-        const processed = await processImageForUpload(file);
-        data = processed.data;
-        contentType = processed.contentType;
-      } else {
-        const fileBuffer = await file.arrayBuffer();
-        data = new Uint8Array(fileBuffer);
-        contentType = originalMimeType;
+        if (isImage) {
+          const processed = await processImageForUpload(file);
+          data = processed.data;
+          contentType = processed.contentType;
+        } else {
+          const fileBuffer = await file.arrayBuffer();
+          data = new Uint8Array(fileBuffer);
+          contentType = originalMimeType;
+        }
+
+        const result = await uploadFile({
+          userId: context.user.id,
+          data,
+          contentType,
+          type: "picture",
+        });
+
+        return {
+          url: result.url,
+          path: result.key,
+          contentType,
+        };
+      } catch (error) {
+        console.error("[storage.uploadFile] Failed to upload file:", error);
+
+        if (error instanceof ORPCError) throw error;
+
+        throw new ORPCError("INTERNAL_SERVER_ERROR", {
+          message: error instanceof Error ? error.message : "Failed to upload file",
+          cause: error,
+        });
       }
-
-      const result = await uploadFile({
-        userId: context.user.id,
-        data,
-        contentType,
-        type: "picture",
-      });
-
-      return {
-        url: result.url,
-        path: result.key,
-        contentType,
-      };
     }),
 
   deleteFile: protectedProcedure

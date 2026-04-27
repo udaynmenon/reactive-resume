@@ -97,17 +97,26 @@ export async function processImageForUpload(file: File): Promise<ProcessedImage>
     };
   }
 
-  const sharp = (await import("sharp")).default;
+  try {
+    const sharp = (await import("sharp")).default;
 
-  const processedBuffer = await sharp(fileBuffer)
-    .resize(800, 800, { fit: "inside", withoutEnlargement: true })
-    .webp({ preset: "picture" })
-    .toBuffer();
+    const processedBuffer = await sharp(fileBuffer)
+      .resize(800, 800, { fit: "inside", withoutEnlargement: true })
+      .webp({ preset: "picture" })
+      .toBuffer();
 
-  return {
-    data: new Uint8Array(processedBuffer),
-    contentType: "image/webp",
-  };
+    return {
+      data: new Uint8Array(processedBuffer),
+      contentType: "image/webp",
+    };
+  } catch (error) {
+    console.error("[processImageForUpload] Failed to process image with sharp:", error);
+    throw new Error(
+      error instanceof Error
+        ? `Image processing failed: ${error.message}`
+        : "Image processing failed",
+    );
+  }
 }
 
 class LocalStorageService implements StorageService {
@@ -252,7 +261,29 @@ class S3StorageService implements StorageService {
       ContentType: contentType,
     });
 
-    await this.client.send(command);
+    try {
+      await this.client.send(command);
+    } catch (error) {
+      // Some S3-compatible providers (e.g., Cloudflare R2) do not support ACL headers.
+      // Retry without ACL if the error appears to be ACL-related.
+      const isAclError =
+        error instanceof Error &&
+        ((error as { name?: string }).name === "NotImplemented" ||
+          (error as { name?: string }).name === "AccessControlListNotSupported" ||
+          error.message.toLowerCase().includes("acl"));
+
+      if (isAclError) {
+        const retryCommand = new PutObjectCommand({
+          Bucket: this.bucket,
+          Key: key,
+          Body: data,
+          ContentType: contentType,
+        });
+        await this.client.send(retryCommand);
+      } else {
+        throw error;
+      }
+    }
   }
 
   async read(key: string): Promise<StorageReadResult | null> {
