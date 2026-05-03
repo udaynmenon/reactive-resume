@@ -12,7 +12,6 @@ import { printMarginTemplates } from "@/schema/templates";
 import { env } from "@/utils/env";
 import { generatePrinterToken } from "@/utils/printer-token";
 
-import { getSubsequentPageTopMarginStyle } from "./printer-styles";
 import { getStorageService, uploadFile } from "./storage";
 
 const SCREENSHOT_TTL = 1000 * 60 * 60 * 6; // 6 hours
@@ -190,7 +189,7 @@ async function doPrintResumeAsPDF(
         ),
       );
     await page
-      .waitForFunction(() => document.body.getAttribute("data-wf-loaded") === "true", { timeout: 5_000 })
+      .waitForFunction(() => document.body.getAttribute("data-wf-loaded") === "true")
       .catch((error) =>
         throwPrinterStepError(
           "Resume print page did not finish loading",
@@ -199,17 +198,10 @@ async function doPrintResumeAsPDF(
         ),
       );
 
-    const subsequentPageTopMarginStyle = getSubsequentPageTopMarginStyle(pagePaddingY, data.metadata.page.marginY);
-
     // Step 5a: Prepare the DOM for PDF rendering (background colors, reset margins, print padding)
     await page
       .evaluate(
-        (
-          pagePaddingX: number,
-          pagePaddingY: number,
-          subsequentPageTopMarginStyle: string | null,
-          backgroundColor: string,
-        ) => {
+        (pagePaddingX: number, pagePaddingY: number, backgroundColor: string) => {
           const root = document.documentElement;
           const body = document.body;
           const pageElements = document.querySelectorAll("[data-page-index]");
@@ -252,18 +244,9 @@ async function doPrintResumeAsPDF(
               }
             }
           }
-
-          // Add top margin to PDF pages 2+ so content doesn't start flush at the top.
-          // The html/body background colors above ensure the margin area is colored.
-          if (subsequentPageTopMarginStyle) {
-            const style = document.createElement("style");
-            style.textContent = subsequentPageTopMarginStyle;
-            document.head.appendChild(style);
-          }
         },
         pagePaddingX,
         pagePaddingY,
-        subsequentPageTopMarginStyle,
         data.metadata.design.colors.background,
       )
       .catch((error) =>
@@ -525,7 +508,7 @@ async function doGetResumeScreenshot(
         ),
       );
     await page
-      .waitForFunction(() => document.body.getAttribute("data-wf-loaded") === "true", { timeout: 5_000 })
+      .waitForFunction(() => document.body.getAttribute("data-wf-loaded") === "true")
       .catch((error) =>
         throwPrinterStepError(
           "Resume screenshot page did not finish loading",
